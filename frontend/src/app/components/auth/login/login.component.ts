@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { TokenService } from '../../../services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
       private Auth: AuthService,
+      private Token: TokenService,
+      private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,9 +29,14 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.Auth.login(this.form).subscribe(
         data => {
-          console.log(data);
+          this.handleResponse(data);
         }
     );
+  }
+
+  handleResponse(data) {
+    this.Token.set(data.api_token);
+    this.router.navigateByUrl('/profile');
   }
 
 }

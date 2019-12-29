@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
+import { backendUri } from '../../config';
 import { HttpClient } from '@angular/common/http';
+import { HeadersService } from './headers.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private baseUrl = 'http://127.0.0.1:8000/api/auth';
-
-  constructor(private http: HttpClient) { }
+  constructor(
+      private http: HttpClient,
+      private header: HeadersService,
+  ) { }
 
   login(data) {
-    return this.http.post(`${this.baseUrl}/login`, data);
+    return this.http.post(`${backendUri}/auth/login`, data);
+  }
+
+  getCurrentUser() {
+    return this.http.get(`${backendUri}/user`, this.header.get());
   }
 }
