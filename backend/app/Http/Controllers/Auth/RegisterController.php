@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    //todo remake controller
     /*
     |--------------------------------------------------------------------------
     | Register Controller

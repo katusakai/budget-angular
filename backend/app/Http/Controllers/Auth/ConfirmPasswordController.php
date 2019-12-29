@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\ConfirmsPasswords;
 
 class ConfirmPasswordController extends Controller
 {
+    //todo remake controller
     /*
     |--------------------------------------------------------------------------
     | Confirm Password Controller

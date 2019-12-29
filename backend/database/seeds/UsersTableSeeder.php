@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
         $newUser->name            = 'Admin';
         $newUser->email           = 'admin@admin.com';
         $newUser->password        = bcrypt('password');
-        $newUser->api_token       = Str::random(80);
+        $newUser->api_token       = 'ESIjnjnz2Nva69esqatI35Q0S7K5GvC5HAyY0ktlgYszIPFmDfPPHSz7wOqTUHZGU2GuIhORlBGAs7xj';
         $newUser->save();
 
         $newUser                  = new User();

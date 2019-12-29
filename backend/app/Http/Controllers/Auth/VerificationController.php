@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\VerifiesEmails;
 
 class VerificationController extends Controller
 {
+    //todo remake controller
     /*
     |--------------------------------------------------------------------------
     | Email Verification Controller
