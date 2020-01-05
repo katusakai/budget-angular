@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from "../../services/token.service";
 import { AuthService } from "../../services/auth.service";
-import { Router } from "@angular/router";
+import { LogoutService } from "../../services/auth/logout.service";
 
 @Component({
   selector: 'app-navbar',
@@ -14,18 +14,15 @@ export class NavbarComponent implements OnInit {
   constructor(
       private Token: TokenService,
       private Auth: AuthService,
-      private router: Router,
+      private Logout: LogoutService
   ) { }
 
   ngOnInit() {
     this.Auth.authStatus.subscribe(value => this.loggedIn = value);
   }
 
-  logout(event: MouseEvent) {
-    event.preventDefault();
-    this.Token.remove();
-    this.Auth.changeAuthStatus(false);
-    this.router.navigateByUrl('/login');
+  logout() {
+    this.Logout.handleResponse();
   }
 
 }

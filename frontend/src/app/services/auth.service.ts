@@ -16,7 +16,7 @@ export class AuthService {
   constructor(
       private http: HttpClient,
       private header: HeadersService,
-      private Token: TokenService
+      private Token: TokenService,
   ) { }
 
   login(data) {

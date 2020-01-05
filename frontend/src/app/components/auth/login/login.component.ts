@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
-import { TokenService } from '../../../services/token.service';
-import { Router } from '@angular/router';
+import { LoginService } from "../../../services/auth/login.service";
 
 @Component({
   selector: 'app-login',
@@ -19,8 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
       private Auth: AuthService,
-      private Token: TokenService,
-      private router: Router
+      private Login: LoginService
   ) { }
 
   ngOnInit() {
@@ -29,15 +27,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.Auth.login(this.form).subscribe(
         data => {
-          this.handleResponse(data);
+          this.Login.handleResponse(data, '/');
         }
     );
-  }
-
-  handleResponse(data) {
-    this.Token.set(data.api_token);
-    this.Auth.changeAuthStatus(true);
-    this.router.navigateByUrl('/');
   }
 
 }
