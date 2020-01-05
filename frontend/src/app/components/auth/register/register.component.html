@@ -1,0 +1,65 @@
+<div class="mt-4 col-8 offset-2">
+    <div class="card">
+        <div class="card-header">
+            Login
+        </div>
+        <div class="card-body">
+            <form #registerForm=ngForm (ngSubmit)="onSubmit()">
+
+
+
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" required
+                               [(ngModel)]="form.email">
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" [hidden]="!error.email">
+                    {{error.email}}
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputName3" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="name" name="name" class="form-control" id="inputName3" placeholder="Name" required
+                               [(ngModel)]="form.name">
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" [hidden]="!error.name">
+                    {{error.name}}
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password" required
+                               [(ngModel)]="form.password">
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" [hidden]="!error.password">
+                    {{error.password}}
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword_confirmation3" class="col-sm-2 col-form-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="password_confirmation" class="form-control" id="inputPassword_confirmation3" placeholder="Confirm Password" required
+                               [(ngModel)]="form.password_confirmation">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-2">
+                        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
+                        <button type="button" class="btn btn-info float-right" routerLink="/login">Sign in</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

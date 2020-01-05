@@ -23,6 +23,10 @@ export class AuthService {
     return this.http.post(`${environment.backendUri}/auth/login`, data);
   }
 
+  register(data) {
+    return this.http.post(`${environment.backendUri}/auth/register`, data);
+  }
+
   getCurrentUser() {
     return this.http.get(`${environment.backendUri}/user`, this.header.get());
   }
