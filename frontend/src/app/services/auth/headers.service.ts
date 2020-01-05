@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import {TokenService} from './token.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'

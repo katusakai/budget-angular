@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from "../../services/token.service";
-import { AuthService } from "../../services/auth.service";
+import { TokenService } from "../../services/auth/token.service";
+import { AuthService } from "../../services/auth/auth.service";
 import { LogoutService } from "../../services/auth/logout.service";
 
 @Component({
@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit {
     this.Auth.authStatus.subscribe(value => this.loggedIn = value);
   }
 
-  logout() {
+  logout(event: MouseEvent) {
+    event.preventDefault();
     this.Logout.handleResponse();
   }
 

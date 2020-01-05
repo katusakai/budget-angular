@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { backendUri } from '../../config';
+import { backendUri } from '../../../config';
 import { HttpClient } from '@angular/common/http';
 import { HeadersService } from './headers.service';
 import { BehaviorSubject } from "rxjs";
