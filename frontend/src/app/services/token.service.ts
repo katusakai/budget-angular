@@ -19,6 +19,10 @@ export class TokenService {
     localStorage.removeItem('api_token');
   }
 
+  loggedIn() {
+    return !!this.get();
+  }
+
 }
 
 
