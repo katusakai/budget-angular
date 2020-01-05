@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.Auth.authStatus.subscribe(value => this.loggedIn = value);
+    this.Auth.status.subscribe(value => this.loggedIn = value);
   }
 
   logout(event: MouseEvent) {

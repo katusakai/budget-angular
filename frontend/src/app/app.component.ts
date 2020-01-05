@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { environment } from "../environments/environment";
 import { AuthService } from './services/auth/auth.service';
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -7,13 +9,20 @@ import { AuthService } from './services/auth/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  public loggedIn: boolean;
 
-  constructor(private Auth: AuthService) {
+  constructor(
+      private Auth: AuthService,
+      private TitleService: Title
+  ) {
   }
 
   ngOnInit() {
-    this.Auth.getCurrentUser().subscribe(data => {
-    });
+    this.Auth.status.subscribe(value => this.loggedIn = value);
+    if (this.loggedIn) {
+      this.Auth.getCurrentUser().subscribe(data => {
+      });
+    }
+    this.TitleService.setTitle(environment.appName);
   }
 }
