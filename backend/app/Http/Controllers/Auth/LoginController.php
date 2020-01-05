@@ -21,6 +21,9 @@ class LoginController extends Controller
         if (!auth()->attempt($credentials)) {
             return response()->json(['error' => 'Email or password does\'t exist'], 401);
         }
-        return response()->json(['api_token' => auth()->user()->api_token], 200);
+        return response()->json([
+            'success' => 'You have successfully logged in, ' . auth()->user()->name ,
+            'api_token' => auth()->user()->api_token],
+            200);
     }
 }
