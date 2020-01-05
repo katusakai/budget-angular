@@ -28,8 +28,13 @@ export class LoginComponent implements OnInit {
     this.Auth.login(this.form).subscribe(
         data => {
           this.Login.handleResponse(data, '/');
-        }
+        },
+        error => this.handleError(error),
     );
+  }
+
+  handleError(error) {
+    this.error = error.error.error;
   }
 
 }
