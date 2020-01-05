@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { LoginService } from "../../../services/auth/login.service";
 import { ValidatorService } from "../../../services/auth/validator.service";
+import { FrontendError } from "../../../models/errors/frontendError";
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,8 @@ export class LoginComponent implements OnInit {
   public form:FormGroup;
 
   public backendError = null;
-  public frontendError = {
-    email: [],
-    password: [],
-  };
+
+  public frontendError : FrontendError = new FrontendError();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit() {
-    if (this.handleFrontEndError()) {
+    if(this.frontendError.handle(this.f)) {
       this.Auth.login({email: this.f.email.value, password: this.f.password.value}).subscribe(
           data => {
             this.Login.handleResponse(data, '/');
@@ -48,35 +47,6 @@ export class LoginComponent implements OnInit {
 
   handleBackendError(error) {
     this.backendError = error.error.error;
-  }
-
-  handleFrontEndError() {
-    this.frontendError.email = [];
-    this.frontendError.password = [];
-
-    if (this.f.email.errors) {
-      if (this.f.email.errors.required) {
-        this.frontendError.email.push('Email is required');
-      }
-      if (this.f.email.errors.email) {
-        this.frontendError.email.push('Not an email');
-      }
-      if (this.f.email.errors.max) {
-        this.frontendError.email.push('Email is too long');
-      }
-
-    }
-
-    if (this.f.password.errors) {
-      if (this.f.password.errors.required) {
-        this.frontendError.password.push('Password is required');
-      }
-      if (this.f.password.errors.minlength) {
-        this.frontendError.password.push('Password is too short');
-      }
-    }
-
-    return !(this.frontendError.email.length || this.frontendError.password.length);
   }
 
 }
