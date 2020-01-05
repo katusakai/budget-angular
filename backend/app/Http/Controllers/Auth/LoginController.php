@@ -22,11 +22,11 @@ class LoginController extends Controller
         $errorMsg = null;
 
         if(!User::where('email', $credentials['email'])->first()) {
-            $errorMsg = "Email does {$credentials['email']} not exist";
+            $errorMsg = "Email \"{$credentials['email']}\" does  not exist";
         }
 
         if (!$errorMsg  && !auth()->attempt($credentials)) {
-            $errorMsg = "Mismatched password for email {$credentials['email']}";
+            $errorMsg = "Mismatched password for email \"{$credentials['email']}\"";
         }
 
         if ($errorMsg ) {
