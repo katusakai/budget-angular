@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { backendUri } from '../../../config';
+import { environment } from "../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import { HeadersService } from './headers.service';
 import { BehaviorSubject } from "rxjs";
@@ -20,11 +20,11 @@ export class AuthService {
   ) { }
 
   login(data) {
-    return this.http.post(`${backendUri}/auth/login`, data);
+    return this.http.post(`${environment.backendUri}/auth/login`, data);
   }
 
   getCurrentUser() {
-    return this.http.get(`${backendUri}/user`, this.header.get());
+    return this.http.get(`${environment.backendUri}/user`, this.header.get());
   }
 
   changeAuthStatus(value: boolean) {

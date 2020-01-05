@@ -6,7 +6,7 @@ import { AfterLoginService } from "../services/auth/after-login.service";
 import { LoginComponent } from '../components/auth/login/login.component';
 import { ProfileComponent } from "../components/profile/profile.component";
 
-const  Routes: Routes = [
+const  RouteList: Routes = [
   { path: 'login', component: LoginComponent,  canActivate: [BeforeLoginService]  },
   { path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService] },
 ];
@@ -14,7 +14,7 @@ const  Routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(Routes)
+    RouterModule.forRoot(RouteList)
   ]
 })
 export class AppRoutingModule { }
