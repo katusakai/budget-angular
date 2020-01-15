@@ -10,3 +10,4 @@
 7. Run `docker-compose up -d --build`
 8. Run `docker-compose exec backend php artisan key:generate`
 9. Run `docker-compose exec backend php artisan config:cache`
+10. Run `docker-compose exec backend php artisan migrate`
