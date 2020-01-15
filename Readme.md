@@ -5,3 +5,4 @@
     2. Windows users run `composer install`
 3. Run `cd ..`
 4. For linux users only: run `sudo chown -R $USER:$USER .`
+5. Run `cp backend/.env.example backend/.env`
