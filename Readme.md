@@ -6,3 +6,7 @@
 3. Run `cd ..`
 4. For linux users only: run `sudo chown -R $USER:$USER .`
 5. Run `cp backend/.env.example backend/.env`
+6. Run `cp .env.example .env` and change values for your project
+7. Run `docker-compose up -d --build`
+8. Run `docker-compose exec backend php artisan key:generate`
+9. Run `docker-compose exec backend php artisan config:cache`

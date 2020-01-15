@@ -35,7 +35,7 @@ services:
       - "${SSL_PORT}:443"
     volumes:
       - ./backend:/var/www
-      - - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
       - ./logs/nginx:/var/log/nginx
     networks:
       - app-network
