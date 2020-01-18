@@ -1,5 +1,6 @@
+import * as env from 'src/environments/env';
 export const environment = {
-  production: true,
+  production: false,
   appName: 'KickStarter',
-  backendUri: 'http://yourapi/'
+  backendUri: location.protocol + '//'+ location.hostname + ':' + env.env.API_PORT + '/api'
 };
