@@ -42,7 +42,7 @@ services:
 
   #MySQL Service
   db:
-    image: mysql:5.7.22
+    image: mysql:8
     env_file:
       - .env
     container_name: ${MYSQL_CONTAINER_NAME}
@@ -58,7 +58,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./dbdata:/var/lib/mysql/
+      - ./dbdata:/var/lib/mysql-files/
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
