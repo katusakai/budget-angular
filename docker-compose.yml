@@ -71,8 +71,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./dbdata/mysql-files:/var/lib/mysql-files/
-      - ./dbdata:/var/lib/mysql/
+      - dbdata:/var/lib/mysql/
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
