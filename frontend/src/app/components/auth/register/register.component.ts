@@ -16,7 +16,11 @@ export class RegisterComponent implements OnInit {
     password_confirmation: null
   };
 
-  public error = [];
+  public error = {
+    email: null,
+    password: null,
+    name: null,
+  };
 
   constructor(
       private Auth: AuthService,

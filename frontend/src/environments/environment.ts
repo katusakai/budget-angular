@@ -2,10 +2,11 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import * as env from 'src/environments/env';
 export const environment = {
   production: false,
   appName: 'KickStarter',
-  backendUri: 'http://127.0.0.1:8000/api'
+  backendUri: location.protocol + '//' + location.hostname + ':' + env.env.API_PORT + '/api'
 };
 
 /*

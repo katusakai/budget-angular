@@ -1,0 +1,86 @@
+version: '3'
+services:
+
+  #Nginx Service for web
+  frontend:
+    env_file:
+      - .env
+    container_name: ${FRONTEND_CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE_FRONTEND}
+    volumes:
+      - './frontend:/app'
+    ports:
+      - ${WEB_PORT_HOST}:${WEB_PORT_CONTAINER}
+
+  #Nginx Service for API
+  api:
+    env_file:
+      - .env
+    image: nginx:alpine
+    container_name: ${NGINX_CONTAINER_NAME}
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${API_PORT}:80"
+    #      - "${SSL_PORT}:443"
+    volumes:
+      - ./backend:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - app-network
+
+  #PHP Service
+  backend:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_backend
+    image: digitalocean.com/php
+    container_name: ${BACKEND_CONTAINER_NAME}
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mariadb/server:10.3
+    env_file:
+      - .env
+    container_name: ${MYSQL_CONTAINER_NAME}
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${MYSQL_DB_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      SERVICE_TAGS: ${MYSQL_SERVICE_TAGS}
+      SERVICE_NAME: ${MYSQL_SERVICE_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./dbdata:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local

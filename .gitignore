@@ -1,2 +1,5 @@
 .editorconfig
+.env
 /.idea
+/logs
+/dbdata
