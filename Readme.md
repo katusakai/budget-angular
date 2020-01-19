@@ -1,6 +1,6 @@
 #First time setup
 1. Install composer:
-    1. For linux users: run `cd backend && docker run --rm -v $(pwd):/var/www composer install && cd ..`
+    1. For linux users: run `cd backend && docker run --rm -v $(pwd):/app composer install && cd ..`
     2. Windows users run `cd backend && composer install && cd ..`
 2. Install npm:
     1. For linux users: run `cd frontend && docker run --rm -v $(pwd):/app npm install && cd ..`
