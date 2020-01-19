@@ -55,7 +55,7 @@ services:
 
   #MySQL Service
   db:
-    image: mariadb/server:10.3
+    image: ${MYSQL_IMAGE}
     env_file:
       - .env
     container_name: ${MYSQL_CONTAINER_NAME}

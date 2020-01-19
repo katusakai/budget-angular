@@ -1,5 +1,5 @@
-#cd backend && composer install && cd ..
-#cd frontend && npm install && cd ..
+cd backend && composer install && cd ..
+cd frontend && npm install && cd ..
 chown -R $USER:$USER .
 cp backend/.env.example backend/.env
 cp .env.example .env
