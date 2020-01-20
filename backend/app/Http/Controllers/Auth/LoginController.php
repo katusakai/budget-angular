@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Validators\AuthValidator;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class LoginController extends BaseController
 {
@@ -25,12 +25,9 @@ class LoginController extends BaseController
      */
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        $validator = AuthValidator::login($request->all());
 
-        if ($validator->fails()) {
+        if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
