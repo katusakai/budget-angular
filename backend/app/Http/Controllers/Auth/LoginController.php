@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends BaseController
 {
@@ -22,8 +23,17 @@ class LoginController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
+
         $credentials = request(['email', 'password']);
         $errorMsg = [];
 
