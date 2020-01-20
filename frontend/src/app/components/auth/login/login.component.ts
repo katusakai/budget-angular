@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { LoginService } from '../../../services/auth/login.service';
 import { ValidatorService } from '../../../services/auth/validator.service';
-import { FrontendError } from '../../../models/errors/frontendError';
+import { AuthErrors } from '../../../models/errors/AuthErrors';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +14,7 @@ export class LoginComponent implements OnInit {
 
   public form: FormGroup;
 
-  public backendError = null;
-
-  public frontendError: FrontendError = new FrontendError();
+  public errors: AuthErrors = new AuthErrors();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -35,18 +33,13 @@ export class LoginComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit() {
-    if (this.frontendError.handle(this.f)) {
+    if (this.errors.handleFrontend(this.f)) {
       this.Auth.login({email: this.f.email.value, password: this.f.password.value}).subscribe(
           data => {
             this.Login.handleResponse(data, '/');
           },
-          error => this.handleBackendError(error),
+          error => this.errors.handleBackend(error.error.error),
       );
     }
   }
-
-  handleBackendError(error) {
-    this.backendError = error.error.error;
-  }
-
 }

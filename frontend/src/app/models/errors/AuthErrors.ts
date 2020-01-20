@@ -1,12 +1,38 @@
-export class FrontendError {
+export class AuthErrors {
+
     public email;
     public password;
     public name;
 
-    public handle(validator) {
-        this.email = [];
-        this.password = [];
-        this.name = [];
+    public handleBackend(errors) {
+
+        this.clearErrors();
+        
+        if (errors.email) {
+            errors.email.forEach(email => {
+                this.email.push(email);
+                }
+            );
+        }
+
+        if (errors.password) {
+            errors.password.forEach(password => {
+                    this.password.push(password);
+                }
+            );
+        }
+
+        if (errors.name) {
+            errors.name.forEach(name => {
+                    this.name.push(name);
+                }
+            );
+        }
+    }
+
+    public handleFrontend(validator) {
+
+        this.clearErrors();
 
         if (validator.email) {
             this.handleEmail(validator.email);
@@ -34,7 +60,6 @@ export class FrontendError {
             if (validator.errors.max) {
                 this.email.push('Email is too long');
             }
-
         }
     }
 
@@ -58,6 +83,11 @@ export class FrontendError {
                 this.email.push('Name is too long');
             }
         }
+    }
 
+    private clearErrors() {
+        this.email = [];
+        this.password = [];
+        this.name = [];
     }
 }

@@ -44,11 +44,11 @@ class LoginController extends BaseController
 
             if(!User::where('email', $credentials['email'])->first()) {
 
-                $errorMsg['email'] = "Email '{$credentials['email']}' does not exist";
+                $errorMsg['email'][] = "Email '{$credentials['email']}' does not exist";
 
              } else if (!auth()->attempt($credentials)) {
 
-                $errorMsg['password'] = "Mismatched password for email '{$credentials['email']}'";
+                $errorMsg['password'][] = "Mismatched password for email '{$credentials['email']}'";
             }
 
             return $this->sendError('Unauthorised.', $errorMsg);
