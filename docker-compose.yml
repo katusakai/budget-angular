@@ -11,8 +11,9 @@ services:
       dockerfile: ${DOCKERFILE_FRONTEND}
     volumes:
       - './frontend:/app'
+      - ./docker/nginx_frontend/conf.d/:/etc/nginx/conf.d/
     ports:
-      - ${WEB_PORT_HOST}:${WEB_PORT_CONTAINER}
+      - ${WEB_PORT}:80
 
   #Nginx Service for API
   api:
@@ -27,7 +28,7 @@ services:
     #      - "${SSL_PORT}:443"
     volumes:
       - ./backend:/var/www
-      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx_backend/conf.d/:/etc/nginx/conf.d/
       - ./logs/nginx:/var/log/nginx
     networks:
       - app-network
