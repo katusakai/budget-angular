@@ -6,6 +6,7 @@ services:
     env_file:
       - .env
     container_name: ${FRONTEND_PROD_CONTAINER_NAME}
+    restart: unless-stopped
     build:
       context: .
       dockerfile: docker/Dockerfile_frontend_production
@@ -19,6 +20,7 @@ services:
     env_file:
       - .env
     container_name: ${FRONTEND_DEV_CONTAINER_NAME}
+    restart: unless-stopped
     build:
       context: .
       dockerfile: docker/Dockerfile_frontend_development
