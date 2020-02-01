@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { FormErrorsComponent } from './components/messages/form-errors/form-errors.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { RegisterComponent } from './components/auth/register/register.component
     NavbarComponent,
     LoginComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    FormErrorsComponent
   ],
   imports: [
     BrowserModule,

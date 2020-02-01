@@ -12,11 +12,9 @@
                         <input type="email" formControlName="email" class="form-control" id="inputEmail3" placeholder="Email" required
                         [ngClass]="{'is-invalid': f.email.errors}"
                         >
-                        <div *ngIf="errors.email" class="form-error-message">
-                            <div *ngFor="let error of errors.email">
-                                {{error}}
-                            </div>
-                        </div>
+                        <app-form-errors
+                          [errors]="errors.email">
+                        </app-form-errors>
                     </div>
                 </div>
 
@@ -26,11 +24,9 @@
                         <input type="password" formControlName="password" class="form-control" id="inputPassword3" placeholder="Password" required
                         [ngClass]="{'is-invalid': f.password.errors}"
                         >
-                        <div *ngIf="errors.password" class="form-error-message">
-                            <div *ngFor="let error of errors.password">
-                                {{error}}
-                            </div>
-                        </div>
+                        <app-form-errors
+                          [errors]="errors.password">
+                        </app-form-errors>
                     </div>
                 </div>
 

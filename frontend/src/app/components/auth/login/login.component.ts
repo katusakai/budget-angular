@@ -13,8 +13,7 @@ import { AuthErrors } from '../../../models/errors/AuthErrors';
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
-
-  public errors: AuthErrors = new AuthErrors();
+  public errors: AuthErrors;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -28,6 +27,7 @@ export class LoginComponent implements OnInit {
       email: this.Validator.email,
       password: this.Validator.password
     });
+    this.errors = new AuthErrors();
   }
 
   get f() { return this.form.controls; }
