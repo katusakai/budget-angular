@@ -3,11 +3,12 @@ export class AuthErrors {
     public email;
     public password;
     public name;
+    public password_confirmation;
 
     public handleBackend(errors) {
 
         this.clearErrors();
-        
+
         if (errors.email) {
             errors.email.forEach(email => {
                 this.email.push(email);
@@ -28,6 +29,13 @@ export class AuthErrors {
                 }
             );
         }
+
+      if (errors.password_confirmation) {
+          errors.password_confirmation.forEach(password_confirmation => {
+              this.password_confirmation.push(password_confirmation);
+          }
+        );
+      }
     }
 
     public handleFrontend(validator) {
@@ -44,6 +52,10 @@ export class AuthErrors {
 
         if (validator.name) {
             this.handleName(validator.name);
+        }
+
+        if (validator.password_confirmation) {
+          this.handlePasswordConfirmation(validator.password_confirmation)
         }
 
         return !(this.email.length || this.password.length || this.name.length);
@@ -77,17 +89,31 @@ export class AuthErrors {
     private handleName(validator) {
         if (validator.errors) {
             if (validator.errors.required) {
-                this.password.push('Name is required is required');
+                this.name.push('Name is required is required');
             }
             if (validator.errors.max) {
-                this.email.push('Name is too long');
+                this.name.push('Name is too long');
             }
         }
     }
 
-    private clearErrors() {
+    private handlePasswordConfirmation(validator) {
+      if (validator.errors) {
+        console.log(validator.errors);
+        if (validator.errors.required) {
+          this.password_confirmation.push('Password confirmation is required is required');
+        }
+        if (validator.errors.minlength) {
+          this.password_confirmation.push('Password confirmation is too short');
+        }
+      }
+    }
+
+
+  private clearErrors() {
         this.email = [];
         this.password = [];
         this.name = [];
+        this.password_confirmation = [];
     }
 }

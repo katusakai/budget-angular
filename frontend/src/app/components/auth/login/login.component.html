@@ -7,9 +7,9 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
                 <div class="form-group row">
-                    <label for="inputEmail3" class="col-md-4 col-form-label text-md-right">Email</label>
+                    <label for="loginEmail" class="col-md-4 col-form-label text-md-right">Email</label>
                     <div class="col-md-8">
-                        <input type="email" formControlName="email" class="form-control" id="inputEmail3" placeholder="Email" required
+                        <input type="email" formControlName="email" class="form-control" id="loginEmail" placeholder="Email"
                         [ngClass]="{'is-invalid': f.email.errors}"
                         >
                         <app-form-errors
@@ -19,9 +19,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="inputPassword3" class="col-md-4 col-form-label text-md-right">Password</label>
+                    <label for="loginPassword" class="col-md-4 col-form-label text-md-right">Password</label>
                     <div class="col-md-8">
-                        <input type="password" formControlName="password" class="form-control" id="inputPassword3" placeholder="Password" required
+                        <input type="password" formControlName="password" class="form-control" id="loginPassword" placeholder="Password"
                         [ngClass]="{'is-invalid': f.password.errors}"
                         >
                         <app-form-errors

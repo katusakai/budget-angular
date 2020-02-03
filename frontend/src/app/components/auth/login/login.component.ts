@@ -34,7 +34,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.errors.handleFrontend(this.f)) {
-      this.Auth.login({email: this.f.email.value, password: this.f.password.value}).subscribe(
+      this.Auth.login({
+        email: this.f.email.value,
+        password: this.f.password.value
+      }).subscribe(
           data => {
             this.Login.handleResponse(data, '/');
           },
