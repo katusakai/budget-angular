@@ -2,40 +2,42 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
+use App\Http\Controllers\BaseController;
+use App\Http\Validators\AuthValidator;
 use App\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
-class RegisterController extends Controller
+class RegisterController extends BaseController
 {
-    //todo remake controller
 
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['register']]);
     }
 
-    public function register(RegisterRequest $request)
+    /**
+     * Register api
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function register(Request $request)
     {
-        $user = $this->create($request);
-        return response()->json([
-            'success' => 'User with email ' . $user->email . ' was successfully registered',
-            'api_token' => $user->api_token
-        ], 200);
-    }
+        $validator = AuthValidator::register($request->all());
 
-    protected function create($data)
-    {
-        $newUser            = new User();
-        $newUser->name      = $data['name'];
-        $newUser->email     = $data['email'];
-        $newUser->password  = Hash::make($data['password']);
-        $newUser->api_token = Str::random(80);
-        $newUser->save();
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());
+        }
 
-        return $newUser;
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $success['token'] =  $user->createToken('MyApp')->accessToken;
+        $success['name'] =  $user->name;
+        $message = "User with email  '{$user->email}' was successfully registered";
+
+        return $this->sendResponse($success, $message);
     }
 
 }

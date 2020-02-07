@@ -5,18 +5,22 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  constructor() { }
+  private readonly accessToken: string;
+
+  constructor() {
+    this.accessToken = 'access_token';
+  }
 
   set(token) {
-    localStorage.setItem('api_token', token);
+    localStorage.setItem(this.accessToken, token);
   }
 
   get() {
-    return localStorage.getItem(('api_token'));
+    return localStorage.getItem((this.accessToken));
   }
 
   remove() {
-    localStorage.removeItem('api_token');
+    localStorage.removeItem(this.accessToken);
   }
 
   loggedIn() {

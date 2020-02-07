@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../services/auth/auth.service";
-import {RegisterService} from "../../../services/auth/register.service";
+import { RegisterService } from "../../../services/auth/register.service";
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthErrors } from '../../../models/errors/AuthErrors';
+import { ValidatorService } from '../../../services/auth/validator.service';
 
 @Component({
   selector: 'app-register',
@@ -9,37 +12,46 @@ import {RegisterService} from "../../../services/auth/register.service";
 })
 export class RegisterComponent implements OnInit {
 
-  public form = {
-    email: null,
-    name: null,
-    password: null,
-    password_confirmation: null
-  };
+  public form: FormGroup;
 
-  public error = {
-    email: null,
-    password: null,
-    name: null,
-  };
+  public errors: AuthErrors;
 
   constructor(
+      private formBuilder: FormBuilder,
       private Auth: AuthService,
-      private Register: RegisterService
+      private Register: RegisterService,
+      private Validator: ValidatorService,
   ) { }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      email: this.Validator.email,
+      name: this.Validator.name,
+      password: this.Validator.password,
+      password_confirmation: this.Validator.password,
+    }, );
+    this.errors = new AuthErrors();
   }
+
+  get f() { return this.form.controls; }
 
   onSubmit() {
-    this.Auth.register(this.form).subscribe(
-        data => this.Register.handleResponse(data),
-        error => this.handleError(error),
-    );
+    if (this.errors.handleFrontend(this.f)) {
+      this.Auth.register({
+        email: this.f.email.value,
+        name: this.f.name.value,
+        password: this.f.password.value,
+        password_confirmation: this.f.password_confirmation.value,
+      }).subscribe(
+        data => {
+          console.log(data);
+          this.Register.handleResponse(data)
+        },
+        error => {
+          console.log(error);
+          this.errors.handleBackend(error.error.error);
+        }
+      );
+    }
   }
-
-  handleError(error) {
-    this.error = error.error.errors;
-    console.log(error);
-  }
-
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
-import { HeadersService } from './headers.service';
 import { BehaviorSubject } from "rxjs";
 import { TokenService } from "./token.service";
 
@@ -15,7 +14,6 @@ export class AuthService {
 
   constructor(
       private http: HttpClient,
-      private header: HeadersService,
       private Token: TokenService,
   ) { }
 
@@ -28,7 +26,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.http.get(`${environment.backendUri}/user`, this.header.get());
+    return this.http.get(`${environment.backendUri}/user`);
   }
 
   changeAuthStatus(value: boolean) {

@@ -14,3 +14,4 @@
 9. Run `docker-compose exec backend php artisan key:generate`
 10. Run `docker-compose exec backend php artisan config:cache`
 11. Run `docker-compose exec backend php artisan migrate`
+12. Run `docker-compose exec backend php artisan passport:install` to install passport Client secret keys to database
