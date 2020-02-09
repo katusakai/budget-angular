@@ -27,4 +27,12 @@ class AuthValidator
         ]);
 
     }
+
+    public static function requestPassword($request)
+    {
+        return Validator::make($request, [
+            'email' => 'required|string|email|max:255|min:10',
+        ]);
+
+    }
 }
