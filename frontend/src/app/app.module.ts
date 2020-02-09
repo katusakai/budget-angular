@@ -40,7 +40,7 @@ import { ResponsePasswordResetComponent } from './components/auth/response-passw
   providers: [
       Title,
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-      // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, //todo fix
+      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, //todo fix
   ],
   bootstrap: [AppComponent]
 })
