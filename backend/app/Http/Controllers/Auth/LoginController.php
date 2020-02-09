@@ -51,7 +51,7 @@ class LoginController extends BaseController
                 $errorMsg['password'][] = "Mismatched password for email '{$credentials['email']}'";
             }
 
-            return $this->sendError('Unauthorised.', $errorMsg);
+            return $this->sendError('Unauthorised', $errorMsg);
         }
     }
 }

@@ -8,16 +8,15 @@ import { LogoutService } from '../services/auth/logout.service';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
-    private Logout: LogoutService) { }
+    private Logout: LogoutService
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 401) {
         this.Logout.handleResponse();
       }
-
-      const error = err.error.message || err.statusText;
-      return throwError(error);
+      return throwError(err);
     }))
   }
 }

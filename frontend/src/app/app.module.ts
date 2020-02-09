@@ -14,6 +14,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { FormErrorsComponent } from './components/messages/form-errors/form-errors.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { RequestPasswordResetComponent } from './components/auth/request-password-reset/request-password-reset.component';
+import { ResponsePasswordResetComponent } from './components/auth/response-password-reset/response-password-reset.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    FormErrorsComponent
+    FormErrorsComponent,
+    RequestPasswordResetComponent,
+    ResponsePasswordResetComponent
   ],
   imports: [
     BrowserModule,

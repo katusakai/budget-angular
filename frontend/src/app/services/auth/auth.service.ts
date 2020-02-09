@@ -25,6 +25,14 @@ export class AuthService {
     return this.http.post(`${environment.backendUri}/auth/register`, data);
   }
 
+  sendPasswordResetLink(data) {
+    return this.http.post(`${environment.backendUri}/auth/sendPasswordResetLink`, data);
+  }
+
+  changePassword(data) {
+    return this.http.post(`${environment.backendUri}/auth/resetPassword`, data);
+  }
+
   getCurrentUser() {
     return this.http.get(`${environment.backendUri}/user`);
   }

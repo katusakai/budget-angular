@@ -15,7 +15,7 @@ export class RegisterService {
   ) { }
 
   handleResponse(data) {
-    this.Token.set(data.api_token);
+    this.Token.set(data.data.token);
     this.Auth.changeAuthStatus(true);
     this.router.navigateByUrl('/profile');
   }
