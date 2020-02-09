@@ -89,7 +89,7 @@ export class AuthErrors {
     private handleName(validator) {
         if (validator.errors) {
             if (validator.errors.required) {
-                this.name.push('Name is required is required');
+                this.name.push('Name is required');
             }
             if (validator.errors.max) {
                 this.name.push('Name is too long');
@@ -99,16 +99,14 @@ export class AuthErrors {
 
     private handlePasswordConfirmation(validator) {
       if (validator.errors) {
-        console.log(validator.errors);
         if (validator.errors.required) {
-          this.password_confirmation.push('Password confirmation is required is required');
+          this.password_confirmation.push('Password confirmation is required');
         }
         if (validator.errors.minlength) {
           this.password_confirmation.push('Password confirmation is too short');
         }
       }
     }
-
 
   private clearErrors() {
         this.email = [];

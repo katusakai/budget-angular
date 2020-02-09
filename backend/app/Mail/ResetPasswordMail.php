@@ -30,7 +30,7 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        $frontendUrl = request()->getScheme() . '://' . request()->getHost() . ':' . env('WEB_PROD_PORT');
+        $frontendUrl = request()->getScheme() . '://' . request()->getHost() . ':' . env('WEB_DEV_PORT');
 
         return $this->markdown('Email.passwordReset')->with([
             'url' => $frontendUrl . '/response-password-reset?token='. $this->token,

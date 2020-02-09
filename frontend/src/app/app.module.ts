@@ -15,6 +15,7 @@ import { FormErrorsComponent } from './components/messages/form-errors/form-erro
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { RequestPasswordResetComponent } from './components/auth/request-password-reset/request-password-reset.component';
+import { ResponsePasswordResetComponent } from './components/auth/response-password-reset/response-password-reset.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RequestPasswordResetComponent } from './components/auth/request-passwor
     ProfileComponent,
     RegisterComponent,
     FormErrorsComponent,
-    RequestPasswordResetComponent
+    RequestPasswordResetComponent,
+    ResponsePasswordResetComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ import { RequestPasswordResetComponent } from './components/auth/request-passwor
   providers: [
       Title,
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, //todo fix
   ],
   bootstrap: [AppComponent]
 })

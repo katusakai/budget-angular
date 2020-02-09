@@ -44,11 +44,9 @@ export class RegisterComponent implements OnInit {
         password_confirmation: this.f.password_confirmation.value,
       }).subscribe(
         data => {
-          console.log(data);
           this.Register.handleResponse(data)
         },
         error => {
-          console.log(error);
           this.errors.handleBackend(error.error.error);
         }
       );
