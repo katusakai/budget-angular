@@ -16,6 +16,8 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { RequestPasswordResetComponent } from './components/auth/request-password-reset/request-password-reset.component';
 import { ResponsePasswordResetComponent } from './components/auth/response-password-reset/response-password-reset.component';
+import { AppSocialLoginModule } from "./modules/app-social-login.module";
+import { GoogleComponent } from './components/auth/social/google/google.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { ResponsePasswordResetComponent } from './components/auth/response-passw
     RegisterComponent,
     FormErrorsComponent,
     RequestPasswordResetComponent,
-    ResponsePasswordResetComponent
+    ResponsePasswordResetComponent,
+    GoogleComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { ResponsePasswordResetComponent } from './components/auth/response-passw
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppSocialLoginModule
   ],
   providers: [
       Title,
