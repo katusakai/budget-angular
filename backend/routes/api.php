@@ -21,6 +21,7 @@ Route::post('auth/login', 'Auth\LoginController@login');
 Route::post('auth/register', 'Auth\RegisterController@register');
 Route::post('auth/sendPasswordResetLink', 'Auth\ResetPasswordController@sendEmail');
 Route::post('auth/resetPassword', 'Auth\ChangePasswordController@process');
+Route::post('auth/googleLogin', 'Auth\Social\GoogleController@try');
 
 Route::group([
     'middleware' => 'api',

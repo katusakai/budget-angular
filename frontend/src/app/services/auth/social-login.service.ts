@@ -10,8 +10,8 @@ export class SocialLoginService {
       private authService: AuthService
   ) { }
 
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  signInWithGoogle() {
+    return this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signOut(): void {

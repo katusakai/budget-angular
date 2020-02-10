@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../../services/auth/auth.service";
-import { AuthService as SocialAuthService } from "angularx-social-login";
 import { SocialLoginService } from "../../../../services/auth/social-login.service";
+import {LoginService} from "../../../../services/auth/login.service";
 
 @Component({
   selector: 'app-google',
@@ -13,17 +13,22 @@ export class GoogleComponent implements OnInit {
   constructor(
       private Auth: AuthService,
       private SocialLogin: SocialLoginService,
-      private SocialAuth: SocialAuthService
+      private Login: LoginService,
+
   ) { }
 
   ngOnInit() {
-    this.SocialAuth.authState.subscribe((user) => {
-      console.log(user);
-    });
   }
 
   submit () {
-    this.SocialLogin.signInWithGoogle();
+    this.SocialLogin.signInWithGoogle().then((user) => {
+      this.Auth.googleLogin(user).subscribe(
+          data => {
+            this.Login.handleResponse(data, '/')
+          },
+          error => console.log(error)
+      );
+    });
   }
 
 }
