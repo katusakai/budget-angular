@@ -24,7 +24,9 @@ export class GoogleComponent implements OnInit {
     this.SocialLogin.signInWithGoogle().then((user) => {
       this.Auth.googleLogin(user).subscribe(
           data => {
-            this.Login.handleResponse(data, '/')
+            if (data.success) {
+              this.Login.handleResponse(data, '/')
+            }
           },
           error => console.log(error)
       );

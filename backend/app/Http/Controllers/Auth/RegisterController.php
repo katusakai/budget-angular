@@ -30,12 +30,10 @@ class RegisterController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $user = AuthServices::register($request->all());
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
+        $user = AuthServices::register($request->all(), 'none');
         $message = "User with email  '{$user->email}' was successfully registered";
 
-        return $this->sendResponse($success, $message);
+        return $this->sendResponse(AuthServices::loginData($user), $message);
     }
 
 }
