@@ -24,6 +24,7 @@ class AuthServices
                 $user->email     = $input['email'];
                 $user->google_id = $input['id'];
                 $user->password  = bcrypt(Str::random(20));
+                $user->save();
                 break;
         }
 
