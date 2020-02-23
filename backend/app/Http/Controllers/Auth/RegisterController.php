@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Validators\AuthValidator;
-use App\User;
+use App\Services\AuthServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -30,14 +30,10 @@ class RegisterController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
+        $user = AuthServices::register($request->all(), 'none');
         $message = "User with email  '{$user->email}' was successfully registered";
 
-        return $this->sendResponse($success, $message);
+        return $this->sendResponse(AuthServices::loginData($user), $message);
     }
 
 }
