@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('auth/login', 'Auth\LoginController@login');
 Route::post('auth/register', 'Auth\RegisterController@register');
 Route::post('auth/sendPasswordResetLink', 'Auth\ResetPasswordController@sendEmail');
@@ -24,6 +20,9 @@ Route::post('auth/resetPassword', 'Auth\ChangePasswordController@process');
 Route::post('auth/googleLogin', 'Auth\Social\GoogleController@try');
 
 Route::group(['middleware' => 'auth:api'], function () {
+
+    Route::get('/user', 'Auth\UserController@user');
+    Route::get('/roles', 'Auth\UserController@roles');
 
     Route::group(['middleware' => ['role:admin']], function () {
 
