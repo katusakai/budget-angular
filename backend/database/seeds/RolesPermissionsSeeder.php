@@ -13,7 +13,7 @@ class RolesPermissionsSeeder extends Seeder
      */
     public function run()
     {
-        $super_admin_role        = Role::create(['name' => 'Super Admin']);
+        $super_admin_role        = Role::create(['name' => 'super-admin']);
         $edit_globals_permission = Permission::create(['name' => 'edit globals']);
         $edit_users_permission2  = Permission::create(['name' => 'edit users']);
         $super_admin_role->givePermissionTo($edit_globals_permission);

@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         $newUser->name            = env('ADMIN_NAME');
         $newUser->email           = env('ADMIN_EMAIL');
         $newUser->password        = bcrypt(env('ADMIN_PASSWORD'));
-        $newUser->assignRole('Super Admin');
+        $newUser->assignRole(['super-admin', 'admin']);
         $newUser->save();
 
     }
