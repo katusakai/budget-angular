@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './modules/app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -39,7 +40,8 @@ import { GoogleComponent } from './components/auth/social/google/google.componen
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppSocialLoginModule
+    AppSocialLoginModule,
+    NgbModule
   ],
   providers: [
       Title,

@@ -1,8 +1,27 @@
 <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand">Navbar</a>
     <div>
+        <div ngbDropdown class="d-inline-block"
+             *ngIf="UserData.roles && (UserData.roles.includes('admin') || UserData.roles.includes('super-admin'))">
+            <a class="navbar-brand text-danger" id="dropdown-admin" ngbDropdownToggle>Admin Area</a>
+            <div ngbDropdownMenu aria-labelledby="dropdown-admin">
+                <a ngbDropdownItem
+                    *ngIf="UserData.roles &&  UserData.roles.includes('super-admin')" >
+                    Globals</a>
+                <a ngbDropdownItem>Users</a>
+            </div>
+        </div>
+
+        <div ngbDropdown class="d-inline-block"
+             *ngIf="UserData.loggedIn">
+            <a class="navbar-brand" id="dropdown-auth" ngbDropdownToggle *ngIf="UserData.user">{{UserData.user.name}}</a>
+            <div ngbDropdownMenu aria-labelledby="dropdown-auth">
+                <a ngbDropdownItem  routerLink="/profile" *ngIf="UserData.loggedIn">Profile</a>
+                <a ngbDropdownItem href="#" (click)="logout($event)" *ngIf="UserData.loggedIn">Logout</a>
+            </div>
+        </div>
+
         <a class="navbar-brand" routerLink="/login" *ngIf="!UserData.loggedIn">Login</a>
-        <a class="navbar-brand" href="#" (click)="logout($event)" *ngIf="UserData.loggedIn">Logout</a>
-        <a class="navbar-brand" routerLink="/profile" *ngIf="UserData.loggedIn">Profile</a>
+
     </div>
 </nav>
