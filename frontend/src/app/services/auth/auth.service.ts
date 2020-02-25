@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from "rxjs";
-import { TokenService } from "./token.service";
+import { BehaviorSubject, Observable } from 'rxjs';
+import { TokenService } from './token.service';
+import { IUser } from "../../models";
 
 @Injectable({
   providedIn: 'root'
@@ -37,8 +38,12 @@ export class AuthService {
     return this.http.post(`${environment.backendUri}/auth/resetPassword`, data);
   }
 
-  getCurrentUser() {
-    return this.http.get(`${environment.backendUri}/user`);
+  getCurrentUser(): Observable<IUser> {
+    return this.http.get<IUser>(`${environment.backendUri}/user`);
+  }
+
+  getCurrentRoles() {
+    return this.http.get(`${environment.backendUri}/roles`);
   }
 
   changeAuthStatus(value: boolean) {

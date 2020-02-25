@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../services/auth/auth.service';
+import { UserDataService } from "../../services/auth/user-data.service";
 
 @Component({
   selector: 'app-profile',
@@ -9,11 +9,11 @@ import {AuthService} from '../../services/auth/auth.service';
 export class ProfileComponent implements OnInit {
 
   constructor(
-      private Auth: AuthService,
+      public UserData: UserDataService,
   ) { }
 
   ngOnInit() {
-    this.Auth.getCurrentUser().subscribe(data => console.log(data))
+    console.log(this.UserData.user)
   }
 
 }
