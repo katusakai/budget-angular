@@ -26,7 +26,6 @@ services:
       dockerfile: docker/Dockerfile_frontend_development
     volumes:
       - ./frontend:/app
-      - '/app/node_modules'
     ports:
       - ${WEB_DEV_PORT}:4200
     environment:

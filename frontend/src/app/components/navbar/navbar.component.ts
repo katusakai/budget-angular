@@ -10,7 +10,7 @@ import { UserDataService } from "../../services/auth/user-data.service";
 export class NavbarComponent implements OnInit {
 
   constructor(
-      private UserData: UserDataService,
+      public UserData: UserDataService,
       private Logout: LogoutService
   ) { }
 
