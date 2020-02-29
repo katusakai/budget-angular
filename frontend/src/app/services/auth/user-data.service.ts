@@ -21,7 +21,8 @@ export class UserDataService {
           this.loggedIn = value;
           if (this.loggedIn) {
             this.Auth.getCurrentUser().subscribe(data  => this.user  = data);
-            if (!(this.roles = this.Roles.get())) {
+
+            if (!(this.roles = this.Roles.get()) || this.roles.includes('no-roles')) {
                this.roleSetter = setInterval( () => this.roles = this.Roles.get(),500);
             }
 

@@ -16,7 +16,12 @@ export class RolesService {
 
   private set() {
     this.Auth.getCurrentRoles().subscribe( data => {
-      localStorage.setItem(this.userRoles, JSON.stringify(data));
+      let roles = data;
+      if (!roles[0]) {
+        localStorage.setItem(this.userRoles, JSON.stringify(['no roles']));
+        return;
+      }
+      localStorage.setItem(this.userRoles, JSON.stringify(roles));
     })
   }
 
