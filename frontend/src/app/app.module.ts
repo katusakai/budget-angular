@@ -19,6 +19,7 @@ import { RequestPasswordResetComponent } from './components/auth/request-passwor
 import { ResponsePasswordResetComponent } from './components/auth/response-password-reset/response-password-reset.component';
 import { AppSocialLoginModule } from "./modules/app-social-login.module";
 import { GoogleComponent } from './components/auth/social/google/google.component';
+import { UsersComponent } from './components/admin/users/users.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { GoogleComponent } from './components/auth/social/google/google.componen
     FormErrorsComponent,
     RequestPasswordResetComponent,
     ResponsePasswordResetComponent,
-    GoogleComponent
+    GoogleComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

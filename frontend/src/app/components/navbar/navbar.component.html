@@ -8,7 +8,7 @@
                 <a ngbDropdownItem
                     *ngIf="UserData.roles &&  UserData.roles.includes('super-admin')" >
                     Globals</a>
-                <a ngbDropdownItem>Users</a>
+                <a ngbDropdownItem routerLink="/admin/users">Users</a>
             </div>
         </div>
 
@@ -16,7 +16,7 @@
              *ngIf="UserData.loggedIn">
             <a class="navbar-brand" id="dropdown-auth" ngbDropdownToggle *ngIf="UserData.user">{{UserData.user.name}}</a>
             <div ngbDropdownMenu aria-labelledby="dropdown-auth">
-                <a ngbDropdownItem  routerLink="/profile" *ngIf="UserData.loggedIn">Profile</a>
+                <a ngbDropdownItem routerLink="/profile" *ngIf="UserData.loggedIn">Profile</a>
                 <a ngbDropdownItem href="#" (click)="logout($event)" *ngIf="UserData.loggedIn">Logout</a>
             </div>
         </div>
