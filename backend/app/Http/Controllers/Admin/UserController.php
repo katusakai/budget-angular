@@ -16,7 +16,9 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = User::all();
+        $limit = request()['limit'] ? request()['limit'] : 15;
+
+        $users = User::paginate($limit);
         if ($users) {
             return $this->sendResponse($users, 'A list of users have been shown');
         } else {

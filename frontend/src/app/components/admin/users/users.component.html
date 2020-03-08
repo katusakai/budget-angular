@@ -1,1 +1,39 @@
-<p>users works!</p>
+<div class="row justify-content-center">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Roles</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users">
+                <th scope="row">{{user.id}}</th>
+                <td class="text-nowrap">{{user.email}}</td>
+                <td class="text-nowrap">{{user.name}}</td>
+                <td class="text-nowrap"></td>
+                <td>
+                    <span class="text-success">Update </span>
+                    <span class="text-danger">Delete</span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive ">
+        <ngb-pagination
+                class="justify-content-center d-flex"
+                [(page)]="page"
+                [pageSize]="limit"
+                [collectionSize]="collectionSize"
+                [maxSize]="4"
+                [boundaryLinks]="true"
+                (pageChange)="updateList()">
+        </ngb-pagination>
+    </div>
+</div>
