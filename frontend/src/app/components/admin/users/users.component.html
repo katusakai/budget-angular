@@ -27,6 +27,7 @@
     </div>
     <div class="table-responsive ">
         <ngb-pagination
+                *ngIf="users"
                 class="justify-content-center d-flex"
                 [(page)]="page"
                 [pageSize]="limit"

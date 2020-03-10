@@ -16,7 +16,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $limit = request()['limit'] ? request()['limit'] : 15;
+        $limit = request()['limit'] && is_numeric(request()['limit']) ? request()['limit'] : 15;
 
         $users = User::paginate($limit);
         if ($users) {
