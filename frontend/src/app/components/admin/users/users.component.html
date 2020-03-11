@@ -8,7 +8,8 @@
         <div class="menu-display-type">
             <input class="form-control mr-sm-1 menu-mb" type="search" placeholder="Search" aria-label="Search"
                    [(ngModel)]="search"
-                   (keyup)="searchData()">
+                   (keyup)="searchData()"
+                   (search)="searchData()">
             <ngb-pagination
                     *ngIf="users && collectionSize > limit"
                     class="justify-content-center d-flex"
