@@ -3,6 +3,8 @@ import { UsersService } from "../../../services/admin/users.service";
 import { IUser } from "../../../models";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Debounce } from '../../../helpers/debounce.decorator'
+import { RolesService } from "../../../services/admin/roles.service";
+import { IRole } from "../../../models/role";
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -11,6 +13,7 @@ import { Debounce } from '../../../helpers/debounce.decorator'
 export class UsersComponent implements OnInit {
 
   public users: IUser[];
+  public roles: IRole[];
   page: number;
   limit: number;
   search: string;
@@ -20,7 +23,8 @@ export class UsersComponent implements OnInit {
   constructor(
     private _User: UsersService,
     private _ActivatedRoute: ActivatedRoute,
-    private _Router: Router
+    private _Router: Router,
+    private _Role: RolesService,
   ) {
   }
 
@@ -32,6 +36,7 @@ export class UsersComponent implements OnInit {
     this.search = '';
     this.getRouteParams();
     this.updateList();
+    this.getRoles();
   }
 
   updateList() {
@@ -46,6 +51,12 @@ export class UsersComponent implements OnInit {
   searchData() {
     this.page = 1;
     this.updateList();
+  }
+
+  getRoles() {
+    this._Role.index().subscribe(data => {
+      this.roles = data['data'];
+    })
   }
 
   private getRouteParams() {
@@ -71,5 +82,14 @@ export class UsersComponent implements OnInit {
         search: this.search === '' ? null : this.search,
       }
     });
+  }
+
+  ifHasRole(roleId, userRoles) {
+    for (let role of userRoles) {
+      if (roleId === role['id']) {
+        return true;
+      }
+    }
+    return false;
   }
 }

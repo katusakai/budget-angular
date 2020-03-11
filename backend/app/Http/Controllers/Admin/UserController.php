@@ -21,6 +21,7 @@ class UserController extends BaseController
 
         $users = User::where('email', 'like', "%{$search}%")
             ->orWhere('name', 'like', "%{$search}%")
+            ->with('roles')
             ->paginate($limit);
 
         if ($users) {

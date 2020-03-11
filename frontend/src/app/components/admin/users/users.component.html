@@ -37,7 +37,19 @@
                 <th scope="row">{{user.id}}</th>
                 <td class="text-nowrap">{{user.email}}</td>
                 <td class="text-nowrap">{{user.name}}</td>
-                <td class="text-nowrap"></td>
+                <td>
+                    <div class="form-check form-check-inline text-nowrap"
+                        *ngFor="let role of roles">
+                        <input class="form-check-input" type="checkbox"
+                               [checked]="ifHasRole(role.id, user['roles'])"
+                               id="userrole{{user.id}}{{role.id}}">
+                        <label class="form-check-label"
+                               for="userrole{{user.id}}{{role.id}}">
+                            {{role.name}}
+                        </label>
+
+                    </div>
+                </td>
                 <td>
                     <span class="text-success">Update </span>
                     <span class="text-danger">Delete</span>

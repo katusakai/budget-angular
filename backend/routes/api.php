@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         Route::get('admin/user', 'Admin\UserController@index');
         Route::get('admin/user/{user}', 'Admin\UserController@show');
+        Route::get('admin/role', 'Admin\RoleController@index');
 
     });
 
