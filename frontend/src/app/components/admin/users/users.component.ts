@@ -44,6 +44,7 @@ export class UsersComponent implements OnInit {
 
   @Debounce(1000)
   searchData() {
+    this.page = 1;
     this.updateList();
   }
 
