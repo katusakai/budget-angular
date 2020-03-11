@@ -1,4 +1,25 @@
 <div class="row justify-content-center">
+    <div class="menu-display-type">
+        <div class="menu-mb">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-warning mr-sm-1" data-toggle="modal" data-target="#userFormModal">Create</button>
+            </div>
+        </div>
+        <div class="menu-display-type">
+            <input class="form-control mr-sm-1 menu-mb" type="search" placeholder="Search" aria-label="Search"
+                   [(ngModel)]="search"
+                   (keyup)="searchData()">
+            <ngb-pagination
+                    *ngIf="users && collectionSize > limit"
+                    class="justify-content-center d-flex"
+                    [(page)]="page"
+                    [pageSize]="limit"
+                    [collectionSize]="collectionSize"
+                    [maxSize]="3"
+                    (pageChange)="updateList()">
+            </ngb-pagination>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
@@ -24,17 +45,5 @@
 
             </tbody>
         </table>
-    </div>
-    <div class="table-responsive ">
-        <ngb-pagination
-                *ngIf="users"
-                class="justify-content-center d-flex"
-                [(page)]="page"
-                [pageSize]="limit"
-                [collectionSize]="collectionSize"
-                [maxSize]="4"
-                [boundaryLinks]="true"
-                (pageChange)="updateList()">
-        </ngb-pagination>
     </div>
 </div>

@@ -16,13 +16,18 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $limit = request()['limit'] && is_numeric(request()['limit']) ? request()['limit'] : 15;
+        $limit  = request()['limit'] && is_numeric(request()['limit']) ? request()['limit'] : 15;
+        $search = request()['search'] && request()['search'] !== '' ? request()['search'] : '%';
 
-        $users = User::paginate($limit);
+        $users = User::where('email', 'like', "%{$search}%")
+            ->orWhere('name', 'like', "%{$search}%")
+            ->paginate($limit);
+
         if ($users) {
-            return $this->sendResponse($users, 'A list of users have been shown');
+            $message = $users['data'] ? 'A list of users have been shown' : 'No users found matching the criteria';
+            return $this->sendResponse($users, $message);
         } else {
-            return $this->sendError('No users exist', [], 404);
+            return $this->sendError('Data was not found', [], 404);
         }
     }
 

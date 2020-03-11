@@ -11,7 +11,7 @@ export class UsersService {
       private http: HttpClient,
   ) { }
 
-  index(page, limit) {
-    return this.http.get(`${environment.backendUri}/admin/user?page=${page}&limit=${limit}`);
+  index(page, limit, search) {
+    return this.http.get(`${environment.backendUri}/admin/user?page=${page}&limit=${limit}&search=${search}`);
   }
 }
