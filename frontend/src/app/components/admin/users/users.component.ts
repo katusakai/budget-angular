@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Debounce } from '../../../helpers/debounce.decorator'
 import { RolesService } from "../../../services/admin/roles.service";
 import { IRole } from "../../../models/role";
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -84,12 +85,4 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  ifHasRole(roleId, userRoles) {
-    for (let role of userRoles) {
-      if (roleId === role['id']) {
-        return true;
-      }
-    }
-    return false;
-  }
 }

@@ -20,6 +20,7 @@ import { ResponsePasswordResetComponent } from './components/auth/response-passw
 import { AppSocialLoginModule } from "./modules/app-social-login.module";
 import { GoogleComponent } from './components/auth/social/google/google.component';
 import { UsersComponent } from './components/admin/users/users.component';
+import { RolesComponent } from './components/admin/users/roles/roles.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { UsersComponent } from './components/admin/users/users.component';
     RequestPasswordResetComponent,
     ResponsePasswordResetComponent,
     GoogleComponent,
-    UsersComponent
+    UsersComponent,
+    RolesComponent
   ],
   imports: [
     BrowserModule,

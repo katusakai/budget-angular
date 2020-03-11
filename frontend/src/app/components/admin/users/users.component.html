@@ -40,14 +40,7 @@
                 <td>
                     <div class="form-check form-check-inline text-nowrap"
                         *ngFor="let role of roles">
-                        <input class="form-check-input" type="checkbox"
-                               [checked]="ifHasRole(role.id, user['roles'])"
-                               id="userrole{{user.id}}{{role.id}}">
-                        <label class="form-check-label"
-                               for="userrole{{user.id}}{{role.id}}">
-                            {{role.name}}
-                        </label>
-
+                        <app-roles [role]="role" [userId]="user.id" [userRoles]="user['roles']"></app-roles>
                     </div>
                 </td>
                 <td>
