@@ -17,7 +17,7 @@ export class RolesComponent implements OnInit {
   hasRole: boolean;
 
   constructor(
-    private _UserData: UserDataService,
+    public _UserData: UserDataService,
     private _Roles: RolesService
   ) { }
 
