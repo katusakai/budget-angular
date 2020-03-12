@@ -24,18 +24,21 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user', 'Auth\UserController@user');
     Route::get('/roles', 'Auth\UserController@roles');
 
-    Route::group(['middleware' => ['role:admin']], function () {
+        Route::group(['middleware' => ['role:admin|super-admin']], function () {
 
-        Route::get('admin/user', 'Admin\UserController@index');
-        Route::get('admin/user/{user}', 'Admin\UserController@show');
-        Route::get('admin/role', 'Admin\RoleController@index');
+            Route::get('admin/user', 'Admin\UserController@index');
+            Route::get('admin/user/{user}', 'Admin\UserController@show');
+            Route::get('admin/role', 'Admin\RoleController@index');
 
-    });
+        });
 
     Route::group(['middleware' => ['role:super-admin']], function () {
+
         Route::post('admin/user', 'Admin\UserController@store');
         Route::put('admin/user/{user}', 'Admin\UserController@update');
         Route::delete('admin/user/{user}', 'Admin\UserController@destroy');
+
+        Route::put('admin/role/{role}/{user}', 'Admin\RoleController@update');
     });
 
 });

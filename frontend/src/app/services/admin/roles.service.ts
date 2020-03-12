@@ -14,4 +14,8 @@ export class RolesService {
   index () {
     return this._http.get(`${environment.backendUri}/admin/role`);
   }
+
+  update (roleId: number, userId: number) {
+    return this._http.put(`${environment.backendUri}/admin/role/${roleId}/${userId}`, '');
+  }
 }

@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {UserDataService} from "../../../../services/auth/user-data.service";
-import {IRole} from "../../../../models/role";
+import { Component, Input, OnInit } from '@angular/core';
+import { UserDataService } from "../../../../services/auth/user-data.service";
+import { IRole } from "../../../../models/role";
+import { RolesService } from "../../../../services/admin/roles.service";
 
 @Component({
   selector: 'app-roles',
@@ -13,19 +14,30 @@ export class RolesComponent implements OnInit {
   @Input() userId: number;
   @Input() userRoles: IRole[];
 
+  hasRole: boolean;
+
   constructor(
     private _UserData: UserDataService,
+    private _Roles: RolesService
   ) { }
 
   ngOnInit(): void {
+    this.ifHasRole(this.role.id, this.userRoles)
   }
 
-  ifHasRole(roleId, userRoles) {
+  ifHasRole(roleId, userRoles): boolean {
     for (let role of userRoles) {
       if (roleId === role['id']) {
-        return true;
+        this.hasRole = true;
+        return;
       }
     }
-    return false;
+    this.hasRole = false;
+  }
+
+  update() {
+    this._Roles.update(this.role.id, this.userId).subscribe(data => {
+      console.log(data);
+    })
   }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BaseController;
+use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -11,7 +13,7 @@ class RoleController extends BaseController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {
@@ -49,13 +51,28 @@ class RoleController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $roleId
+     * @param $userId
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update($roleId, $userId)
     {
-        //
+        $user = User::find($userId);
+        $role = Role::find($roleId)->name;
+
+        if ($role !== 'super-admin') {
+            if ($user->hasRole($role)) {
+                $user->removeRole($role);
+                $message = "Role '{$role}' was removed from user '{$user->email}'";
+            } else {
+                $user->assignRole($role);
+                $message = "Role '{$role}' was assigned to user '{$user->email}'";
+            }
+        } else {
+            $message = "Role {$role} cannot be changed";
+        }
+
+        return $this->sendResponse('', $message);
     }
 
     /**
