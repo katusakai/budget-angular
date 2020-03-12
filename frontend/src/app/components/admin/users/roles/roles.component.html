@@ -1,0 +1,9 @@
+<input class="form-check-input" type="checkbox"
+       [checked]="hasRole"
+       [disabled]="!_UserData.roles.includes('super-admin') || role.name === 'super-admin'"
+       (change)="update()"
+       id="userrole{{userId}}{{role.id}}">
+<label class="form-check-label"
+       for="userrole{{userId}}{{role.id}}">
+    {{role.name}}
+</label>

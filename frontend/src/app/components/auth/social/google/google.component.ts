@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { LoginService } from '../../../../services/auth/login.service';
+import { Response } from '../../../../models/response';
 
 @Component({
   selector: 'app-google',
@@ -9,6 +10,8 @@ import { LoginService } from '../../../../services/auth/login.service';
   styleUrls: ['./google.component.scss']
 })
 export class GoogleComponent implements OnInit {
+
+  private response: Response;
 
   constructor(
       private Auth: AuthService,
@@ -24,7 +27,8 @@ export class GoogleComponent implements OnInit {
     this.SocialLogin.signInWithGoogle().then((user) => {
       this.Auth.googleLogin(user).subscribe(
           data => {
-            if (data.success) {
+            this.response = data as Response;
+            if (this.response.success) {
               this.Login.handleResponse(data, '/');
             }
           },

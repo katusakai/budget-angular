@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './modules/app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -18,6 +19,8 @@ import { RequestPasswordResetComponent } from './components/auth/request-passwor
 import { ResponsePasswordResetComponent } from './components/auth/response-password-reset/response-password-reset.component';
 import { AppSocialLoginModule } from "./modules/app-social-login.module";
 import { GoogleComponent } from './components/auth/social/google/google.component';
+import { UsersComponent } from './components/admin/users/users.component';
+import { RolesComponent } from './components/admin/users/roles/roles.component';
 
 
 @NgModule({
@@ -30,7 +33,9 @@ import { GoogleComponent } from './components/auth/social/google/google.componen
     FormErrorsComponent,
     RequestPasswordResetComponent,
     ResponsePasswordResetComponent,
-    GoogleComponent
+    GoogleComponent,
+    UsersComponent,
+    RolesComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,8 @@ import { GoogleComponent } from './components/auth/social/google/google.componen
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppSocialLoginModule
+    AppSocialLoginModule,
+    NgbModule
   ],
   providers: [
       Title,

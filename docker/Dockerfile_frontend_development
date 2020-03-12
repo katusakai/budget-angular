@@ -10,7 +10,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install and cache app dependencies
 COPY frontend/package.json /app/package.json
 RUN npm install
-RUN npm install -g @angular/cli@8.3.21
+RUN npm install -g @angular/cli@9.0.2
 
 # add app
 COPY frontend /app

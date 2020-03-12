@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from "../../services/auth/token.service";
-import { AuthService } from "../../services/auth/auth.service";
-import { LogoutService } from "../../services/auth/logout.service";
+import { LogoutService } from '../../services/auth/logout.service';
+import { UserDataService } from "../../services/auth/user-data.service";
 
 @Component({
   selector: 'app-navbar',
@@ -10,15 +9,12 @@ import { LogoutService } from "../../services/auth/logout.service";
 })
 export class NavbarComponent implements OnInit {
 
-  public loggedIn: boolean;
   constructor(
-      private Token: TokenService,
-      private Auth: AuthService,
+      public UserData: UserDataService,
       private Logout: LogoutService
   ) { }
 
   ngOnInit() {
-    this.Auth.status.subscribe(value => this.loggedIn = value);
   }
 
   logout(event: MouseEvent) {
