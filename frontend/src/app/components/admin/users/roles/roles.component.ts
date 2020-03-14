@@ -37,7 +37,6 @@ export class RolesComponent implements OnInit {
 
   update() {
     this._Roles.update(this.role.id, this.userId).subscribe(data => {
-      console.log(data);
     })
   }
 }
