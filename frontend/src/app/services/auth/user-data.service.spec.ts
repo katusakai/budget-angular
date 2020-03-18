@@ -1,12 +1,27 @@
 import { TestBed } from '@angular/core/testing';
 
 import { UserDataService } from './user-data.service';
+import { AuthService } from "./auth.service";
+import { RolesService } from "./roles.service";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 describe('UserDataService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: UserDataService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        AuthService,
+        RolesService,
+      ],
+      imports: [
+        HttpClientTestingModule
+      ]
+    });
+    service = TestBed.inject(UserDataService);
+  });
 
   it('should be created', () => {
-    const service: UserDataService = TestBed.get(UserDataService);
     expect(service).toBeTruthy();
   });
 });

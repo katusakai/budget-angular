@@ -1,12 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
 import { SocialLoginService } from './social-login.service';
+import { AuthService } from "angularx-social-login";
 
 describe('SocialLoginService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: SocialLoginService;
 
-  it('should be created', () => {
-    const service: SocialLoginService = TestBed.get(SocialLoginService);
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        AuthService,
+      ]
+    });
+    service = TestBed.inject(SocialLoginService)
   });
 });
