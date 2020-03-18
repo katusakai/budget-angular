@@ -1,12 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 
 import { LoginService } from './login.service';
+import { AuthService } from "./auth.service";
+import { TokenService } from "./token.service";
+import { RouterTestingModule } from "@angular/router/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 describe('LoginService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: LoginService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        AuthService,
+        TokenService,
+      ],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
+    });
+    service = TestBed.inject(LoginService);
+  });
 
   it('should be created', () => {
-    const service: LoginService = TestBed.get(LoginService);
     expect(service).toBeTruthy();
   });
 });

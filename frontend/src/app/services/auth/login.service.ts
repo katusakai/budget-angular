@@ -9,14 +9,14 @@ import { Router } from '@angular/router';
 export class LoginService {
 
   constructor(
-      private Auth: AuthService,
-      private Token: TokenService,
-      private router: Router
+      private _Auth: AuthService,
+      private _Token: TokenService,
+      private _Router: Router
   ) { }
 
   handleResponse(data, redirectUrl: string) {
-    this.Token.set(data.data.token);
-    this.Auth.changeAuthStatus(true);
-    this.router.navigateByUrl(redirectUrl);
+    this._Token.set(data.data.token);
+    this._Auth.changeAuthStatus(true);
+    this._Router.navigateByUrl(redirectUrl);
   }
 }

@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersComponent } from './users.component';
+import { UsersService } from "../../../services/admin/users.service";
+import { RolesService } from "../../../services/admin/roles.service";
+import { RouterTestingModule } from "@angular/router/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -8,7 +12,15 @@ describe('UsersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UsersComponent ]
+      declarations: [ UsersComponent ],
+      providers: [
+        UsersService,
+        RolesService,
+      ],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
   }));

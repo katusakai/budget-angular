@@ -7,14 +7,14 @@ import { AuthService, GoogleLoginProvider } from 'angularx-social-login';
 export class SocialLoginService {
 
   constructor(
-      private authService: AuthService
+      private _AuthService: AuthService
   ) { }
 
   signInWithGoogle() {
-    return this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    return this._AuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signOut(): void {
-    this.authService.signOut();
+    this._AuthService.signOut();
   }
 }

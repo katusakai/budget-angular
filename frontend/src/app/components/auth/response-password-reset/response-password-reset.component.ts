@@ -18,22 +18,22 @@ export class ResponsePasswordResetComponent implements OnInit {
   public message: string;
 
   constructor(
-      private formBuilder: FormBuilder,
-      private Auth: AuthService,
-      private Validator: ValidatorService,
-      private router: Router,
-      private route: ActivatedRoute,
+      private _FormBuilder: FormBuilder,
+      private _Auth: AuthService,
+      private _Validator: ValidatorService,
+      private _Router: Router,
+      private _Route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this._Route.queryParams.subscribe(params => {
       this.token= params['token'];
     });
 
-    this.form = this.formBuilder.group({
-      email: this.Validator.email,
-      password: this.Validator.password,
-      password_confirmation: this.Validator.password_confirmation,
+    this.form = this._FormBuilder.group({
+      email: this._Validator.email,
+      password: this._Validator.password,
+      password_confirmation: this._Validator.password_confirmation,
     });
     this.errors = new AuthErrors();
   }
@@ -43,7 +43,7 @@ export class ResponsePasswordResetComponent implements OnInit {
   onSubmit() {
     this.message = '';
     if (this.errors.handleFrontend(this.f)) {
-      this.Auth.changePassword({
+      this._Auth.changePassword({
         email: this.f.email.value,
         password: this.f.password.value,
         password_confirmation: this.f.password_confirmation.value,
