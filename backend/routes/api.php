@@ -34,6 +34,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['middleware' => ['role:super-admin']], function () {
 
+        Route::get('admin/configuration', 'Admin\ConfigurationController@index');
+        Route::get('admin/configuration/{id}', 'Admin\ConfigurationController@show');
+        Route::put('admin/configuration/{id}', 'Admin\ConfigurationController@update');
+
         Route::post('admin/user', 'Admin\UserController@store');
         Route::put('admin/user/{user}', 'Admin\UserController@update');
         Route::delete('admin/user/{user}', 'Admin\UserController@destroy');
