@@ -11,7 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ConfigurationTableSeeder::class);
         $this->call(RolesPermissionsSeeder::class);
         $this->call(UsersTableSeeder::class);
+        Artisan::call('passport:install');
     }
 }

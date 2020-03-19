@@ -13,5 +13,8 @@
 8. Run `docker-compose up -d --build` and wait for services to start up. First time it will take several minutes.
 9. Run `docker-compose exec backend php artisan key:generate`
 10. Run `docker-compose exec backend php artisan config:cache`
-11. Run `docker-compose exec backend php artisan migrate`
-12. Run `docker-compose exec backend php artisan passport:install` to install passport Client secret keys to database
+11. Run `docker-compose exec backend php artisan migrate:fresh --seed`
+
+
+#Tips for usage
+1. If you add new model, run `docker-compose exec backend php artisan idea-helper:models` to update it with Eloquent properties and methods
