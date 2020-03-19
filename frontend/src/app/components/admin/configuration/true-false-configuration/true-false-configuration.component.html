@@ -1,0 +1,18 @@
+<div class="form-group row">
+    <label class="col-sm-7 col-form-label text-nowrap"
+        [for]="'config' + config.name">
+        {{label}}
+    </label>
+    <div class="col-sm-5">
+        <div class="custom-control custom-switch pt-1">
+            <input name="tax_inclusion_flag" type="checkbox" class="custom-control-input"
+            [id]="'config' + config.name"
+            [(ngModel)]="checked"
+            (change)="change()">
+            <label class="custom-control-label"
+               [for]="'config' + config.name">
+                Disabled/Enabled
+            </label>
+        </div>
+    </div>
+</div>
