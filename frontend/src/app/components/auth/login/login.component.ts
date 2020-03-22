@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { LoginService } from '../../../services/auth/login.service';
 import { ValidatorService } from '../../../services/auth/validator.service';
 import { AuthErrors } from '../../../models/errors/AuthErrors';
+import { GoogleLoginConfigurationService } from "../../../services/global/google-login-configuration.service";
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
       private Auth: AuthService,
       private Login: LoginService,
       private Validator: ValidatorService,
+      public GoogleLoginConfig: GoogleLoginConfigurationService
   ) { }
 
   ngOnInit() {

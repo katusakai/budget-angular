@@ -53,7 +53,7 @@ class ConfigurationController extends BaseController
                 $configs->value = $request['value'];
                 $configs->save();
 
-                return $this->sendResponse($configs, "Configuration '{$configs->name}' value has been chanded to '{$configs->value}'");
+                return $this->sendResponse($configs, "Configuration '{$configs->name}' value has been changed to '{$configs->value}'");
 
             } else {
 
