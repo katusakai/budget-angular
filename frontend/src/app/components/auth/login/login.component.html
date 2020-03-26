@@ -39,9 +39,10 @@
                             <div *ngIf="GoogleLoginConfig.access" class="mt-1">
                                 <app-google></app-google>
                             </div>
+
                         </div>
-                        <div *ngIf="CanRegisterConfig.access" class="float-right">
-                            <div>
+                        <div class="float-right">
+                            <div *ngIf="CanRegisterConfig.access">
                                 <a class="btn btn-info" routerLink="/register">Register</a>
                             </div>
                             <small class="text-nowrap">
