@@ -6,17 +6,17 @@ import { GlobalConfigurationInterface } from "./global-configuration-interface";
 @Injectable({
   providedIn: 'root'
 })
-export class GoogleLoginConfigurationService extends BaseConfiguration implements GlobalConfigurationInterface{
+export class CanRegisterConfigurationService extends BaseConfiguration implements GlobalConfigurationInterface{
 
   constructor(
     private _Configuration: ConfigurationService,
-    ) {
+  ) {
     super();
     this.setAccess();
   }
 
   public setAccess(): void {
-    this._Configuration.show(3).subscribe(data => {
+    this._Configuration.show(1).subscribe(data => {
       this.access = data['data']['value'] === 'true';
     })
   }

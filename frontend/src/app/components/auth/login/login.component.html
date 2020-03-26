@@ -40,7 +40,7 @@
                                 <app-google></app-google>
                             </div>
                         </div>
-                        <div class="float-right">
+                        <div *ngIf="CanRegisterConfig.access" class="float-right">
                             <div>
                                 <a class="btn btn-info" routerLink="/register">Register</a>
                             </div>

@@ -11,10 +11,11 @@ import { RequestPasswordResetComponent } from '../components/auth/request-passwo
 import { ResponsePasswordResetComponent } from '../components/auth/response-password-reset/response-password-reset.component';
 import { UsersComponent } from "../components/admin/users/users.component";
 import { ConfigurationComponent} from "../components/admin/configuration/configuration.component";
+import { CanRegisterGuard } from "../guards/can-register.guard";
 
 const  RouteList: Routes = [
   { path: 'login', component: LoginComponent,  canActivate: [BeforeloginGuard]  },
-  { path: 'register', component: RegisterComponent,  canActivate: [BeforeloginGuard]  },
+  { path: 'register', component: RegisterComponent,  canActivate: [BeforeloginGuard, CanRegisterGuard]  },
   { path: 'request-password-reset', component: RequestPasswordResetComponent, canActivate: [BeforeloginGuard]  },
   { path: 'response-password-reset', component: ResponsePasswordResetComponent, canActivate: [BeforeloginGuard]  },
   { path: 'profile', component: ProfileComponent, canActivate: [AfterloginGuard] },
