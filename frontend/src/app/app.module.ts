@@ -21,6 +21,8 @@ import { AppSocialLoginModule } from "./modules/app-social-login.module";
 import { GoogleComponent } from './components/auth/social/google/google.component';
 import { UsersComponent } from './components/admin/users/users.component';
 import { RolesComponent } from './components/admin/users/roles/roles.component';
+import { ConfigurationComponent } from './components/admin/configuration/configuration.component';
+import { TrueFalseConfigurationComponent } from './components/admin/configuration/true-false-configuration/true-false-configuration.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { RolesComponent } from './components/admin/users/roles/roles.component';
     ResponsePasswordResetComponent,
     GoogleComponent,
     UsersComponent,
-    RolesComponent
+    RolesComponent,
+    ConfigurationComponent,
+    TrueFalseConfigurationComponent
   ],
   imports: [
     BrowserModule,

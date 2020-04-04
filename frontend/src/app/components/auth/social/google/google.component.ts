@@ -3,6 +3,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { LoginService } from '../../../../services/auth/login.service';
 import { Response } from '../../../../models/response';
+import {GoogleLoginConfigurationService} from "../../../../services/global/google-login-configuration.service";
 
 @Component({
   selector: 'app-google',
@@ -17,7 +18,7 @@ export class GoogleComponent implements OnInit {
       private Auth: AuthService,
       private SocialLogin: SocialLoginService,
       private Login: LoginService,
-
+      public GoogleLoginConfig: GoogleLoginConfigurationService
   ) { }
 
   ngOnInit() {
@@ -32,9 +33,17 @@ export class GoogleComponent implements OnInit {
               this.Login.handleResponse(data, '/');
             }
           },
-          error => console.log(error)
+          error => {
+            if (error.status === 403) {
+              this.check();
+            }
+          }
       );
     });
+  }
+
+  check() {
+    this. GoogleLoginConfig.setAccess();
   }
 
 }

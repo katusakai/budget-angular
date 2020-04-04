@@ -14,10 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::post('auth/login', 'Auth\LoginController@login');
-Route::post('auth/register', 'Auth\RegisterController@register');
+Route::post('auth/register', 'Auth\RegisterController@register')->middleware('can-register');
 Route::post('auth/sendPasswordResetLink', 'Auth\ResetPasswordController@sendEmail');
 Route::post('auth/resetPassword', 'Auth\ChangePasswordController@process');
-Route::post('auth/googleLogin', 'Auth\Social\GoogleController@try');
+Route::post('auth/googleLogin', 'Auth\Social\GoogleController@try')->middleware('google-login');
+Route::get('admin/configuration/{id}', 'Admin\ConfigurationController@show');
 
 Route::group(['middleware' => 'auth:api'], function () {
 
@@ -33,6 +34,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         });
 
     Route::group(['middleware' => ['role:super-admin']], function () {
+
+        Route::get('admin/configuration', 'Admin\ConfigurationController@index');
+        Route::put('admin/configuration/{id}', 'Admin\ConfigurationController@update');
 
         Route::post('admin/user', 'Admin\UserController@store');
         Route::put('admin/user/{user}', 'Admin\UserController@update');

@@ -6,7 +6,8 @@
             <a class="navbar-brand text-danger" id="dropdown-admin" ngbDropdownToggle>Admin Area</a>
             <div ngbDropdownMenu aria-labelledby="dropdown-admin">
                 <a ngbDropdownItem
-                    *ngIf="UserData.roles &&  UserData.roles.includes('super-admin')" >
+                    *ngIf="UserData.roles &&  UserData.roles.includes('super-admin')"
+                    routerLink="/admin/configurations">
                     Globals</a>
                 <a ngbDropdownItem routerLink="/admin/users">Users</a>
             </div>

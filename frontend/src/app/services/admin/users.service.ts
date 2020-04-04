@@ -8,10 +8,10 @@ import { environment } from "../../../environments/environment";
 export class UsersService {
 
   constructor(
-      private http: HttpClient,
+      private _http: HttpClient,
   ) { }
 
   index(page, limit, search) {
-    return this.http.get(`${environment.backendUri}/admin/user?page=${page}&limit=${limit}&search=${search}`);
+    return this._http.get(`${environment.backendUri}/admin/user?page=${page}&limit=${limit}&search=${search}`);
   }
 }
