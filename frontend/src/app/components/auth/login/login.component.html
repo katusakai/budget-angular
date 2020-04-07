@@ -36,8 +36,11 @@
                             <div>
                                 <button type="submit" class="btn btn-primary">Log In</button>
                             </div>
-                            <div *ngIf="GoogleLoginConfig.access" class="mt-1">
+                            <div *ngIf="GoogleLoginConfig.access" class="mt-1 d-block">
                                 <app-google></app-google>
+                            </div>
+                            <div *ngIf="FacebookLoginConfig.access" class="mt-1 d-block">
+                                <app-facebook></app-facebook>
                             </div>
 
                         </div>
