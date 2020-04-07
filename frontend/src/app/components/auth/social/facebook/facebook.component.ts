@@ -26,20 +26,19 @@ export class FacebookComponent implements OnInit {
 
   submit() {
     this.SocialLogin.signInWithFacebook().then((user) => {
-      console.log(user);
-      // this.Auth.googleLogin(user).subscribe(
-      //   data => {
-      //     this.response = data as Response;
-      //     if (this.response.success) {
-      //       this.Login.handleResponse(data, '/');
-      //     }
-      //   },
-      //   error => {
-      //     if (error.status === 403) {
-      //       // this.check();
-      //     }
-      //   }
-      // );
+      this.Auth.facebookLogin(user).subscribe(
+        data => {
+          this.response = data as Response;
+          if (this.response.success) {
+            this.Login.handleResponse(data, '/');
+          }
+        },
+        error => {
+          if (error.status === 403) {
+            this.check();
+          }
+        }
+      );
     });
   }
 

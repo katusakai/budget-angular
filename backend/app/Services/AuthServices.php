@@ -26,6 +26,15 @@ class AuthServices
                 $user->password  = bcrypt(Str::random(20));
                 $user->save();
                 break;
+
+            case 'facebook':
+                $user = new User();
+                $user->name        = $input['name'];
+                $user->email       = $input['email'];
+                $user->facebook_id = $input['id'];
+                $user->password    = bcrypt(Str::random(20));
+                $user->save();
+                break;
         }
 
         return $user;

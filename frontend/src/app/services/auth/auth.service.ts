@@ -30,6 +30,10 @@ export class AuthService {
     return this.http.post(`${environment.backendUri}/auth/googleLogin`, data);
   }
 
+  facebookLogin(data) {
+    return this.http.post(`${environment.backendUri}/auth/facebookLogin`, data);
+  }
+
   sendPasswordResetLink(data) {
     return this.http.post(`${environment.backendUri}/auth/sendPasswordResetLink`, data);
   }
