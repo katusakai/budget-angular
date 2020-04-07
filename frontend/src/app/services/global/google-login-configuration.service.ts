@@ -8,16 +8,12 @@ import { GlobalConfigurationInterface } from "./global-configuration-interface";
 })
 export class GoogleLoginConfigurationService extends BaseConfiguration implements GlobalConfigurationInterface{
 
-  constructor(
-    private _Configuration: ConfigurationService,
-    ) {
-    super();
-    this.setAccess();
-  }
+  configId = 3;
 
-  public setAccess(): void {
-    this._Configuration.show(3).subscribe(data => {
-      this.access = data['data']['value'] === 'true';
-    })
+  constructor(
+    protected _Configuration: ConfigurationService,
+    ) {
+    super(_Configuration);
+    this.setAccess()
   }
 }

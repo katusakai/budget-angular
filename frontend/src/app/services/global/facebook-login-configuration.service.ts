@@ -8,16 +8,12 @@ import { ConfigurationService } from "../admin/configuration.service";
 })
 export class FacebookLoginConfigurationService  extends BaseConfiguration implements GlobalConfigurationInterface{
 
-  constructor(
-    private _Configuration: ConfigurationService,
-  ) {
-    super();
-    this.setAccess();
-  }
+  configId = 4;
 
-  public setAccess(): void {
-    this._Configuration.show(4).subscribe(data => {
-      this.access = data['data']['value'] === 'true';
-    })
+  constructor(
+    protected _Configuration: ConfigurationService,
+  ) {
+    super(_Configuration);
+    this.setAccess()
   }
 }
