@@ -5,7 +5,7 @@ services:
   frontend_prod:
     env_file:
       - .env
-    container_name: ${FRONTEND_PROD_CONTAINER_NAME}
+    container_name: '${APP_NAME}_frontend_prod'
     restart: unless-stopped
     build:
       context: .
@@ -20,8 +20,7 @@ services:
   frontend_dev:
     env_file:
       - .env
-    container_name: ${FRONTEND_DEV_CONTAINER_NAME}
-    restart: unless-stopped
+    container_name: '${APP_NAME}_frontend_dev'
     build:
       context: .
       dockerfile: docker/Dockerfile_frontend_development
@@ -38,7 +37,7 @@ services:
   #Web karma test service
   frontend_karma:
     image: trion/ng-cli-karma:latest
-    container_name: ${FRONTEND_KARMA_CONTAINER_NAME}
+    container_name: '${APP_NAME}_frontend_karma'
     volumes:
       - ./frontend:/usr/app/
     working_dir: /usr/app/
@@ -50,7 +49,7 @@ services:
   #Web e2e test service
   frontend_e2e:
     image: trion/ng-cli-e2e:latest
-    container_name: ${FRONTEND_E2E_CONTAINER_NAME}
+    container_name: '${APP_NAME}_frontend_e2e'
     volumes:
       - ./frontend:/usr/app/
     working_dir: /usr/app/
@@ -62,7 +61,7 @@ services:
     env_file:
       - .env
     image: nginx:alpine
-    container_name: ${NGINX_CONTAINER_NAME}
+    container_name: '${APP_NAME}_api'
     restart: unless-stopped
     tty: true
     ports:
@@ -84,7 +83,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile_backend
     image: digitalocean.com/php
-    container_name: ${BACKEND_CONTAINER_NAME}
+    container_name: '${APP_NAME}_backend'
     restart: unless-stopped
     tty: true
     environment:
@@ -102,7 +101,7 @@ services:
     image: ${MYSQL_IMAGE}
     env_file:
       - .env
-    container_name: ${MYSQL_CONTAINER_NAME}
+    container_name: '${APP_NAME}_db'
     restart: unless-stopped
     tty: true
     ports:
