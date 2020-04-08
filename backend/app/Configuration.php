@@ -21,13 +21,4 @@ use Illuminate\Database\Eloquent\Model;
 class Configuration extends Model
 {
     public $timestamps = false;
-
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-
-        $this->name  = in_array('name', $attributes) ? $attributes['name'] : '';
-        $this->value = in_array('value', $attributes) ? $attributes['value'] : '';;
-    }
-
 }

@@ -23,6 +23,7 @@ import { UsersComponent } from './components/admin/users/users.component';
 import { RolesComponent } from './components/admin/users/roles/roles.component';
 import { ConfigurationComponent } from './components/admin/configuration/configuration.component';
 import { TrueFalseConfigurationComponent } from './components/admin/configuration/true-false-configuration/true-false-configuration.component';
+import { FacebookComponent } from './components/auth/social/facebook/facebook.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { TrueFalseConfigurationComponent } from './components/admin/configuratio
     UsersComponent,
     RolesComponent,
     ConfigurationComponent,
-    TrueFalseConfigurationComponent
+    TrueFalseConfigurationComponent,
+    FacebookComponent
   ],
   imports: [
     BrowserModule,

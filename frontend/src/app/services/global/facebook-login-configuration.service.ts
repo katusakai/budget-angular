@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BaseConfiguration } from "./base-configuration";
-import { ConfigurationService } from "../admin/configuration.service";
 import { GlobalConfigurationInterface } from "./global-configuration-interface";
+import { ConfigurationService } from "../admin/configuration.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class GoogleLoginConfigurationService extends BaseConfiguration implements GlobalConfigurationInterface{
+export class FacebookLoginConfigurationService  extends BaseConfiguration implements GlobalConfigurationInterface{
 
-  configId = 3;
+  configId = 4;
 
   constructor(
     protected _Configuration: ConfigurationService,
-    ) {
+  ) {
     super(_Configuration);
     this.setAccess()
   }

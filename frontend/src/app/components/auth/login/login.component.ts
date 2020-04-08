@@ -6,6 +6,7 @@ import { ValidatorService } from '../../../services/auth/validator.service';
 import { AuthErrors } from '../../../models/errors/AuthErrors';
 import { GoogleLoginConfigurationService } from "../../../services/global/google-login-configuration.service";
 import { CanRegisterConfigurationService } from "../../../services/global/can-register-configuration.service";
+import { FacebookLoginConfigurationService } from "../../../services/global/facebook-login-configuration.service";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
       private Login: LoginService,
       private Validator: ValidatorService,
       public GoogleLoginConfig: GoogleLoginConfigurationService,
-      public CanRegisterConfig: CanRegisterConfigurationService
+      public CanRegisterConfig: CanRegisterConfigurationService,
+      public FacebookLoginConfig: FacebookLoginConfigurationService
   ) { }
 
   ngOnInit() {
