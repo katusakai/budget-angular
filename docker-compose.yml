@@ -2,7 +2,7 @@ version: '3'
 services:
 
   #Nginx Service for web
-  nginx:
+  frontend_prod:
     env_file:
       - .env
     container_name: '${APP_NAME}_frontend_prod'
