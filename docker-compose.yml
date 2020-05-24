@@ -12,7 +12,8 @@ services:
       dockerfile: docker/Dockerfile_frontend_production
     volumes:
       - ./frontend:/app
-      - ./docker/nginx_frontend/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx_frontend/conf.d/:/etc/nginx/conf.d
+      - ./docker/nginx_includes/:/etc/nginx/includes
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     ports:
@@ -73,6 +74,7 @@ services:
     volumes:
       - ./backend:/var/www
       - ./docker/nginx_backend/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx_includes/:/etc/nginx/includes
       - ./logs/nginx:/var/log/nginx
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
@@ -118,7 +120,7 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./data/dbdata:/var/lib/mysql
+      - ./data/dbdata/:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
