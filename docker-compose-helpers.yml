@@ -1,0 +1,9 @@
+version: '3'
+services:
+
+  #Composer Service
+  composer:
+    image: composer
+    working_dir: /var/www/html
+    volumes:
+      - ./backend:/var/www/html
