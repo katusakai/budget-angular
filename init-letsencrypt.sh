@@ -5,10 +5,11 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(katusakaitest.tk www.katusakaitest.tk)
+DOMAINLIST=$(grep DOMAINLIST .env | cut -d '=' -f2)
+email=$(grep ADMIN_EMAIL .env | cut -d '=' -f2)
+domains=($DOMAINLIST)
 rsa_key_size=4096
 data_path="./data/certbot"
-email="katusakai@gmail.com" # Adding a valid address is strongly recommended
 staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
 
 if [ -d "$data_path" ]; then
