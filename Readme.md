@@ -1,3 +1,4 @@
+3. For linux users only: run `sudo chown -R $USER:$USER . && chmod -R 775 ./scripts/`
 #First time setup
 1. Install composer:
     1. For linux users: run `cd backend && docker run --rm -v $(pwd):/app composer install && cd ..`

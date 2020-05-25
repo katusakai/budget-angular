@@ -1,4 +1,5 @@
 #!/bin/bash
+
 domain=($(grep DOMAINLIST .env | cut -d '=' -f2))
 file="./docker/nginx_includes/cert.include"
 

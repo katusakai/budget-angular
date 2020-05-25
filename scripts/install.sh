@@ -10,7 +10,12 @@ fi
 bash ./scripts/init-letsencrypt.sh $1
 
 echo '### Running composer install...'
-docker-compose -f docker-compose-helpers.yml run --rm composer install
+#if [ "$OS" = "Windows_NT" ];
+#then
+  docker-compose -f docker-compose-helpers.yml run --rm composer install
+#else
+ # docker run --rm --interactive --tty -v $(pwd)/backend:/app composer install
+#fi
 
 echo '### Running npm install...'
 docker-compose -f docker-compose-helpers.yml run --rm node npm install
