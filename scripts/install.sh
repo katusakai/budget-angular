@@ -1,13 +1,13 @@
 #!/bin/bash
 
-sh ./scripts/generate-cert-include.sh
+bash ./scripts/generate-cert-include.sh
 
 if ! [ -x "$(command -v docker-compose)" ]; then
   echo '### Error: docker-compose is not installed.' >&2
   exit 1
 fi
 
-sh ./scripts/init-letsencrypt.sh $1
+bash ./scripts/init-letsencrypt.sh $1
 
 echo '### Running composer install...'
 docker-compose -f docker-compose-helpers.yml run --rm composer install
