@@ -31,15 +31,16 @@ fi
 
 echo "### Creating dummy certificate for $domains ..."
 path="/etc/letsencrypt/live/$domains"
-mkdir -p "$data_path/conf/live/$domains"
+path_to_domain="$data_path/conf/live/$domains"
+mkdir -p $path_to_domain
 docker-compose run --rm --entrypoint "\
   openssl req -x509 -nodes -newkey rsa:1024 -days 365\
     -keyout '$path/privkey.pem' \
     -out '$path/fullchain.pem' \
     -subj '/CN=localhost'" certbot
 
-chmod 775 $path/privkey.pem
-chmod 775 $path.fullchain.pem
+sudo chmod 775 "$path_to_domain/privkey.pem"
+sudo chmod 775 "$path_to_domain/fullchain.pem"
 echo
 
 if [ "$1" = "prod" ]; then
