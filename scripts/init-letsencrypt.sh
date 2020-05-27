@@ -39,8 +39,6 @@ docker-compose run --rm --entrypoint "\
     -out '$path/fullchain.pem' \
     -subj '/CN=localhost'" certbot
 
-sudo chmod 775 "$path_to_domain/privkey.pem"
-sudo chmod 775 "$path_to_domain/fullchain.pem"
 echo
 
 if [ "$1" = "prod" ]; then
