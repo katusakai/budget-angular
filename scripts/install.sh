@@ -18,6 +18,8 @@ docker-compose -f docker-compose-helpers.yml run --rm node npm install
 echo "### Preparing backend containers for data seeding"
 docker-compose up -d --build api backend db
 
+sudo chmod -R 775 data/dbdata
+
 if [ "$1" != 'prod' ]; then
   echo "### Preparing remaining containers for development"
   docker-compose build --no-cache frontend_dev frontend_karma
