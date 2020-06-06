@@ -1,67 +1,69 @@
-<div class="mt-4 col-md-7 offset-md-3">
-    <div class="card">
-        <div class="card-header">
-            Login
-        </div>
-        <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="row justify-content-center">
+    <div class="mt-4 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Register
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-              <div class="form-group row">
-                <label for="registerEmail" class="col-md-3 col-form-label text-md-right">Email</label>
-                <div class="col-md-9">
-                  <input type="email" formControlName="email" class="form-control" id="registerEmail" placeholder="Email"
-                         [ngClass]="{'is-invalid': f.email.errors}"
-                  >
-                  <app-form-errors
-                    [errors]="errors.email">
-                  </app-form-errors>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="registerName" class="col-md-3 col-form-label text-md-right">Name</label>
-                <div class="col-md-9">
-                  <input type="text" formControlName="name" class="form-control" id="registerName" placeholder="Name"
-                         [ngClass]="{'is-invalid': f.name.errors}"
-                  >
-                  <app-form-errors
-                    [errors]="errors.name">
-                  </app-form-errors>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="registerPassword" class="col-md-3 col-form-label text-md-right">Password</label>
-                <div class="col-md-9">
-                  <input type="password" formControlName="password" class="form-control" id="registerPassword" placeholder="Password"
-                         [ngClass]="{'is-invalid': f.password.errors}"
-                  >
-                  <app-form-errors
-                    [errors]="errors.password">
-                  </app-form-errors>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label for="registerPassword_confirmation" class="col-md-3 col-form-label text-md-right">Confirm Password</label>
-                <div class="col-md-9">
-                  <input type="password" formControlName="password_confirmation" class="form-control" id="registerPassword_confirmation" placeholder="Confirm Password"
-                         [ngClass]="{'is-invalid': f.password_confirmation.errors}"
-                  >
-                  <app-form-errors
-                    [errors]="errors.password_confirmation">
-                  </app-form-errors>
-                </div>
-              </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-9 offset-md-3">
-                        <button type="submit" class="btn btn-primary">Register</button>
-                        <button type="button" class="btn btn-info float-right" routerLink="/login">Sign in</button>
+                  <div class="form-group row">
+                    <label for="registerEmail" class="col-md-4 col-form-label text-md-right text-nowrap">Email</label>
+                    <div class="col-md-8">
+                      <input type="email" formControlName="email" class="form-control" id="registerEmail" placeholder="Email"
+                             [ngClass]="{'is-invalid': f.email.errors}"
+                      >
+                      <app-form-errors
+                        [errors]="errors.email">
+                      </app-form-errors>
                     </div>
-                </div>
+                  </div>
 
-            </form>
+                  <div class="form-group row">
+                    <label for="registerName" class="col-md-4 col-form-label text-md-right text-nowrap">Name</label>
+                    <div class="col-md-8">
+                      <input type="text" formControlName="name" class="form-control" id="registerName" placeholder="Name"
+                             [ngClass]="{'is-invalid': f.name.errors}"
+                      >
+                      <app-form-errors
+                        [errors]="errors.name">
+                      </app-form-errors>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="registerPassword" class="col-md-4 col-form-label text-md-right text-nowrap">Password</label>
+                    <div class="col-md-8">
+                      <input type="password" formControlName="password" class="form-control" id="registerPassword" placeholder="Password"
+                             [ngClass]="{'is-invalid': f.password.errors}"
+                      >
+                      <app-form-errors
+                        [errors]="errors.password">
+                      </app-form-errors>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="registerPassword_confirmation" class="col-md-4 col-form-label text-md-right text-nowrap">Confirm Password</label>
+                    <div class="col-md-8">
+                      <input type="password" formControlName="password_confirmation" class="form-control" id="registerPassword_confirmation" placeholder="Confirm Password"
+                             [ngClass]="{'is-invalid': f.password_confirmation.errors}"
+                      >
+                      <app-form-errors
+                        [errors]="errors.password_confirmation">
+                      </app-form-errors>
+                    </div>
+                  </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-8 offset-md-4">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                            <button type="button" class="btn btn-info float-right" routerLink="/login">To Login in</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
         </div>
     </div>
 </div>

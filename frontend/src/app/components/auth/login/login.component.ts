@@ -4,9 +4,9 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { LoginService } from '../../../services/auth/login.service';
 import { ValidatorService } from '../../../services/auth/validator.service';
 import { AuthErrors } from '../../../models/errors/AuthErrors';
-import { GoogleLoginConfigurationService } from "../../../services/global/google-login-configuration.service";
-import { CanRegisterConfigurationService } from "../../../services/global/can-register-configuration.service";
-import { FacebookLoginConfigurationService } from "../../../services/global/facebook-login-configuration.service";
+import { GoogleLoginConfigurationService } from '../../../services/global/google-login-configuration.service';
+import { CanRegisterConfigurationService } from '../../../services/global/can-register-configuration.service';
+import { FacebookLoginConfigurationService } from '../../../services/global/facebook-login-configuration.service';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-  onSubmit() {
+  onLogin() {
     if (this.errors.handleFrontend(this.f)) {
       this.Auth.login({
         email: this.f.email.value,

@@ -1,60 +1,70 @@
-<div class="mt-4 col-md-7 offset-md-3">
-    <div class="card">
-        <div class="card-header">
-            Login
-        </div>
-        <div class="card-body">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="row justify-content-center">
+    <div class="mt-4 col-md-5">
+        <div class="card">
+            <div class="card-header">
+                Login
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form">
 
-                <div class="form-group row">
-                    <label for="loginEmail" class="col-md-3 col-form-label text-md-right">Email</label>
-                    <div class="col-md-9">
-                        <input type="email" formControlName="email" class="form-control" id="loginEmail" placeholder="Email"
-                        [ngClass]="{'is-invalid': f.email.errors}"
-                        >
-                        <app-form-errors
-                          [errors]="errors.email">
-                        </app-form-errors>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="loginPassword" class="col-md-3 col-form-label text-md-right">Password</label>
-                    <div class="col-md-9">
-                        <input type="password" formControlName="password" class="form-control" id="loginPassword" placeholder="Password"
-                        [ngClass]="{'is-invalid': f.password.errors}"
-                        >
-                        <app-form-errors
-                          [errors]="errors.password">
-                        </app-form-errors>
-                    </div>
-                </div>
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-9 offset-md-3 d-flex justify-content-between">
-                        <div class="float-left">
-                            <div>
-                                <button type="submit" class="btn btn-primary">Log In</button>
-                            </div>
-                            <div *ngIf="GoogleLoginConfig.access" class="mt-1 d-block">
-                                <app-google></app-google>
-                            </div>
-                            <div *ngIf="FacebookLoginConfig.access" class="mt-1 d-block">
-                                <app-facebook></app-facebook>
-                            </div>
-
-                        </div>
-                        <div class="float-right">
-                            <div *ngIf="CanRegisterConfig.access">
-                                <a class="btn btn-info" routerLink="/register">Register</a>
-                            </div>
-                            <small class="text-nowrap">
-                                <a routerLink="/request-password-reset">Reset password</a>
-                            </small>
+                    <div class="form-group row">
+                        <label for="loginEmail" class="col-md-3 col-form-label text-md-right text-nowrap">Email</label>
+                        <div class="col-md-9">
+                            <input type="email" formControlName="email" class="form-control" id="loginEmail" placeholder="Email"
+                            [ngClass]="{'is-invalid': f.email.errors}"
+                            >
+                            <app-form-errors
+                              [errors]="errors.email">
+                            </app-form-errors>
                         </div>
                     </div>
-                </div>
-            </form>
+
+                    <div class="form-group row">
+                        <label for="loginPassword" class="col-md-3 col-form-label text-md-right text-nowrap">Password</label>
+                        <div class="col-md-9">
+                            <input type="password" formControlName="password" class="form-control" id="loginPassword" placeholder="Password"
+                            [ngClass]="{'is-invalid': f.password.errors}"
+                            >
+                            <app-form-errors
+                              [errors]="errors.password">
+                            </app-form-errors>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-9 offset-md-3 d-flex justify-content-between">
+                            <div class="float-left">
+                                <div>
+                                    <button type="submit" class="btn btn-primary"
+                                    (click)="onLogin()">Log In</button>
+                                </div>
+
+                            </div>
+                            <div class="float-right">
+                                <div *ngIf="CanRegisterConfig.access">
+                                    <a class="btn btn-info" routerLink="/register">Register</a>
+                                </div>
+                                <small class="text-nowrap">
+                                    <a routerLink="/request-password-reset">Reset password</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-9 offset-md-3 d-flex justify-content-between">
+                            <div class="float-left">
+                                <div *ngIf="GoogleLoginConfig.access" class="mt-1 d-block">
+                                    <app-google></app-google>
+                                </div>
+                                <div *ngIf="FacebookLoginConfig.access" class="mt-1 d-block">
+                                    <app-facebook></app-facebook>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
