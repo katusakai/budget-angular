@@ -1,3 +1,6 @@
+#Requirements
+1. docker https://docs.docker.com/get-docker/
+2. docker-compose https://docs.docker.com/compose/install/
 #First time setup
 For linux users only: for each script use `sudo bash ./script/scriptname.sh`
 
