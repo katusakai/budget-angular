@@ -5,7 +5,7 @@ services:
   frontend_prod:
     env_file:
       - .env
-    container_name: '${APP_NAME}_frontend_prod'
+    container_name: ${APP_NAME}_frontend_prod
     restart: unless-stopped
     build:
       context: .
@@ -27,7 +27,7 @@ services:
   frontend_dev:
     env_file:
       - .env
-    container_name: '${APP_NAME}_frontend_dev'
+    container_name: ${APP_NAME}_frontend_dev
     build:
       context: .
       dockerfile: docker/Dockerfile_frontend_development
@@ -43,7 +43,7 @@ services:
   #Web karma test service
   frontend_karma:
     image: trion/ng-cli-karma:latest
-    container_name: '${APP_NAME}_frontend_karma'
+    container_name: ${APP_NAME}_frontend_karma
     volumes:
       - ./frontend:/usr/app/
     working_dir: /usr/app/
@@ -55,7 +55,7 @@ services:
   #Web e2e test service
   frontend_e2e:
     image: trion/ng-cli-e2e:latest
-    container_name: '${APP_NAME}_frontend_e2e'
+    container_name: ${APP_NAME}_frontend_e2e
     volumes:
       - ./frontend:/usr/app/
     working_dir: /usr/app/
@@ -67,7 +67,7 @@ services:
     env_file:
       - .env
     image: nginx:1.18-alpine
-    container_name: '${APP_NAME}_api'
+    container_name: ${APP_NAME}_api
     restart: unless-stopped
     tty: true
     ports:
@@ -92,7 +92,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile_backend
     image: digitalocean.com/php
-    container_name: '${APP_NAME}_backend'
+    container_name: ${APP_NAME}_backend
     restart: unless-stopped
     tty: true
     environment:
@@ -110,11 +110,11 @@ services:
     image: ${MYSQL_IMAGE}
     env_file:
       - .env
-    container_name: '${APP_NAME}_db'
+    container_name: ${APP_NAME}_db
     restart: unless-stopped
     tty: true
     ports:
-      - "${MYSQL_DB_PORT}:3306"
+      - ${MYSQL_DB_PORT}:3306
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -133,7 +133,7 @@ services:
     image: certbot/certbot
     env_file:
       - .env
-    container_name: '${APP_NAME}_certbot'
+    container_name: ${APP_NAME}_certbot
     restart: unless-stopped
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
