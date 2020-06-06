@@ -4,7 +4,7 @@
 #First time setup
 For linux users only: for each script use `sudo bash ./script/scriptname.sh`
 
-1. Run `./scripts/generate-env.sh`
+1. Run `./scripts/generate-env.sh` without `sudo`
 2. Edit `.env` file according to you. Make sure that you use empty ports.
 3. If you plan to use it for production, make sure that `API_PORT` matches in `.env` `frontend/src/environments/env.ts`.
 4. Install:
