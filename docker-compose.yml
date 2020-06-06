@@ -16,9 +16,12 @@ services:
       - ./docker/nginx_includes/:/etc/nginx/includes
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+      - ./logs/frontend/nginx:/var/log/nginx
     ports:
       - ${WEB_PROD_PORT}:80
       - ${WEB_PROD_SSL_PORT}:443
+    networks:
+      - app-network
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   frontend_dev:
@@ -68,15 +71,16 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "${API_PORT}:80"
-      - "${SSL_PORT}:443"
+      - ${API_PORT}:443
     volumes:
       - ./backend:/var/www
       - ./docker/nginx_backend/conf.d/:/etc/nginx/conf.d/
       - ./docker/nginx_includes/:/etc/nginx/includes
-      - ./logs/nginx:/var/log/nginx
+      - ./logs/api/nginx:/var/log/nginx
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+    external_links:
+      - api
     networks:
       - app-network
 
