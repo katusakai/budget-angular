@@ -9,7 +9,7 @@ For linux users only: for each script use `sudo bash ./script/scriptname.sh`
 3. If you plan to use it for production, make sure that `API_PORT` matches in `.env` `frontend/src/environments/env.ts`.
 4. Install:
     1. For development Run `./scripts/install.sh`
-    2. For production Run `./scripts/install.sh --prod`
+    2. For production Run `./scripts/install.sh prod`
     
 #Usage
 1. To start application:
