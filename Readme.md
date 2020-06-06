@@ -1,21 +1,22 @@
-3. For linux users only: run `sudo chown -R $USER:$USER . && chmod -R 775 ./scripts/`
 #First time setup
-1. Install composer:
-    1. For linux users: run `cd backend && docker run --rm -v $(pwd):/app composer install && cd ..`
-    2. Windows users run `cd backend && composer install && cd ..`
-2. Install npm:
-    1. For linux users: run `cd frontend && docker run --rm -v $(pwd):/app npm install && cd ..`
-    2. Windows users run `cd frontend && npm install && cd ..`
-3. For linux users only: run `sudo chown -R $USER:$USER .`
-4. Run `cp backend/.env.example backend/.env`
-5. Run `cp .env.example .env` and change values for your project
-6. Run `cp frontend/src/environments/env.ts.example frontend/src/environments/env.ts`
-7. Change `API_PORT` in `frontend/src/environments/env.ts`. It must match with `API_PORT` from `.env`
-8. Run `docker-compose up -d --build` and wait for services to start up. First time it will take several minutes.
-9. Run `docker-compose exec backend php artisan key:generate`
-10. Run `docker-compose exec backend php artisan config:cache`
-11. Run `docker-compose exec backend php artisan migrate:fresh --seed`
+For linux users only: for each script use `sudo bash ./script/scriptname.sh`
 
+1. Run `./scripts/generate-env.sh`
+2. Edit `.env` file according to you. Make sure that you use empty ports.
+3. If you plan to use it for production, make sure that `API_PORT` matches in `.env` `frontend/src/environments/env.ts`.
+4. Install:
+    1. For development Run `./scripts/install.sh`
+    2. For production Run `./scripts/install.sh --prod`
+    
+#Usage
+1. To start application:
+    1. For development Run `./scripts/start-development.sh`
+    2. For production Run `./scripts/start-production.sh`
+2. To stop application Run `docker-compose down`
+3. To enter backend terminal Run `docker-compose exec bash backend`
+4. To enter frontend terminal (development only) Run `docker-compose exec bash frontend_dev`
+5. To reach database terminal Run `docker-compose exec db mysql -u root -p` and enter `MYSQL_ROOT_PASSWORD`
 
 #Tips for usage
 1. If you add new model, run `docker-compose exec backend php artisan idea-helper:models` to update it with Eloquent properties and methods
+2. After every update in production, stop frontend_prod container and run `docker-compose build --no-cache frontend_prod`
