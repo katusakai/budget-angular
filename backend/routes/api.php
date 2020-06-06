@@ -18,6 +18,7 @@ Route::post('auth/register', 'Auth\RegisterController@register')->middleware('ca
 Route::post('auth/sendPasswordResetLink', 'Auth\ResetPasswordController@sendEmail');
 Route::post('auth/resetPassword', 'Auth\ChangePasswordController@process');
 Route::post('auth/googleLogin', 'Auth\Social\GoogleController@try')->middleware('google-login');
+Route::post('auth/facebookLogin', 'Auth\Social\FacebookController@try')->middleware('facebook-login');
 Route::get('admin/configuration/{id}', 'Admin\ConfigurationController@show');
 
 Route::group(['middleware' => 'auth:api'], function () {

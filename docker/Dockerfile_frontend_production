@@ -1,5 +1,5 @@
 # base image
-FROM node:13.6.0 as build
+FROM node:14-alpine3.11 as build
 
 # set working directory
 WORKDIR /app
@@ -27,7 +27,7 @@ RUN ng build --output-path=dist --prod
 ############
 
 # base image
-FROM nginx:1.17.8-alpine
+FROM nginx:1.18-alpine
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /usr/share/nginx/html

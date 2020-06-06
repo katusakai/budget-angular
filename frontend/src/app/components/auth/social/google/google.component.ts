@@ -3,7 +3,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { SocialLoginService } from '../../../../services/auth/social-login.service';
 import { LoginService } from '../../../../services/auth/login.service';
 import { Response } from '../../../../models/response';
-import {GoogleLoginConfigurationService} from "../../../../services/global/google-login-configuration.service";
+import { GoogleLoginConfigurationService } from "../../../../services/global/google-login-configuration.service";
 
 @Component({
   selector: 'app-google',

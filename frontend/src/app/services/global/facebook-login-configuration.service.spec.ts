@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CanRegisterConfigurationService } from './can-register-configuration.service';
+import { FacebookLoginConfigurationService } from './facebook-login-configuration.service';
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 
-describe('CanRegisterConfigurationService', () => {
-  let service: CanRegisterConfigurationService;
+describe('FacebookLoginConfigurationService', () => {
+  let service: FacebookLoginConfigurationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,7 +12,7 @@ describe('CanRegisterConfigurationService', () => {
         HttpClientTestingModule
       ]
     });
-    service = TestBed.inject(CanRegisterConfigurationService);
+    service = TestBed.inject(FacebookLoginConfigurationService);
   });
 
   it('should be created', () => {
