@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../../services/auth/auth.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { AuthErrors } from "../../../models/errors/AuthErrors";
-import { ValidatorService } from "../../../services/auth/validator.service";
+import { AuthService } from '../../../services/auth/auth.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthErrors } from '../../../models/errors/AuthErrors';
+import { ValidatorService } from '../../../services/auth/validator.service';
 
 @Component({
   selector: 'app-request-password-reset',
