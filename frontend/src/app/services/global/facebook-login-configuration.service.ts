@@ -14,6 +14,6 @@ export class FacebookLoginConfigurationService  extends BaseConfiguration implem
     protected _Configuration: ConfigurationService,
   ) {
     super(_Configuration);
-    this.setAccess()
+    this.setAccess();
   }
 }
