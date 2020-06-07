@@ -3,6 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { ConfigurationService } from '../services/admin/configuration.service';
 import { map } from 'rxjs/operators';
+import { Response } from '../models/response';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class CanRegisterGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this._Configuration.show(1).pipe(
-      map(data=> {
-        const value = data['data']['value'];
+      map((data: Response)=> {
+        const value = data.data.value;
         return value === 'true';
       })
     );

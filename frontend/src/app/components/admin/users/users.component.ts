@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Debounce } from '../../../helpers/debounce.decorator'
 import { RolesService } from '../../../services/admin/roles.service';
 import { IRole } from '../../../models/role';
+import { Response} from '../../../models/response'
 
 @Component({
   selector: 'app-users',
@@ -41,7 +42,7 @@ export class UsersComponent implements OnInit {
   }
 
   updateList() {
-    this._User.index(this.page, this.limit, this.search).subscribe(data => {
+    this._User.index(this.page, this.limit, this.search).subscribe((data: Response) => {
       this.users = data.data.data;
       this.collectionSize = data.data.total;
     });
@@ -55,7 +56,7 @@ export class UsersComponent implements OnInit {
   }
 
   getRoles() {
-    this._Role.index().subscribe(data => {
+    this._Role.index().subscribe((data: Response) => {
       this.roles = data.data;
     })
   }

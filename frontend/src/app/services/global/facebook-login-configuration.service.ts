@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BaseConfiguration } from "./base-configuration";
-import { GlobalConfigurationInterface } from "./global-configuration-interface";
-import { ConfigurationService } from "../admin/configuration.service";
+import { BaseConfiguration } from './base-configuration';
+import { GlobalConfigurationInterface } from './global-configuration-interface';
+import { ConfigurationService } from '../admin/configuration.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 export class Response {
     success: boolean;
-    data: {};
+    data: any;
     message: string;
 }
