@@ -5,7 +5,7 @@
 import * as env from 'src/environments/env';
 export const environment = {
   production:          false,
-  appName:             'KickStarter',
+  appName:             'Budget v2.0',
   backendUri:          location.protocol + '//' + location.hostname + ':' + env.env.API_PORT + '/api',
   GoogleOAuthClientId: env.env.GOOGLE_OAUTH_CLIENT_ID,
   FacebookAppId:       env.env.FACEBOOK_APP_ID
