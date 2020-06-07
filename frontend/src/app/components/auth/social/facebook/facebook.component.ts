@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Response } from "../../../../models/response";
-import { AuthService } from "../../../../services/auth/auth.service";
-import { SocialLoginService } from "../../../../services/auth/social-login.service";
-import { LoginService } from "../../../../services/auth/login.service";
-import { FacebookLoginConfigurationService } from "../../../../services/global/facebook-login-configuration.service";
+import { Response } from '../../../../models/response';
+import { AuthService } from '../../../../services/auth/auth.service';
+import { SocialLoginService } from '../../../../services/auth/social-login.service';
+import { LoginService } from '../../../../services/auth/login.service';
+import { FacebookLoginConfigurationService } from '../../../../services/global/facebook-login-configuration.service';
 
 @Component({
   selector: 'app-facebook',

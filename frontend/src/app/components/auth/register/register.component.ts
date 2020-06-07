@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../../services/auth/auth.service";
-import { RegisterService } from "../../../services/auth/register.service";
+import { AuthService } from '../../../services/auth/auth.service';
+import { RegisterService } from '../../../services/auth/register.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthErrors } from '../../../models/errors/AuthErrors';
 import { ValidatorService } from '../../../services/auth/validator.service';
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-  onSubmit() {
+  onRegister() {
     if (this.errors.handleFrontend(this.f)) {
       this.Auth.register({
         email: this.f.email.value,

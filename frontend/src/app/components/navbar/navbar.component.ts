@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LogoutService } from '../../services/auth/logout.service';
-import { UserDataService } from "../../services/auth/user-data.service";
+import { UserDataService } from '../../services/auth/user-data.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,12 +9,18 @@ import { UserDataService } from "../../services/auth/user-data.service";
 })
 export class NavbarComponent implements OnInit {
 
+  isCollapsed = true;
+
   constructor(
       public UserData: UserDataService,
       private Logout: LogoutService,
   ) { }
 
   ngOnInit() {
+  }
+
+  collapse(): void {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   logout(event: MouseEvent) {

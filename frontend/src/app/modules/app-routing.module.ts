@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BeforeloginGuard } from "../guards/beforelogin.guard";
-import { AfterloginGuard } from "../guards/afterlogin.guard";
-import { AdminGuard } from "../guards/admin.guard";
+import { BeforeloginGuard } from '../guards/beforelogin.guard';
+import { AfterloginGuard } from '../guards/afterlogin.guard';
+import { AdminGuard } from '../guards/admin.guard';
 
 import { LoginComponent } from '../components/auth/login/login.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { RegisterComponent } from '../components/auth/register/register.component';
 import { RequestPasswordResetComponent } from '../components/auth/request-password-reset/request-password-reset.component';
 import { ResponsePasswordResetComponent } from '../components/auth/response-password-reset/response-password-reset.component';
-import { UsersComponent } from "../components/admin/users/users.component";
-import { ConfigurationComponent} from "../components/admin/configuration/configuration.component";
-import { CanRegisterGuard } from "../guards/can-register.guard";
+import { UsersComponent } from '../components/admin/users/users.component';
+import { ConfigurationComponent} from '../components/admin/configuration/configuration.component';
+import { CanRegisterGuard } from '../guards/can-register.guard';
 
 const  RouteList: Routes = [
   { path: 'login', component: LoginComponent,  canActivate: [BeforeloginGuard]  },

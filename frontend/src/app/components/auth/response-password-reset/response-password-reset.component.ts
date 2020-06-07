@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from "@angular/router";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { AuthService } from "../../../services/auth/auth.service";
-import { ValidatorService } from "../../../services/auth/validator.service";
-import { AuthErrors } from "../../../models/errors/AuthErrors";
+import { ActivatedRoute, Router} from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
+import { ValidatorService } from '../../../services/auth/validator.service';
+import { AuthErrors } from '../../../models/errors/AuthErrors';
 
 @Component({
   selector: 'app-response-password-reset',
@@ -27,7 +27,7 @@ export class ResponsePasswordResetComponent implements OnInit {
 
   ngOnInit() {
     this._Route.queryParams.subscribe(params => {
-      this.token= params['token'];
+      this.token= params.token;
     });
 
     this.form = this._FormBuilder.group({
