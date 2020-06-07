@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TokenService } from './token.service';
-import { IUser } from "../../models";
+import { IUser } from '../../models';
 
 @Injectable({
   providedIn: 'root'

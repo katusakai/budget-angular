@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { TokenService } from "./token.service";
-import { Router } from "@angular/router";
-import { AuthService } from "./auth.service";
-import { SocialLoginService } from "./social-login.service";
+import { TokenService } from './token.service';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+import { SocialLoginService } from './social-login.service';
 
 @Injectable({
   providedIn: 'root'

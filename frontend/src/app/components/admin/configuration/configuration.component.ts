@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigurationService } from "../../../services/admin/configuration.service";
-import { IConfiguration } from "../../../models/configuration";
+import { ConfigurationService } from '../../../services/admin/configuration.service';
+import { IConfiguration } from '../../../models/configuration';
+import { Response } from '../../../models/response';
 
 @Component({
   selector: 'app-configuration',
@@ -20,8 +21,8 @@ export class ConfigurationComponent implements OnInit {
   }
 
   private getAll() {
-    this._Configuration.index().subscribe(data => {
-      this.configs = data['data'];
+    this._Configuration.index().subscribe((data: Response) => {
+      this.configs = data.data;
     })
   }
 }

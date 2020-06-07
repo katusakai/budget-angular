@@ -1,4 +1,5 @@
-import { ConfigurationService } from "../admin/configuration.service";
+import { ConfigurationService } from '../admin/configuration.service';
+import { Response } from '../../models/response';
 
 export class BaseConfiguration {
   access: boolean;
@@ -9,8 +10,8 @@ export class BaseConfiguration {
   ) {}
 
   public setAccess(): void {
-    this._Configuration.show(this.configId).subscribe(data => {
-      this.access = data['data']['value'] === 'true';
+    this._Configuration.show(this.configId).subscribe((data: Response) => {
+      this.access = data.data.value === 'true';
     })
   }
 }
