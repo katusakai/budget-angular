@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserDataService } from "../services/auth/user-data.service";
+import { UserDataService } from '../services/auth/user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,8 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let userRoles    = this.UserData.roles as Array<string>;
-      let allowedRoles = next.data.roles as Array<string>;
+      const userRoles    = this.UserData.roles as Array<string>;
+      const allowedRoles = next.data.roles as Array<string>;
       return allowedRoles.some(role => userRoles.includes(role));
-
   }
-  
 }

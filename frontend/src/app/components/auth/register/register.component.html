@@ -5,7 +5,7 @@
                 Register
             </div>
             <div class="card-body">
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <form [formGroup]="form" autocomplete="on">
 
                   <div class="form-group row">
                     <label for="registerEmail" class="col-md-4 col-form-label text-md-right text-nowrap">Email</label>
@@ -34,7 +34,7 @@
                   <div class="form-group row">
                     <label for="registerPassword" class="col-md-4 col-form-label text-md-right text-nowrap">Password</label>
                     <div class="col-md-8">
-                      <input type="password" formControlName="password" class="form-control" id="registerPassword" placeholder="Password"
+                      <input type="password" formControlName="password" class="form-control" id="registerPassword" placeholder="Password" autocomplete="off"
                              [ngClass]="{'is-invalid': f.password.errors}"
                       >
                       <app-form-errors
@@ -46,7 +46,7 @@
                   <div class="form-group row">
                     <label for="registerPassword_confirmation" class="col-md-4 col-form-label text-md-right text-nowrap">Confirm Password</label>
                     <div class="col-md-8">
-                      <input type="password" formControlName="password_confirmation" class="form-control" id="registerPassword_confirmation" placeholder="Confirm Password"
+                      <input type="password" formControlName="password_confirmation" class="form-control" id="registerPassword_confirmation" placeholder="Confirm Password" autocomplete="off"
                              [ngClass]="{'is-invalid': f.password_confirmation.errors}"
                       >
                       <app-form-errors
@@ -57,7 +57,8 @@
 
                     <div class="form-group row">
                         <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary">Register</button>
+                            <button type="submit" class="btn btn-primary"
+                            (click)="onRegister()">Register</button>
                             <button type="button" class="btn btn-info float-right" routerLink="/login">To Login in</button>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IConfiguration } from "../../../../models/configuration";
-import { ConfigurationService } from "../../../../services/admin/configuration.service";
+import { IConfiguration } from '../../../../models/configuration';
+import { ConfigurationService } from '../../../../services/admin/configuration.service';
 
 @Component({
   selector: 'app-true-false-configuration',

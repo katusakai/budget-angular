@@ -5,7 +5,7 @@
                 Login
             </div>
             <div class="card-body">
-                <form [formGroup]="form">
+                <form [formGroup]="form" autocomplete="on">
 
                     <div class="form-group row">
                         <label for="loginEmail" class="col-md-3 col-form-label text-md-right text-nowrap">Email</label>
@@ -22,7 +22,7 @@
                     <div class="form-group row">
                         <label for="loginPassword" class="col-md-3 col-form-label text-md-right text-nowrap">Password</label>
                         <div class="col-md-9">
-                            <input type="password" formControlName="password" class="form-control" id="loginPassword" placeholder="Password"
+                            <input type="password" formControlName="password" class="form-control" id="loginPassword" placeholder="Password" autocomplete="off"
                             [ngClass]="{'is-invalid': f.password.errors}"
                             >
                             <app-form-errors
