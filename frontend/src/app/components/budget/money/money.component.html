@@ -5,8 +5,8 @@
                 <div class="card-header d-flex">
                     <div>
                         <input class="form-control" type="month"
-                               [ngModel]="date"
-                               (change)="getMonthStatistics($event)"
+                               [(ngModel)]="date"
+                               (change)="getMonthStatistics()"
                         >
                     </div>
                     <div>
@@ -16,9 +16,9 @@
 
                 <div *ngIf="money" class="row card-body m-0 p-0">
                     <div class="col-md-5 p-0">
-<!--                        <money-month-table-->
-<!--                                :money="money"-->
-<!--                        ></money-month-table>-->
+                        <app-money-table
+                            [money]="money"
+                        ></app-money-table>
                     </div>
                     <div class="col-md-7">
                         <div>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!money">
+                <div *ngIf="!money && !loading">
                     There are now records this month
                 </div>
             </div>

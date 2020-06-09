@@ -14,21 +14,24 @@ export class MoneyComponent implements OnInit {
   public date: string;
   public money: [Money];
   public totalMoney: TotalMoney;
+  public loading: boolean;
 
   constructor(
     private _money: MoneyService
   ) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.totalMoney = new TotalMoney();
     this.getThisMonth();
     this.getMonthStatistics();
   }
 
-  getMonthStatistics(event?) {
+  getMonthStatistics() {
     this._money.getMonthly(this.date).subscribe((response: Response) => {
       this.money = response.data;
       this.getTotalMoney();
+      this.loading = false;
     })
   }
 
