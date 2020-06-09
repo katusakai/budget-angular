@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { MoneyModule} from './modules/money.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -41,7 +42,7 @@ import { FacebookComponent } from './components/auth/social/facebook/facebook.co
     RolesComponent,
     ConfigurationComponent,
     TrueFalseConfigurationComponent,
-    FacebookComponent
+    FacebookComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,8 @@ import { FacebookComponent } from './components/auth/social/facebook/facebook.co
     HttpClientModule,
     ReactiveFormsModule,
     AppSocialLoginModule,
-    NgbModule
+    NgbModule,
+    MoneyModule
   ],
   providers: [
       Title,

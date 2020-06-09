@@ -10,6 +10,8 @@ export class UserDataService {
   public loggedIn: boolean;
   public user: IUser;
   public roles: Array<string>;
+  public userId: number;
+  private oldUserId: number;
 
   constructor(
       private Auth: AuthService,
@@ -18,6 +20,7 @@ export class UserDataService {
       addEventListener('role-update', () => {
           this.getRoles();
       });
+    this.setUserId();
     this.set();
   }
 
@@ -26,7 +29,15 @@ export class UserDataService {
           value => {
               this.loggedIn = value;
               if (this.loggedIn) {
-                  this.Auth.getCurrentUser().subscribe(data  => this.user  = data);
+
+                  this.Auth.getCurrentUser().subscribe((data: IUser)  => {
+                    if(JSON.stringify(data.id) !== JSON.stringify(this.oldUserId)) {
+                      this.oldUserId = data.id;
+                      localStorage.setItem('user_id', JSON.stringify(data.id));
+                    }
+                    this.user  = data
+                  });
+
                 this.getRoles();
               } else {
                   delete this.user;
@@ -41,5 +52,9 @@ export class UserDataService {
       this.Roles.get().subscribe(data => {
           this.roles = data;
       });
+  }
+
+  private setUserId() {
+    this.userId =  +localStorage.getItem('user_id');
   }
 }

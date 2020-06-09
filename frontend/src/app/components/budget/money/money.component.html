@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-12 p-0">
+            <div class="card">
+                <div class="card-header d-flex">
+                    <div>
+                        <input class="form-control" type="month"
+                               [ngModel]="date"
+                               (change)="getMonthStatistics($event)"
+                        >
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#money-form-modal" (click)="moneyCreateForm()">Create</button>
+                    </div>
+                </div>
+
+                <div *ngIf="money" class="row card-body m-0 p-0">
+                    <div class="col-md-5 p-0">
+<!--                        <money-month-table-->
+<!--                                :money="money"-->
+<!--                        ></money-month-table>-->
+                    </div>
+                    <div class="col-md-7">
+                        <div>
+                            <div class="chart-name">Expenses this month: {{totalMoney.Expenses}} €</div>
+<!--                            <chart-->
+<!--                                    :money="money"-->
+<!--                                    :data-type="'expenses'"-->
+<!--                            ></chart>-->
+                        </div>
+                        <div>
+                            <div class="chart-name">Income this month: {{totalMoney.Income}} €</div>
+<!--                            <chart-->
+<!--                                    :money="money"-->
+<!--                                    :data-type="'income'"-->
+<!--                            ></chart>-->
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!money">
+                    There are now records this month
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <money-form></money-form>-->
+</div>
