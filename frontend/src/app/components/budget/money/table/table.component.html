@@ -19,10 +19,8 @@
                     ></i>
                 </div>
             </td>
-<!--            <td class="amount-td">{{spending.amount | plus}}</td>-->
-<!--            <td class="date-td">{{new Date(spending.created_at) | dateFormat("MM-DD HH:mm")}}</td>-->
-            <td class="amount-td">{{spending.amount}}</td>
-            <td class="date-td">{{spending.created_at}}</td>
+            <td class="amount-td">{{spending.amount | plus}}</td>
+            <td class="date-td">{{spending.created_at | date: 'MM-dd HH:mm'}}</td>
         </tr>
         </tbody>
     </table>
