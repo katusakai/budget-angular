@@ -3,6 +3,8 @@ import { MoneyService } from '../../../services/budget/money.service';
 import { Response } from '../../../models/response';
 import { TotalMoney } from '../../../models/money/total-money';
 import { Money } from '../../../models/money/money';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MoneyFormComponent } from './forms/money-form.component';
 
 @Component({
   selector: 'app-money',
@@ -17,7 +19,8 @@ export class MoneyComponent implements OnInit {
   public loading: boolean;
 
   constructor(
-    private _money: MoneyService
+    private _money: MoneyService,
+    private _modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +44,9 @@ export class MoneyComponent implements OnInit {
     this.date = String(date.getFullYear()) + '-' + zeroBeforeMonth + String(date.getMonth()+1);
   }
 
-  moneyCreateForm(){}
+  moneyCreateForm(){
+    const modalRef = this._modalService.open(MoneyFormComponent);
+  }
 
   getTotalMoney() {
     this.totalMoney.Income = 0;

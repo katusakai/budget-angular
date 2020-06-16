@@ -8,6 +8,7 @@ import { PlusPipe } from '../pipes/plus.pipe';
 
 import { MoneyComponent } from '../components/budget/money/money.component';
 import { TableComponent } from '../components/budget/money/table/table.component';
+import { MoneyFormComponent } from '../components/budget/money/forms/money-form.component';
 
 const  RouteList: Routes = [
   { path: 'monthly', component: MoneyComponent, canActivate: [AfterloginGuard] }
@@ -17,15 +18,13 @@ const  RouteList: Routes = [
   declarations: [
     MoneyComponent,
     TableComponent,
-    PlusPipe
+    PlusPipe,
+    MoneyFormComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forRoot(RouteList),
     FormsModule,
-  ],
-  exports: [
-    PlusPipe
   ],
 })
 export class MoneyModule { }
