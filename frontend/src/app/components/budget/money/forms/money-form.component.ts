@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubcategoryService } from '../../../../services/budget/subcategory.service';
 import { Response } from '../../../../models/response';
-import { Subcategory } from '../../../../models/subcategory';
+import { Subcategory } from '../../../../models/money/subcategory';
 
 @Component({
   selector: 'app-money-form',
@@ -37,7 +37,6 @@ export class MoneyFormComponent implements OnInit {
 
   getSubCategories() {
     this.subcategoryService.get(this.search).subscribe((response: Response) => {
-      console.log(response);
       this.subCategories = response.data;
     })
   }

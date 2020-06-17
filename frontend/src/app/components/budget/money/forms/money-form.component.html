@@ -23,6 +23,7 @@
             </div>
         </div>
 <!--            <subcategory-form v-if="!subCategories.length" :sub-category-name="search"></subcategory-form>-->
+        <app-subcategory-form *ngIf="!subCategories.length"></app-subcategory-form>
         <div class="form-group row">
             <label for="form-amount" class="col-sm-3 col-form-label">Money spend:</label>
             <div class="col-sm-9">
