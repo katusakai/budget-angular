@@ -17,4 +17,8 @@ export class MoneyService {
   getMonthly(date: string) {
     return this.http.get(`${environment.backendUri}/money/${this.UserData.userId}/${date}`);
   }
+
+  store(data) {
+    return this.http.post(`${environment.backendUri}/money/`, data);
+  }
 }
