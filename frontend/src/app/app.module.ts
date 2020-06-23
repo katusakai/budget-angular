@@ -1,7 +1,5 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './modules/app-routing.module';
@@ -13,7 +11,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { FormErrorsComponent } from './components/messages/form-errors/form-errors.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { RequestPasswordResetComponent } from './components/auth/request-password-reset/request-password-reset.component';
@@ -25,6 +22,7 @@ import { RolesComponent } from './components/admin/users/roles/roles.component';
 import { ConfigurationComponent } from './components/admin/configuration/configuration.component';
 import { TrueFalseConfigurationComponent } from './components/admin/configuration/true-false-configuration/true-false-configuration.component';
 import { FacebookComponent } from './components/auth/social/facebook/facebook.component';
+import { AppFormModule } from './modules/app-form.module';
 
 
 @NgModule({
@@ -34,7 +32,6 @@ import { FacebookComponent } from './components/auth/social/facebook/facebook.co
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    FormErrorsComponent,
     RequestPasswordResetComponent,
     ResponsePasswordResetComponent,
     GoogleComponent,
@@ -46,14 +43,13 @@ import { FacebookComponent } from './components/auth/social/facebook/facebook.co
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule,
     AppSocialLoginModule,
     NgbModule,
-    MoneyModule
+    MoneyModule,
+    AppFormModule
   ],
   providers: [
     Title,
