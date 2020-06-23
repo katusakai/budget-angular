@@ -78,6 +78,7 @@ export class MoneyFormComponent implements OnInit {
     }).subscribe((response: Response) => {
       console.log(response);
       this.message = response.message;
+      this.errors.clearErrors();
     },
       error => this.errors.handleBackend(error.error.error)
     );

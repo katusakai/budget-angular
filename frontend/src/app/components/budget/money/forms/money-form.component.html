@@ -20,6 +20,9 @@
                        (input)="searchSubCategories()"
                 >
             </div>
+            <app-form-errors class="col-sm-9 offset-sm-3"
+                    [errors]="errors.sub_category_id">
+            </app-form-errors>
         </div>
 <!--            <subcategory-form v-if="!subCategories.length" :sub-category-name="search"></subcategory-form>-->
         <app-subcategory-form *ngIf="subCategories && !subCategories.length"></app-subcategory-form>
@@ -29,9 +32,9 @@
                 <input name="amount" class="form-control" id="form-amount" type="number" required step="0.01" min="-10000000" max="10000000"
                        formControlName="amount"
                 >
-<!--                <app-form-errors-->
-<!--                        [errors]="errors.amount">-->
-<!--                </app-form-errors>-->
+                <app-form-errors
+                        [errors]="errors.amount">
+                </app-form-errors>
             </div>
         </div>
         <div class="form-group row">
@@ -40,6 +43,9 @@
                 <input name="description" class="form-control" id="form-description" type="text" max="100" placeholder="optional"
                        formControlName="description"
                 >
+                <app-form-errors
+                        [errors]="errors.description">
+                </app-form-errors>
             </div>
         </div>
         <div class="d-flex justify-content-between">

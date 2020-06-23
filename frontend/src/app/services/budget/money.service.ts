@@ -19,6 +19,6 @@ export class MoneyService {
   }
 
   store(data) {
-    return this.http.post(`${environment.backendUri}/money/`, data);
+    return this.http.post(`${environment.backendUri}/money`, data);
   }
 }
