@@ -6,6 +6,8 @@ import { Subcategory } from '../../../../models/money/subcategory';
 import { MoneyService } from '../../../../services/budget/money.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MoneyErrors } from '../../../../models/errors/MoneyErrors';
+import { Debounce } from '../../../../helpers/debounce.decorator';
+
 
 @Component({
   selector: 'app-money-form',
@@ -75,11 +77,11 @@ export class MoneyFormComponent implements OnInit {
       sub_category_id: this.f.sub_category_id.value,
       amount: this.f.amount.value,
       description: this.f.description.value
-    }).subscribe((response: Response) => {
-      console.log(response);
-      this.message = response.message;
-      this.errors.clearErrors();
-    },
+    }).subscribe(
+      (response: Response) => {
+        this.message = response.message;
+        this.errors.clearErrors();
+      },
       error => this.errors.handleBackend(error.error.error)
     );
   }
@@ -92,11 +94,9 @@ export class MoneyFormComponent implements OnInit {
 
   }
 
+  @Debounce(1000)
   searchSubCategories() {
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      this.getSubCategories();
-    }, 1000)
+    this.getSubCategories();
   }
 
   dismiss(reason: string) {
