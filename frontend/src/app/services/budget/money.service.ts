@@ -21,4 +21,12 @@ export class MoneyService {
   store(data) {
     return this.http.post(`${environment.backendUri}/money`, data);
   }
+
+  update(id, data) {
+    return this.http.put(`${environment.backendUri}/money/${id}`, data);
+  }
+
+  destroy(id) {
+    return this.http.delete(`${environment.backendUri}/money/${id}`);
+  }
 }

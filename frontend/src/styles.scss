@@ -14,3 +14,7 @@
 // Money
 @import "src/assets/css/money/tables";
 @import "src/assets/css/money/forms";
+
+body {
+  font-family: $font-family-sans-serif;
+}

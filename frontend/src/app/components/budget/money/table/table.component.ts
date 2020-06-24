@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Money } from '../../../../models/money/money';
+import { MoneyFormComponent } from '../forms/money-form.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-money-table',
@@ -10,7 +12,9 @@ export class TableComponent implements OnInit {
 
   @Input() public money: [Money];
 
-  constructor() { }
+  constructor(
+    private _modalService: NgbModal,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -20,7 +24,12 @@ export class TableComponent implements OnInit {
   }
 
   moneyEditForm(spending){
-    // this.$root.$emit('editMoney', spending);
+    if(this._modalService.hasOpenModals())
+      this._modalService.dismissAll();
+
+    const modalRef = this._modalService.open(MoneyFormComponent);
+    modalRef.componentInstance.callType = 'update';
+    modalRef.componentInstance.spending = spending;
   }
 
 }
