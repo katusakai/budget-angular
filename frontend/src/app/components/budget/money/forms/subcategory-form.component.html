@@ -1,6 +1,6 @@
 <div class="d-block border form-subcategory">
     <div>
-<!--        There is no such subcategory <b>{{form.name}}</b>. Create new?-->
+        There is no such subcategory <b>{{f.name.value}}</b>. Create new?
     </div>
     <form [formGroup]="form">
         <div class="form-group row">
@@ -26,8 +26,7 @@
             </app-form-errors>
         </div>
     </form>
-<!--    <category-form v-if="!categories.length" :category-name="search"></category-form>-->
-    <app-category-form *ngIf="categories && !categories.length"></app-category-form>
+    <app-category-form *ngIf="categories && !categories.length" [category_name]="search"></app-category-form>
     <div>
         <button class="btn btn-success"
                 (click)="formSubmit()"

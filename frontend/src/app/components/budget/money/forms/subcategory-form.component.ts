@@ -68,7 +68,6 @@ export class SubcategoryFormComponent implements OnInit {
       name: this.f.name.value
     }).subscribe(
       (response: Response) => {
-        console.log(response);
         this.message = response.message;
         this.errors.clearErrors();
       },

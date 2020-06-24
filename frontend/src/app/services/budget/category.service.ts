@@ -14,4 +14,8 @@ export class CategoryService {
   get(search: string) {
     return this.http.get(`${environment.backendUri}/category/?search=${search}`);
   }
+
+  store(data) {
+    return this.http.post(`${environment.backendUri}/category`, data);
+  }
 }

@@ -1,7 +1,10 @@
 <div class="d-block border form-category">
     <div>
-        There is no such category <b>{{form.name}}</b>. Create new?
+        There is no such category <b>{{f.name.value}}</b>. Create new?
     </div>
+    <app-form-errors class="col-sm-9 offset-sm-3"
+                     [errors]="errors.name">
+    </app-form-errors>
     <div>
         <button class="btn btn-success"
                 (click)="formSubmit()"
