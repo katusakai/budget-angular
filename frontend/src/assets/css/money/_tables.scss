@@ -1,0 +1,17 @@
+.income-color {
+  color: green;
+}
+.expanses-color {
+  color: red;
+}
+
+.name-td {
+  white-space: normal;
+}
+
+@media screen and (max-width: 360px) {
+  .table td {
+    padding: 2px;
+    font-size: 12px;
+  }
+}

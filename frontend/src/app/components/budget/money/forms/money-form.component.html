@@ -7,7 +7,7 @@
 <div class="modal-body">
     <form [formGroup]="form">
         <div class="form-group row">
-            <label for="form-subcategory" class="col-sm-3 col-form-label">Sub-category:</label>
+            <label for="form-subcategory" class="col-sm-3 col-form-label text-nowrap">Sub-category:</label>
             <div class="col-sm-9 d-flex">
                 <select class="form-control" id="form-subcategory" name="subcategory" formControlName="sub_category_id"
                 >
@@ -26,7 +26,7 @@
         </div>
         <app-subcategory-form *ngIf="subCategories && !subCategories.length" [sub_category_name]="search"></app-subcategory-form>
         <div class="form-group row">
-            <label for="form-amount" class="col-sm-3 col-form-label">Money spend:</label>
+            <label for="form-amount" class="col-sm-3 col-form-label text-nowrap">Money spend:</label>
             <div class="col-sm-9">
                 <input name="amount" class="form-control" id="form-amount" type="number" required step="0.01" min="-10000000" max="10000000"
                        formControlName="amount"
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="form-description" class="col-sm-3 col-form-label">Description:</label>
+            <label for="form-description" class="col-sm-3 col-form-label text-nowrap">Description:</label>
             <div class="col-sm-9">
                 <input name="description" class="form-control" id="form-description" type="text" max="100" placeholder="optional"
                        formControlName="description"

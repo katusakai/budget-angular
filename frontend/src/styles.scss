@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+// Bootstrap
 @import "~bootstrap/dist/css/bootstrap.css";
+// Variables
+@import 'src/assets/css/variables';
+
 @import "src/assets/css/forms";
 @import "src/assets/css/social-buttons";
+
+// Money
+@import "src/assets/css/money/tables";
+@import "src/assets/css/money/forms";
