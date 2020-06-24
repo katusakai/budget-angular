@@ -21,7 +21,6 @@ export class MoneyFormComponent implements OnInit {
   public errors: MoneyErrors;
   public message: string;
   public search: string;
-  private timeout: any;
 
   constructor(
     private _modalService: NgbModal,

@@ -14,4 +14,8 @@ export class SubcategoryService {
   get(search: string) {
     return this.http.get(`${environment.backendUri}/subcategory/?search=${search}`);
   }
+
+  store(data) {
+    return this.http.post(`${environment.backendUri}/subcategory`, data);
+  }
 }

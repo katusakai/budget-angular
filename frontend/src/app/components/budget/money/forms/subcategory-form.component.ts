@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Response } from '../../../../models/response';
 import { CategoryService } from '../../../../services/budget/category.service';
 import { Category } from '../../../../models/money/category';
+import { Debounce } from '../../../../helpers/debounce.decorator';
+import { SubcategoryService } from '../../../../services/budget/subcategory.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { SubCategoryErrors } from '../../../../models/errors/SubCategoryErrors';
 
 @Component({
   selector: 'app-subcategory-form',
@@ -10,27 +14,43 @@ import { Category } from '../../../../models/money/category';
 })
 export class SubcategoryFormComponent implements OnInit {
 
-  categories: [Category];
-  search: string;
-  form: any;
-  timeout: any;
-  message: string;
+  @Input() sub_category_name: string;
+
+  public categories: [Category];
+  public search: string;
+  public form: FormGroup;
+  public errors: SubCategoryErrors
+  public message: string;
 
   constructor(
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
+    private _subcategoryService: SubcategoryService,
+    private _formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.search= '';
     this.getCategories();
-    this.form = {
-      id: null,
+    // this.form = {
+    //   id: null,
+    //   category_id: null,
+    //   name: this.sub_category_name,
+    //   visualData: {title: null, button: null},
+    //   method: null,
+    // }
+
+    this.form = this._formBuilder.group({
+      category_id: [''],
+      name: ['']
+    });
+    this.form.setValue({
       category_id: null,
-      name: null,
-      visualData: {title: null, button: null},
-      method: null,
-    }
+      name: this.sub_category_name
+    });
+    this.errors = new SubCategoryErrors();
   }
+
+  get f() { return this.form.controls; }
 
   getCategories() {
     this._categoryService.get(this.search).subscribe((response: Response) => {
@@ -39,14 +59,26 @@ export class SubcategoryFormComponent implements OnInit {
   }
 
   formSubmit() {
-
+    this.create();
   }
 
+  create() {
+    this._subcategoryService.store({
+      category_id: this.f.category_id.value,
+      name: this.f.name.value
+    }).subscribe(
+      (response: Response) => {
+        console.log(response);
+        this.message = response.message;
+        this.errors.clearErrors();
+      },
+      error => this.errors.handleBackend(error.error.error)
+    );
+  }
+
+  @Debounce(1000)
   searchCategories() {
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      this.getCategories();
-    }, 1000)
+    this.getCategories();
   }
 
 }

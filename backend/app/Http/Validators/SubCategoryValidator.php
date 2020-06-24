@@ -11,6 +11,9 @@ class SubCategoryValidator
         return Validator::make($request, [
             'category_id' => 'required|numeric',
             'name' => 'string|required'
+        ],
+        [
+            'category_id.required' => 'Category is required'
         ]);
     }
 }

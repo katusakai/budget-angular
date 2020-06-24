@@ -1,25 +1,33 @@
 <div class="d-block border form-subcategory">
     <div>
-        There is no such subcategory <b>{{form.name}}</b>. Create new?
+<!--        There is no such subcategory <b>{{form.name}}</b>. Create new?-->
     </div>
-    <div class="form-group row">
-        <label for="form-category" class="col-sm-3 col-form-label">Category:</label>
-        <div class="col-sm-9 d-flex">
-            <select class="form-control" id="form-category" name="category"
-                    [(ngModel)]="form.category_id"
-            >
-                <option *ngFor="let category of categories"
-                        value="{{category.id}}}"
-                >{{category.name}}</option>
-            </select>
-            <input class="form-control" type="search" placeholder="search"
-                   [(ngModel)]="search"
-                   (input)="searchCategories()"
-            >
+    <form [formGroup]="form">
+        <div class="form-group row">
+            <label for="form-category" class="col-sm-3 col-form-label">Category:</label>
+            <div class="col-sm-9 d-flex">
+                <select class="form-control" id="form-category" name="category"
+                        formControlName="category_id"
+                >
+                    <option *ngFor="let category of categories"
+                            value="{{category.id}}"
+                    >{{category.name}}</option>
+                </select>
+                <input class="form-control" type="search" placeholder="search"
+                       [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
+                       (input)="searchCategories()"
+                >
+            </div>
+            <app-form-errors class="col-sm-9 offset-sm-3"
+                             [errors]="errors.category_id">
+            </app-form-errors>
+            <app-form-errors class="col-sm-9 offset-sm-3"
+                             [errors]="errors.name">
+            </app-form-errors>
         </div>
-    </div>
+    </form>
 <!--    <category-form v-if="!categories.length" :category-name="search"></category-form>-->
-    <app-category-form *ngIf="!categories.length"></app-category-form>
+    <app-category-form *ngIf="categories && !categories.length"></app-category-form>
     <div>
         <button class="btn btn-success"
                 (click)="formSubmit()"
