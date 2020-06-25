@@ -137,4 +137,9 @@ export class MoneyFormComponent implements OnInit {
     }
   }
 
+  setTwoNumberDecimal() {
+    const value: number = this.f.amount.value;
+    this.f.amount.patchValue(value.toFixed(2));
+  }
+
 }
