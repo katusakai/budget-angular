@@ -28,6 +28,9 @@ export class MoneyComponent implements OnInit {
     this.totalMoney = new TotalMoney();
     this.getThisMonth();
     this.getMonthStatistics();
+    addEventListener('money-update', () => {
+      this.getMonthStatistics();
+    });
   }
 
   getMonthStatistics() {

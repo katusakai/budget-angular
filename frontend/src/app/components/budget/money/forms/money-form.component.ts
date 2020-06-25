@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MoneyErrors } from '../../../../models/errors/MoneyErrors';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { Money } from '../../../../models/money/money';
+import { MoneyEventService } from '../../../../events/money-event.service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class MoneyFormComponent implements OnInit {
     private _subcategoryService: SubcategoryService,
     private _money: MoneyService,
     private _formBuilder: FormBuilder,
+    private _moneyEvent: MoneyEventService
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +65,6 @@ export class MoneyFormComponent implements OnInit {
         this.update();
         break;
     }
-    // this.$root.$emit('getMonthStatistics')
   }
 
   create() {
@@ -75,6 +76,7 @@ export class MoneyFormComponent implements OnInit {
       (response: Response) => {
         this.message = response.message;
         this.errors.clearErrors();
+        dispatchEvent(this._moneyEvent.moneyUpdater);
       },
       error => this.errors.handleBackend(error.error.error)
     );
@@ -89,6 +91,7 @@ export class MoneyFormComponent implements OnInit {
         (response: Response) => {
           this.message = response.message;
           this.errors.clearErrors();
+          dispatchEvent(this._moneyEvent.moneyUpdater);
         },
       error => this.errors.handleBackend(error.error.error)
       );
