@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { UserDataService } from '../auth/user-data.service';
+import { UserIdService } from '../auth/user-id.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,12 @@ export class MoneyService {
 
   constructor(
     private http: HttpClient,
-    private UserData: UserDataService,
+    private _userId: UserIdService
   ) {
   }
 
   getMonthly(date: string) {
-    return this.http.get(`${environment.backendUri}/money/${this.UserData.userId}/${date}`);
+    return this.http.get(`${environment.backendUri}/money/${this._userId.get()}/${date}`);
   }
 
   store(data) {

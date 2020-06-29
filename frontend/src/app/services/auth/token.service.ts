@@ -1,26 +1,14 @@
 import { Injectable } from '@angular/core';
+import { AbstractLocalStorageService } from './abstract-local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TokenService {
-
-  private readonly accessToken: string;
+export class TokenService  extends AbstractLocalStorageService{
 
   constructor() {
-    this.accessToken = 'access_token';
-  }
-
-  set(token) {
-    localStorage.setItem(this.accessToken, token);
-  }
-
-  get() {
-    return localStorage.getItem((this.accessToken));
-  }
-
-  remove() {
-    localStorage.removeItem(this.accessToken);
+    super();
+    this.localStorageKey = 'access_token';
   }
 
   loggedIn() {

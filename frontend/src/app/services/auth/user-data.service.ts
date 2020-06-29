@@ -10,42 +10,33 @@ export class UserDataService {
   public loggedIn: boolean;
   public user: IUser;
   public roles: Array<string>;
-  public userId: number;
-  private oldUserId: number;
 
   constructor(
       private Auth: AuthService,
       private Roles: RolesService,
   ) {
-      addEventListener('role-update', () => {
-          this.getRoles();
-      });
-    this.setUserId();
+    this.setEvents();
     this.set();
   }
 
   private set() {
-      this.Auth.status.subscribe(
-          value => {
-              this.loggedIn = value;
-              if (this.loggedIn) {
+    this.Auth.status.subscribe(
+        value => {
+            this.loggedIn = value;
+            if (this.loggedIn) {
 
-                  this.Auth.getCurrentUser().subscribe((data: IUser)  => {
-                    if(JSON.stringify(data.id) !== JSON.stringify(this.oldUserId)) {
-                      this.oldUserId = data.id;
-                      localStorage.setItem('user_id', JSON.stringify(data.id));
-                    }
-                    this.user  = data
-                  });
+              this.Auth.getCurrentUser().subscribe((data: IUser)  => {
+                this.user  = data
+              });
+              this.getRoles();
 
-                this.getRoles();
-              } else {
-                  delete this.user;
-                  delete this.roles;
-                  this.Roles.remove();
-              }
-          }
-      );
+            } else {
+                delete this.user;
+                delete this.roles;
+                this.Roles.remove();
+            }
+        }
+    );
   }
 
   private getRoles(){
@@ -54,7 +45,9 @@ export class UserDataService {
       });
   }
 
-  private setUserId() {
-    this.userId =  +localStorage.getItem('user_id');
+  private setEvents() {
+    addEventListener('role-update', () => {
+      this.getRoles();
+    });
   }
 }
