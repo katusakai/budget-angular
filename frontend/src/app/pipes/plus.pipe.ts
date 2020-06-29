@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PlusPipe implements PipeTransform {
 
   transform(value: number): string {
-    return value > 0 ? `+${value}` : `${value}`;
+    return value > 0 ? `+${value.toFixed(2)}` : `${value.toFixed(2)}`;
   }
 
 }

@@ -21,14 +21,14 @@
                 </div>
                 <div class="col-md-7">
                     <div>
-                        <div class="chart-name">Expenses this month: {{totalMoney.Expenses}} €</div>
+                        <div class="chart-name">Expenses this month: {{totalMoney.Expenses| number:'1.2-5'}} €</div>
                         <app-expanses-income
                             [money]="money"
                             [dataType]="'expenses'"
                         ></app-expanses-income>
                     </div>
                     <div>
-                        <div class="chart-name">Income this month: {{totalMoney.Income}} €</div>
+                        <div class="chart-name">Income this month: {{totalMoney.Income| number:'1.2-5'}} €</div>
                         <app-expanses-income
                                 [money]="money"
                                 [dataType]="'income'"

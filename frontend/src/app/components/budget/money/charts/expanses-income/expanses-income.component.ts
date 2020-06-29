@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ChartType } from 'angular-google-charts';
 
 @Component({
@@ -6,7 +6,7 @@ import { ChartType } from 'angular-google-charts';
   templateUrl: './expanses-income.component.html',
   styleUrls: ['./expanses-income.component.scss']
 })
-export class ExpansesIncomeComponent implements OnInit {
+export class ExpansesIncomeComponent implements OnChanges  {
 
   @Input() money;
   @Input() dataType;
@@ -18,7 +18,7 @@ export class ExpansesIncomeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
 
     this.type = ChartType.BarChart;
     this.data = [];
@@ -46,43 +46,45 @@ export class ExpansesIncomeComponent implements OnInit {
   };
 
   setDataForExpenses () {
-    for (let i = 0; i < this.money.length; i++) {
-      if (this.money[i].amount >= 0) {
+    for(const spending of this.money) {
+      if (spending.amount >= 0) {
         continue;
       }
       let ifDone = false;
-      for(let k = 0; k < this.data.length; k++){
-        if (this.data[k].includes(this.money[i].category_name)) {
-          this.data[k][1] += (this.money[i].amount * -1);
+
+      for(const sum of this.data) {
+        if (sum.includes(spending.category_name)) {
+          sum[1] += (spending.amount * -1);
           ifDone = true;
           break;
         }
       }
       if (!ifDone) {
-        const row = [this.money[i].category_name, (this.money[i].amount * -1), 'red'];
+        const row = [spending.category_name, (spending.amount * -1), 'red'];
         this.data.push(row);
       }
     }
   };
 
   setDataForIncome() {
-      for (let i = 0; i < this.money.length; i++) {
-        if (this.money[i].amount < 0) {
-          continue;
-        }
-        let ifDone = false;
-        for(let k = 0; k < this.data.length; k++){
-          if (this.data[k].includes(this.money[i].category_name)) {
-            this.data[k][1] += this.money[i].amount;
-            ifDone = true;
-            break;
-          }
-        }
-        if (!ifDone) {
-          const row = [this.money[i].category_name, this.money[i].amount, 'green'];
-          this.data.push(row);
+    for(const spending of this.money) {
+      if (spending.amount < 0) {
+        continue;
+      }
+      let ifDone = false;
+
+      for(const sum of this.data) {
+        if (sum.includes(spending.category_name)) {
+          sum[1] += spending.amount;
+          ifDone = true;
+          break;
         }
       }
+      if (!ifDone) {
+        const row = [spending.category_name, spending.amount, 'green'];
+        this.data.push(row);
+      }
+    }
   };
 
 }
