@@ -11,6 +11,7 @@ import { MoneyFormComponent } from '../components/budget/money/forms/money-form.
 import { SubcategoryFormComponent } from '../components/budget/money/forms/subcategory-form.component';
 import { CategoryFormComponent } from '../components/budget/money/forms/category-form.component';
 import { AppFormModule } from './app-form.module';
+import { AppChartModule } from './app-chart.module';
 
 const  RouteList: Routes = [
   { path: 'monthly', component: MoneyComponent, canActivate: [AfterloginGuard] }
@@ -28,7 +29,8 @@ const  RouteList: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(RouteList),
-    AppFormModule
+    AppFormModule,
+    AppChartModule
   ],
 })
-export class MoneyModule { }
+export class AppMoneyModule { }

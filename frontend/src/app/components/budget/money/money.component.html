@@ -22,17 +22,17 @@
                 <div class="col-md-7">
                     <div>
                         <div class="chart-name">Expenses this month: {{totalMoney.Expenses}} €</div>
-<!--                            <chart-->
-<!--                                    :money="money"-->
-<!--                                    :data-type="'expenses'"-->
-<!--                            ></chart>-->
+                        <app-expanses-income
+                            [money]="money"
+                            [dataType]="'expenses'"
+                        ></app-expanses-income>
                     </div>
                     <div>
                         <div class="chart-name">Income this month: {{totalMoney.Income}} €</div>
-<!--                            <chart-->
-<!--                                    :money="money"-->
-<!--                                    :data-type="'income'"-->
-<!--                            ></chart>-->
+                        <app-expanses-income
+                                [money]="money"
+                                [dataType]="'income'"
+                        ></app-expanses-income>
                     </div>
                 </div>
             </div>
