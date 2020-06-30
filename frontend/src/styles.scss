@@ -5,18 +5,19 @@
 
 // Bootstrap
 @import "~bootstrap/dist/css/bootstrap.css";
+
 // Variables
 @import 'src/assets/css/variables';
 
-@import "src/assets/css/forms";
-@import "src/assets/css/social-buttons";
+// Global styles
+@import "src/assets/css/globals";
+
+//Various
+@import "assets/css/forms";
+@import "assets/css/social-buttons";
 
 // Money
 @import "src/assets/css/money/tables";
 @import "src/assets/css/money/forms";
 
 @import "src/assets/css/charts/charts";
-
-body {
-  font-family: $font-family-sans-serif;
-}
