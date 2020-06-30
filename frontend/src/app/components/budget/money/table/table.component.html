@@ -1,0 +1,27 @@
+<div class="table-responsive">
+    <table class="table border text-nowrap">
+        <thead>
+        <tr>
+            <th scope="col">Pavadinimas(kategorija)</th>
+            <th scope="col">Suma</th>
+            <th scope="col">Data</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let spending of money" class="{{classIncomeExpanses(spending.amount)}}" title="{{spending.description}}">
+            <td class="name-td d-flex justify-content-between">
+                <div>
+                    {{spending.sub_category_name}}({{spending.category_name}})
+                </div>
+                <div>
+                    <i class="far fa-edit pr-2" data-toggle="modal" data-target="#money-form-modal"
+                       (click)="moneyEditForm(spending)"
+                    ></i>
+                </div>
+            </td>
+            <td class="amount-td">{{spending.amount | plus }}</td>
+            <td class="date-td">{{spending.created_at | date: 'MM-dd HH:mm'}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

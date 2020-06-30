@@ -47,3 +47,18 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
 });
+
+Route::group(['middleware' => 'auth:api'], function () {
+
+    Route::get('/category', 'CategoryController@index')->name('category.index');
+    Route::post('/category', 'CategoryController@store')->name('category.store');
+
+    Route::get('/subcategory', 'SubCategoryController@index')->name('subcategory.index');
+    Route::post('/subcategory', 'SubCategoryController@store')->name('subcategory.store');
+
+    Route::get('/money/{user}/{date}', 'MoneyFlowController@index')->name('money.index');
+    Route::post('/money', 'MoneyFlowController@store')->name('money.store');
+    Route::put('/money/{id}', 'MoneyFlowController@update')->name('money.update');
+    Route::delete('/money/{id}', 'MoneyFlowController@destroy')->name('money.destroy');
+
+});

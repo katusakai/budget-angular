@@ -1,0 +1,14 @@
+<div class="d-block border form-category">
+    <div>
+        There is no such category <b>{{f.name.value}}</b>. Create new?
+    </div>
+    <app-form-errors class="col-sm-9 offset-sm-3"
+                     [errors]="errors.name">
+    </app-form-errors>
+    <div>
+        <button class="btn btn-success"
+                (click)="formSubmit()"
+        >Create Category</button>
+    </div>
+    <div class="pt-2" v-if="message">{{message}}</div>
+</div>

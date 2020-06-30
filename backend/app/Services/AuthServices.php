@@ -43,6 +43,7 @@ class AuthServices
     public static function loginData($user) {
         $data['token'] = $user->createToken('MyApp')-> accessToken;
         $data['name']  = $user->name;
+        $data['id'] =  $user->id;
         return $data;
     }
 }

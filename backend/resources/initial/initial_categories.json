@@ -1,0 +1,28 @@
+{
+  "List": [
+    {
+      "Category": "Taxes",
+      "Subcategories": ["Housing loan", "Consumer credit", "Telia", "Municipal taxes"]
+    },
+    {
+      "Category": "Food",
+      "Subcategories": ["Groceries", "Lunch in the canteen", "Gas station snack"]
+    },
+    {
+      "Category": "Car",
+      "Subcategories": ["Fuel", "Repair", "Parts", "Insurance"]
+    },
+    {
+      "Category": "Pet",
+      "Subcategories": ["Food/litter", "Vet"]
+    },
+    {
+      "Category": "Self-care",
+      "Subcategories": ["Haircut", "Manicure", "Massage", "Gym"]
+    },
+    {
+      "Category": "Income",
+      "Subcategories": ["Salary", "Income Source 1", "Income Source 2"]
+    }
+  ]
+}

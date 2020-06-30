@@ -45,6 +45,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $facebook_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFacebookId($value)
  */
 class User extends Authenticatable implements  MustVerifyEmail
 {

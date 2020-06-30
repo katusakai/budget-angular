@@ -12,5 +12,7 @@ class FakeDataSeeder extends Seeder
     public function run()
     {
         $this->call(FakeUsersSeeder::class);
+        $this->call(FakeCategoriesSeeder::class);
+        $this->call(FakeMoneyFlowsTableSeeder::class);
     }
 }

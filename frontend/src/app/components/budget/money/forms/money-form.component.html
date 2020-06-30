@@ -1,0 +1,62 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{visualData.title}}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="form-group row">
+            <label for="form-subcategory" class="col-sm-3 col-form-label text-nowrap">Sub-category:</label>
+            <div class="col-sm-9 d-flex">
+                <select class="form-control" id="form-subcategory" name="subcategory" formControlName="sub_category_id"
+                >
+                    <option *ngFor="let subCategory of subCategories"
+                            value="{{subCategory.id}}"
+                    >{{subCategory.name}} ({{subCategory.category_name}})</option>
+                </select>
+                <input name="search" class="form-control" type="search" placeholder="search"
+                       [(ngModel)]="search" [ngModelOptions]="{standalone: true}"
+                       (input)="searchSubCategories()"
+                >
+            </div>
+            <app-form-errors class="col-sm-9 offset-sm-3"
+                    [errors]="errors.sub_category_id">
+            </app-form-errors>
+        </div>
+        <app-subcategory-form *ngIf="subCategories && !subCategories.length" [sub_category_name]="search"></app-subcategory-form>
+        <div class="form-group row">
+            <label for="form-amount" class="col-sm-3 col-form-label text-nowrap">Money spend:</label>
+            <div class="col-sm-9">
+                <input name="amount" class="form-control" id="form-amount" type="number" required step="0.01" min="-10000000" max="10000000"
+                       formControlName="amount"
+                       (change)="setTwoNumberDecimal()"
+                >
+                <app-form-errors
+                        [errors]="errors.amount">
+                </app-form-errors>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="form-description" class="col-sm-3 col-form-label text-nowrap">Description:</label>
+            <div class="col-sm-9">
+                <input name="description" class="form-control" id="form-description" type="text" max="100" placeholder="optional"
+                       formControlName="description"
+                >
+                <app-form-errors
+                        [errors]="errors.description">
+                </app-form-errors>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-success"
+                    (click)=formSubmit()
+            >{{visualData.button}}</button>
+            <button class="btn btn-danger"
+                    *ngIf="callType.toLowerCase() === 'update'"
+                    (click)=deleteMoney()
+            >Delete</button>
+        </div>
+    </form>
+    <div class="pt-2" *ngIf="message">{{message}}</div>
+</div>
