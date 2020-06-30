@@ -34,7 +34,7 @@ class AlterUsersTableAmount extends Migration
         $this->moneyAmountMigrator->FillDataToTable($data);
 
         Schema::table('money_flows', function (Blueprint $table) {
-            $table->decimal('amount')->change();
+            $table->decimal('amount')->nullable(false)->change();
         });
 
         $this->moneyAmountMigrator->DeleteFile();
