@@ -53,6 +53,7 @@ export class MoneyFormComponent implements OnInit {
   getSubCategories() {
     this._subcategoryService.get(this.search).subscribe((response: Response) => {
       this.subCategories = response.data;
+      this.setSubCategoryOption();
     })
   }
 
@@ -142,4 +143,8 @@ export class MoneyFormComponent implements OnInit {
     this.f.amount.patchValue(value.toFixed(2));
   }
 
+  private setSubCategoryOption() {
+    if (this.callType.toLowerCase() === 'create' && this.subCategories.length)
+      this.form.patchValue({sub_category_id: this.subCategories[0].id});
+  }
 }
