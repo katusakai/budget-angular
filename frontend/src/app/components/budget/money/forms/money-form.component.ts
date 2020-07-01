@@ -77,6 +77,7 @@ export class MoneyFormComponent implements OnInit {
       (response: Response) => {
         this.message = response.message;
         this.errors.clearErrors();
+        this.form.reset();
         dispatchEvent(this._moneyEvent.moneyUpdater);
       },
       error => this.errors.handleBackend(error.error.error)
@@ -106,6 +107,7 @@ export class MoneyFormComponent implements OnInit {
             this.message = response.message;
             this.form.reset();
             this.dismiss('Deleted entry');
+            dispatchEvent(this._moneyEvent.moneyUpdater);
           }
         )
     }

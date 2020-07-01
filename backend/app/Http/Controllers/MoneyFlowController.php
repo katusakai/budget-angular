@@ -42,7 +42,7 @@ class MoneyFlowController extends BaseController
         $moneyFlow = new MoneyFlow();
         $moneyFlow->user_id = auth()->id();
         $moneyFlow->sub_category_id = $request->sub_category_id;
-        $moneyFlow->amount = encrypt(round($request->amount,2));
+        $moneyFlow->amount = round($request->amount,2);
         $moneyFlow->description = $request->description;
         $moneyFlow->save();
 
@@ -81,7 +81,7 @@ class MoneyFlowController extends BaseController
             return $this->sendError('Entry not found');
 
         $moneyFlow->sub_category_id = $request->sub_category_id;
-        $moneyFlow->amount = encrypt(round($request->amount,2));
+        $moneyFlow->amount = round($request->amount,2);
         $moneyFlow->description = $request->description;
         $moneyFlow->save();
 
