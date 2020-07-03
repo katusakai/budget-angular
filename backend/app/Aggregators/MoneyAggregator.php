@@ -38,7 +38,7 @@ class MoneyAggregator
 
     private function aggregate($spending)
     {
-        $spending->amount = floatval(decrypt($spending->amount));
+        $spending->amount = floatval($spending->amount);
     }
 
 }
