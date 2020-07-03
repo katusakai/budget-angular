@@ -9,7 +9,7 @@ class CategoryValidator
 {
     public static function validate($request) {
         return Validator::make($request, [
-            'name' => 'string|required'
+            'name' => 'string|required|unique:categories'
         ]);
     }
 }
