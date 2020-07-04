@@ -19,6 +19,7 @@ class CreateSubCategoriesTable extends Migration
             $table->integer('category_id');
             $table->tinyInteger('deleted')->default(0);
             $table->unique(['name','category_id']);
+            $table->index(['name', 'deleted','category_id']);
         });
     }
 
