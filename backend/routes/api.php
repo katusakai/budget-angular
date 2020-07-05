@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::delete('admin/user/{user}', 'Admin\UserController@destroy');
 
         Route::put('admin/role/{role}/{user}', 'Admin\RoleController@update');
+
+        Route::put('/category/{id}', 'CategoryController@update')->name('category.update');
+        Route::delete('/category/{id}', 'CategoryController@destroy')->name('category.destroy');
     });
 
 });
@@ -51,6 +54,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/category', 'CategoryController@index')->name('category.index');
+    Route::get('/category/{id}', 'CategoryController@show')->name('category.show');
     Route::post('/category', 'CategoryController@store')->name('category.store');
 
     Route::get('/subcategory', 'SubCategoryController@index')->name('subcategory.index');
