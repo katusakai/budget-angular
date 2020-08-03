@@ -45,15 +45,16 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         Route::put('admin/role/{role}/{user}', 'Admin\RoleController@update');
 
-        Route::put('/category/{id}', 'CategoryController@update')->name('category.update');
-        Route::delete('/category/{id}', 'CategoryController@destroy')->name('category.destroy');
+        Route::get('admin/category', 'CategoryController@index')->name('category.index');
+        Route::put('admin/category/{id}', 'CategoryController@update')->name('category.update');
+        Route::delete('admin/category/{id}', 'CategoryController@destroy')->name('category.destroy');
     });
 
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
 
-    Route::get('/category', 'CategoryController@index')->name('category.index');
+    Route::get('/category', 'CategoryController@get')->name('category.get');
     Route::get('/category/{id}', 'CategoryController@show')->name('category.show');
     Route::post('/category', 'CategoryController@store')->name('category.store');
 

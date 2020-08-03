@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="menu-display-type">
+        <div class="menu-mb">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-warning mr-sm-1" data-toggle="modal" data-target="#userFormModal" disabled>Create</button>
+            </div>
+        </div>
+        <div class="menu-display-type">
+            <input class="form-control mr-sm-1 menu-mb" type="search" placeholder="Search" aria-label="Search"
+                   [(ngModel)]="queryParams.search"
+                   (keyup)="searchData()"
+                   (search)="searchData()">
+            <ngb-pagination
+                    *ngIf="categories && collectionSize > queryParams.limit"
+                    class="justify-content-center d-flex"
+                    [(page)]="queryParams.page"
+                    [pageSize]="queryParams.limit"
+                    [collectionSize]="collectionSize"
+                    [maxSize]="3"
+                    (pageChange)="updateList()">
+            </ngb-pagination>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let category of categories">
+                <th scope="row">{{category.id}}</th>
+                <td class="text-nowrap">{{category.name}}</td>
+                <td>
+                    <span class="text-success strikethrough">Update </span>
+                    <span class="text-danger strikethrough">Delete</span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

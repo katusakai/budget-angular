@@ -31,13 +31,6 @@ export class SubcategoryFormComponent implements OnInit {
   ngOnInit(): void {
     this.search= '';
     this.getCategories();
-    // this.form = {
-    //   id: null,
-    //   category_id: null,
-    //   name: this.sub_category_name,
-    //   visualData: {title: null, button: null},
-    //   method: null,
-    // }
 
     this.form = this._formBuilder.group({
       category_id: [''],

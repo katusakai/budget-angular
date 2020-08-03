@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Validators\CategoryValidator;
+use App\Services\QueryParams;
 use App\SubCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,18 +12,52 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends BaseController
 {
+
+    protected $queryParams;
+
     /**
-     * Display a listing of the resource.
+     * CategoryController constructor.
+     * @param QueryParams $queryParams
+     */
+    public function __construct(QueryParams $queryParams)
+    {
+        $this->queryParams = $queryParams;
+    }
+
+
+    /**
+     * Display a listing of the resource for admin.
      *
      * @return JsonResponse
      */
     public function index()
     {
-        $search = request()['search'] && request()['search'] !== '' ? request()['search'] : '%';
+        $categories = Category::where('name', 'like', "%{$this->queryParams->search}%")
+            ->when(in_array($this->queryParams->deleted, [0,1]),
+                function ($query) {
+                    return $query->where('deleted', '=', $this->queryParams->deleted);
+                }
+            )
+            ->orderBy($this->queryParams->order,$this->queryParams->orderDirection)
+            ->paginate($this->queryParams->limit);
+        if ($categories) {
+            $message ='A list of categories have been shown';
+            return $this->sendResponse($categories, $message);
+        } else {
+            return $this->sendError('Data was not found', [], 404);
+        }
+    }
 
+    /**
+     * Display a listing of the resource for user.
+     *
+     * @return JsonResponse
+     */
+    public function get()
+    {
         $categories = DB::table('categories')
             ->select('categories.id', 'categories.name')
-            ->where('categories.name', 'like', "%{$search}%")
+            ->where('categories.name', 'like', "%{$this->queryParams->search}%")
             ->where('categories.deleted', 0)
             ->orderBy('categories.name')
             ->get();

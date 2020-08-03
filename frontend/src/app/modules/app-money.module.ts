@@ -12,9 +12,13 @@ import { SubcategoryFormComponent } from '../components/budget/money/forms/subca
 import { CategoryFormComponent } from '../components/budget/money/forms/category-form.component';
 import { AppFormModule } from './app-form.module';
 import { AppChartModule } from './app-chart.module';
+import { CategoriesComponent } from '../components/budget/money/admin/categories/categories.component';
+import { AdminGuard } from '../guards/admin.guard';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 const  RouteList: Routes = [
-  { path: 'monthly', component: MoneyComponent, canActivate: [AfterloginGuard] }
+  { path: 'monthly', component: MoneyComponent, canActivate: [AfterloginGuard] },
+  { path: 'admin/categories', component: CategoriesComponent, canActivate: [AfterloginGuard, AdminGuard], data: {roles: ['super-admin', 'admin']}}
 ];
 
 @NgModule({
@@ -25,12 +29,14 @@ const  RouteList: Routes = [
     MoneyFormComponent,
     SubcategoryFormComponent,
     CategoryFormComponent,
+    CategoriesComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forRoot(RouteList),
     AppFormModule,
-    AppChartModule
+    AppChartModule,
+    NgbPaginationModule
   ],
 })
 export class AppMoneyModule { }
