@@ -7,14 +7,14 @@
         </div>
         <div class="menu-display-type">
             <input class="form-control mr-sm-1 menu-mb" type="search" placeholder="Search" aria-label="Search"
-                   [(ngModel)]="search"
+                   [(ngModel)]="queryParams.search"
                    (keyup)="searchData()"
                    (search)="searchData()">
             <ngb-pagination
-                    *ngIf="users && collectionSize > limit"
+                    *ngIf="categories && collectionSize > queryParams.limit"
                     class="justify-content-center d-flex"
-                    [(page)]="page"
-                    [pageSize]="limit"
+                    [(page)]="queryParams.page"
+                    [pageSize]="queryParams.limit"
                     [collectionSize]="collectionSize"
                     [maxSize]="3"
                     (pageChange)="updateList()">
@@ -26,27 +26,20 @@
             <thead>
             <tr>
                 <th class="number" scope="col">#</th>
-                <th class="email" scope="col">Email</th>
                 <th class="name" scope="col">Name</th>
-                <th class="roles" scope="col">Roles</th>
                 <th class="actions" scope="col">Actions</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let user of users">
-                <td class="number">{{user.id}}</td>
-                <td class="email">{{user.email}}</td>
-                <td class="name">{{user.name}}</td>
-                <td class="roles">
-                    <div class="form-check form-check-inline text-nowrap"
-                        *ngFor="let role of roles">
-                        <app-roles [role]="role" [userId]="user.id" [userRoles]="user['roles']"></app-roles>
-                    </div>
-                </td>
+            <tr *ngFor="let category of categories">
+                <td class="number" scope="row">{{category.id}}</td>
+                <td class="name">{{category.name}}</td>
                 <td class="actions">
                     <span class="text-success strikethrough">Update </span>
                     <span class="text-danger strikethrough">Delete</span>
                 </td>
+                <td></td>
             </tr>
 
             </tbody>

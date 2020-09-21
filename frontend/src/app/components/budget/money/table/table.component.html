@@ -2,14 +2,14 @@
     <table class="table border text-nowrap">
         <thead>
         <tr>
-            <th scope="col">Pavadinimas(kategorija)</th>
-            <th scope="col">Suma</th>
-            <th scope="col">Data</th>
+            <th class="name" scope="col">Pavadinimas(kategorija)</th>
+            <th class="amount" scope="col">Suma</th>
+            <th class="date" scope="col">Data</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let spending of money" class="{{classIncomeExpanses(spending.amount)}}" title="{{spending.description}}">
-            <td class="name-td d-flex justify-content-between">
+            <td class="name d-flex justify-content-between">
                 <div>
                     {{spending.sub_category_name}}({{spending.category_name}})
                 </div>
@@ -19,8 +19,8 @@
                     ></i>
                 </div>
             </td>
-            <td class="amount-td">{{spending.amount | plus }}</td>
-            <td class="date-td">{{spending.created_at | date: 'MM-dd HH:mm'}}</td>
+            <td class="amount">{{spending.amount | plus }}</td>
+            <td class="date">{{spending.created_at | date: 'MM-dd HH:mm'}}</td>
         </tr>
         </tbody>
     </table>

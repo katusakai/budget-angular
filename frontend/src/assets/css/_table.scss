@@ -1,0 +1,21 @@
+table.table {
+    th,
+    td {
+			&.number {
+					width: 1rem;
+			}
+			
+			&.name,
+			&.actions,
+			&.email {
+				width: 15rem;
+				white-space: normal;
+			}
+
+		}
+		
+		@media screen and (max-width: 360px) {
+			padding: 2px;
+			font-size: 12px;
+		}
+}
