@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware\Configuration;
 
-use App\Configuration;
+use App\Models\Configuration;
 use App\Http\Traits\ResponseTrait;
 use Closure;
 

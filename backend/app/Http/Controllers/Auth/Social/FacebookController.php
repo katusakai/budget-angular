@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Auth\Social;
 
 use App\Http\Controllers\BaseController;
 use App\Services\AuthServices;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FacebookController extends BaseController

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders\Fake;
 
-use App\User;
+use App\Models\User;
 use DateTime;
 use Illuminate\Database\Seeder;
-use App\MoneyFlow;
+use App\Models\MoneyFlow;
 use App\Services\RandomDate;
 use Illuminate\Support\Facades\DB;
 

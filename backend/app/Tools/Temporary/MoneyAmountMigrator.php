@@ -4,7 +4,7 @@
 namespace App\Tools\Temporary;
 
 
-use App\MoneyFlow;
+use App\Models\MoneyFlow;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Storage;
 

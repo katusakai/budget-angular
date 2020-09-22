@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Aggregators\MoneyAggregator;
 use App\Http\Validators\MoneyValidator;
-use App\MoneyFlow;
-use App\User;
+use App\Models\MoneyFlow;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
