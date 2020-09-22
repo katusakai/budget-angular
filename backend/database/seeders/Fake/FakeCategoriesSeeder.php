@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders\Fake;
+
 use App\Services\InitialCategoriesList;
 use Illuminate\Database\Seeder;
 use App\Category;

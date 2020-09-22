@@ -1,5 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
+use Database\Seeders\Fake\FakeCategoriesSeeder;
+use Database\Seeders\Fake\FakeMoneyFlowsTableSeeder;
+use Database\Seeders\Fake\FakeUsersSeeder;
 use Illuminate\Database\Seeder;
 
 class FakeDataSeeder extends Seeder

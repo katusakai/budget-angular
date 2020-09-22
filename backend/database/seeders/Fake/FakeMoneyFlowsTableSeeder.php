@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders\Fake;
+
 use App\User;
+use DateTime;
 use Illuminate\Database\Seeder;
 use App\MoneyFlow;
 use App\Services\RandomDate;
