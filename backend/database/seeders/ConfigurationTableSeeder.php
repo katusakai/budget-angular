@@ -1,6 +1,8 @@
 <?php
 
-use App\Configuration;
+namespace Database\Seeders;
+
+use App\Models\Configuration;
 use Illuminate\Database\Seeder;
 
 class ConfigurationTableSeeder extends Seeder

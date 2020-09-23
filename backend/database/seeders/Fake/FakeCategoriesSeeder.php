@@ -1,9 +1,11 @@
 <?php
 
+namespace Database\Seeders\Fake;
+
 use App\Services\InitialCategoriesList;
 use Illuminate\Database\Seeder;
-use App\Category;
-use App\SubCategory;
+use App\Models\Category;
+use App\Models\SubCategory;
 
 class FakeCategoriesSeeder extends Seeder
 {

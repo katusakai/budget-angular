@@ -4,7 +4,7 @@
 namespace App\Aggregators;
 
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class MoneyAggregator

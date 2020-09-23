@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +7,18 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular
 export class SocialLoginService {
 
   constructor(
-      private _AuthService: AuthService
+      private _SocialAuthService: SocialAuthService
   ) { }
 
   signInWithGoogle() {
-    return this._AuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    return this._SocialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signInWithFacebook() {
-    return this._AuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    return this._SocialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   signOut(): void {
-    this._AuthService.signOut();
+    this._SocialAuthService.signOut();
   }
 }

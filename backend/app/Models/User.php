@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +9,7 @@ use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\User
+ * App\Models\User
  *
  * @property int $id
  * @property string $name
@@ -30,23 +30,23 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @property-read int|null $tokens_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User permission($permissions)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User role($roles, $guard = null)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereGoogleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User role($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGoogleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property string|null $facebook_id
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFacebookId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFacebookId($value)
  */
 class User extends Authenticatable implements  MustVerifyEmail
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Models\Category;
 use App\Http\Validators\CategoryValidator;
 use App\Services\QueryParams;
-use App\SubCategory;
+use App\Models\SubCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

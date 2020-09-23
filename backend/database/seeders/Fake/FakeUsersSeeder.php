@@ -1,6 +1,8 @@
 <?php
 
-use App\User;
+namespace Database\Seeders\Fake;
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
