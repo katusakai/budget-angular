@@ -18,14 +18,20 @@ class FakeCategoriesSeeder extends Seeder
     public function run(InitialCategoriesList $initialCategoriesList)
     {
         foreach ($initialCategoriesList->get() as $category) {
-            $newCategory = new Category();
-            $newCategory->name = $category->Category;
-            $newCategory->save();
+            if (Category::where('name', '=', $category->Category)) {
+                continue;
+            }
+
+            $newCategory = Category::factory(['name' => $category->Category])->create()->first();
             foreach ($category->Subcategories as $subCategory) {
                 $newSubCategory = new SubCategory();
                 $newSubCategory->name = $subCategory;
                 $newSubCategory->category_id = $newCategory->id;
-                $newSubCategory->save();
+                $data = [
+                    'name' => $subCategory,
+                    'category_id' => $newCategory->id
+                ];
+                SubCategory::factory($data)->create();
             }
         }
     }

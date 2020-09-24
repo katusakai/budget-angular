@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\MoneyFlow
  *
@@ -28,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MoneyFlow whereUserId($value)
  * @mixin \Eloquent
  */
-class MoneyFlow extends Model
+class MoneyFlow extends AbstractModel
 {
     //
 }

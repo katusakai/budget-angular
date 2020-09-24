@@ -14,12 +14,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $newUser                  = new User();
-        $newUser->name            = env('ADMIN_NAME');
-        $newUser->email           = env('ADMIN_EMAIL');
-        $newUser->password        = bcrypt(env('ADMIN_PASSWORD'));
-        $newUser->assignRole(['super-admin', 'admin']);
-        $newUser->save();
-
+        $data = [
+            'name' => env('ADMIN_NAME'),
+            'email' => env('ADMIN_EMAIL'),
+            'password' => bcrypt(env('ADMIN_PASSWORD'))
+            ];
+        $user = User::factory(1)->create($data)->first();
+        $user->assignRole(['super-admin', 'admin']);;
     }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\SubCategory
  *
@@ -20,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SubCategory whereName($value)
  * @mixin \Eloquent
  */
-class SubCategory extends Model
+class SubCategory extends AbstractModel
 {
     public $timestamps = false;
 }
