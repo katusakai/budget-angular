@@ -18,7 +18,7 @@ class FakeCategoriesSeeder extends Seeder
     public function run(InitialCategoriesList $initialCategoriesList)
     {
         foreach ($initialCategoriesList->get() as $category) {
-            if (Category::where('name', '=', $category->Category)) {
+            if (Category::where('name', '=', $category->Category)->first()) {
                 continue;
             }
 
