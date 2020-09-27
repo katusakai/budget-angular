@@ -34,7 +34,7 @@ class CategoryController extends BaseController
     public function index(): JsonResponse
     {
         $categories = $this->categoryService->getAll();
-        if ($categories) {
+        if ($categories['data']) {
             $message ='A list of categories have been shown';
             return $this->sendResponse($categories, $message);
         } else {
