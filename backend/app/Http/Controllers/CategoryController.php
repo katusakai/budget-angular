@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Validators\CategoryValidator;
-use App\Services\QueryParams;
+use App\Services\CategoryService;
 use App\Models\SubCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,34 +12,28 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends BaseController
 {
-
-    protected $queryParams;
+    /**
+     * Service for controller
+     * @var CategoryService
+     */
+    protected CategoryService $categoryService;
 
     /**
      * CategoryController constructor.
-     * @param QueryParams $queryParams
+     * @param CategoryService $categoryService
      */
-    public function __construct(QueryParams $queryParams)
+    public function __construct(CategoryService $categoryService)
     {
-        $this->queryParams = $queryParams;
+        $this->categoryService = $categoryService;
     }
-
 
     /**
      * Display a listing of the resource for admin.
-     *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $categories = Category::where('name', 'like', "%{$this->queryParams->search}%")
-            ->when(in_array($this->queryParams->deleted, [0,1]),
-                function ($query) {
-                    return $query->where('deleted', '=', $this->queryParams->deleted);
-                }
-            )
-            ->orderBy($this->queryParams->order,$this->queryParams->orderDirection)
-            ->paginate($this->queryParams->limit);
+        $categories = $this->categoryService->getAll();
         if ($categories) {
             $message ='A list of categories have been shown';
             return $this->sendResponse($categories, $message);
