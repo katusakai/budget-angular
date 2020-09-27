@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * App\BaseConfiguration
  *
@@ -16,7 +18,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Configuration whereValue($value)
  * @mixin \Eloquent
  */
-class Configuration extends AbstractModel
+class Configuration extends Model
 {
     public $timestamps = false;
 }

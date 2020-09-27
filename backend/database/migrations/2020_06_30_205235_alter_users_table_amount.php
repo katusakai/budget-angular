@@ -48,6 +48,8 @@ class AlterUsersTableAmount extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('money_flows', function (Blueprint $table) {
+            $table->string('amount', 255)->nullable(false)->change();
+        });
     }
 }

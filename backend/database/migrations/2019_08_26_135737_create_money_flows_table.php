@@ -22,7 +22,6 @@ class CreateMoneyFlowsTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
             $table->index(['user_id', 'sub_category_id']);
-            $table->index(['user_id', 'deleted','created_at']);
         });
     }
 

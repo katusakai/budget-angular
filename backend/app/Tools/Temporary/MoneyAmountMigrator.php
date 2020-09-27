@@ -4,14 +4,14 @@
 namespace App\Tools\Temporary;
 
 
-use App\Models\MoneyFlow;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MoneyAmountMigrator
 {
 
-    protected $fileName;
+    protected string $fileName;
 
     public function __construct()
     {
@@ -20,9 +20,9 @@ class MoneyAmountMigrator
 
     public function ExportToJson()
     {
-        $money = MoneyFlow::all(['id','amount'])
-            ->toJson(JSON_PRETTY_PRINT)
-        ;
+        $money = DB::table('money_flows')
+            ->select('money_flows.id', 'money_flows.amount')
+            ->get()->toJson(JSON_PRETTY_PRINT);
         Storage::disk()->put($this->fileName, $money);
         echo "### Amount data exported to {$this->fileName}\n";
     }
@@ -46,12 +46,7 @@ class MoneyAmountMigrator
 
     public function ClearAmountFromTable()
     {
-        $money = MoneyFlow::all();
-        foreach ($money as $spending)
-        {
-            $spending->amount = null;
-            $spending->save();
-        }
+        DB::table('money_flows')->update(['amount' => null]);
         echo "### Amount data was cleared from money_flow table\n";
     }
 
@@ -69,12 +64,12 @@ class MoneyAmountMigrator
                 continue;
             }
 
-            $spending = MoneyFlow::find($money->id);
-            $spending->amount = $newAmount;
-            $spending->save();
+            DB::table('money_flows')
+                ->where('id', $money->id)
+                ->update(['amount' => $newAmount]);
             $success++;
         }
-        echo "### Amount data transferred back to money_flow table\n";
+            echo "### Amount data transferred back to money_flow table\n";
         echo "### Successful: {$success}, Failed: {$fail}\n";
-     }
- }
+    }
+}
