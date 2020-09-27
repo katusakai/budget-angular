@@ -20,12 +20,17 @@ class CategoryTest extends TestCase
 
     public function testIndexLimit(): void
     {
+        $categories = Category::factory()->count(2)->create();
         $limit = 2;
         $response = $this->actingAs($this->adminUser, 'api')
             ->withHeaders(['Accept' => 'application/json'])
             ->json('GET', '/api/admin/category', ['limit' => $limit]);
         $response->assertStatus(200);
         $this->assertTrue(count($response->json('data')['data']) === $limit);
+
+        $categories->each(function ($category) {
+           $category->forceDelete();
+        });
     }
 
     public function testIndexSearch(): void
