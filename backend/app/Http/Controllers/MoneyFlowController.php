@@ -2,28 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Aggregators\MoneyAggregator;
 use App\Http\Validators\MoneyValidator;
 use App\Models\MoneyFlow;
 use App\Models\User;
+use App\Services\MoneyFlowService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class MoneyFlowController extends BaseController
 {
     /**
+     * Service for controller
+     * @var MoneyFlowService
+     */
+    protected MoneyFlowService $moneyFlowService;
+
+    /**
+     * MoneyFlowController constructor.
+     * @param MoneyFlowService $moneyFlowService
+     */
+    public function __construct(MoneyFlowService $moneyFlowService)
+    {
+        $this->moneyFlowService = $moneyFlowService;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param User $user
      * @param string $date
-     * @param MoneyAggregator $moneyAggregator
      * @return JsonResponse
+     * @throws \Exception
      */
-    public function index(User $user, string $date, MoneyAggregator $moneyAggregator)
+    public function index(User $user, string $date): JsonResponse
     {
-        $money = $moneyAggregator->getMonthly($user, $date);
-
-        return $this->sendResponse($money, '');
+        $money = $this->moneyFlowService->getMonthly($user, $date);
+        return $this->sendResponse($money, 'A list of transactions have been shown');
     }
 
     /**

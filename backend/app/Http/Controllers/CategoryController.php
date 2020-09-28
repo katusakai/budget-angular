@@ -8,7 +8,6 @@ use App\Services\CategoryService;
 use App\Models\SubCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CategoryController extends BaseController
 {
@@ -49,13 +48,9 @@ class CategoryController extends BaseController
      */
     public function get()
     {
-        $categories = DB::table('categories')
-            ->select('categories.id', 'categories.name')
-            ->where('categories.name', 'like', "%{$this->queryParams->search}%")
-            ->where('categories.deleted', 0)
-            ->orderBy('categories.name')
-            ->get();
-        return $this->sendResponse($categories, '');
+        $categories = $this->categoryService->getForUser();
+
+        return $this->sendResponse($categories, 'A list of categories have been shown');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\CategoryRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class CategoryService
 {
@@ -28,6 +29,14 @@ class CategoryService
     public function getAll(): LengthAwarePaginator
     {
         return $this->categoryRepository->getAll();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getForUser():Collection
+    {
+        return $this->categoryRepository->getForUser();
     }
 
 }

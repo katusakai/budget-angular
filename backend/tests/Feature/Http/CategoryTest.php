@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http;
 
 use App\Models\Category;
+use App\Models\User;
 use Tests\Feature\AdminUser;
 use Tests\TestCase;
 
@@ -46,5 +47,27 @@ class CategoryTest extends TestCase
 
         $this->assertTrue($response->json('data')['data'][0]['name'] === $name);
         $category->forceDelete();
+    }
+
+    public function testGet()
+    {
+        $user = User::factory()->create();
+        $category = Category::factory()->create();
+        $categoryArray = [
+            'id' => $category['id'],
+            'name' => $category['name']
+        ];
+        $response = $this->actingAs($user, 'api')
+            ->withHeaders(['Accept' => 'application/json'])
+            ->json('GET', '/api/category');
+
+        try {
+            $responseData = $response->json('data');
+            $response->assertStatus(200);
+            $this->assertTrue(in_array($categoryArray, $responseData));
+        } finally {
+            $category->forceDelete();
+            $user->forceDelete();
+        }
     }
 }

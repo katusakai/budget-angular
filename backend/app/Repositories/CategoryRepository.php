@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Category;
 use App\Services\QueryParams;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class CategoryRepository
 {
@@ -41,5 +42,18 @@ class CategoryRepository
             ->where('name', 'like', "%{$this->queryParams->search}%")
             ->orderBy($this->queryParams->order,$this->queryParams->orderDirection)
             ->paginate($this->queryParams->limit);
+    }
+
+    /**
+     * Query to get all categories according to request
+     * @return Collection
+     */
+    public function getForUser(): Collection
+    {
+        return $this->category
+            ->select(['id', 'name'])
+            ->where('name', 'like', "%{$this->queryParams->search}%")
+            ->orderBy($this->queryParams->order,$this->queryParams->orderDirection)
+            ->get();
     }
 }
