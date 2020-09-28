@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Validators\SubCategoryValidator;
 use App\Models\SubCategory;
+use App\Services\SubCategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SubCategoryController extends BaseController
 {
+    protected SubCategoryService $subCategoryService;
+
+    /**
+     * SubCategoryController constructor.
+     * @param SubCategoryService $subCategoryService
+     */
+    public function __construct(SubCategoryService $subCategoryService)
+    {
+        $this->subCategoryService = $subCategoryService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,17 +28,13 @@ class SubCategoryController extends BaseController
      */
     public function index()
     {
-        $search = request()['search'] && request()['search'] !== '' ? request()['search'] : '%';
-
-        $subCategories = DB::table('sub_categories')
-            ->join('categories', 'categories.id', '=', 'sub_categories.category_id')
-            ->select('sub_categories.id', 'sub_categories.name', 'categories.name AS category_name')
-            ->where('sub_categories.name', 'like', "%{$search}%")
-            ->orWhere('categories.name', 'like', "%{$search}%")
-            ->where('sub_categories.deleted', 0)
-            ->orderBy('sub_categories.name')
-            ->get();
-        return $this->sendResponse($subCategories, '');
+        $subCategories = $this->subCategoryService->getAll();
+        if (count($subCategories)) {
+            $message ='A list of subcategories have been shown';
+            return $this->sendResponse($subCategories, $message);
+        } else {
+            return $this->sendError('Data was not found', [], 404);
+        }
     }
 
     /**

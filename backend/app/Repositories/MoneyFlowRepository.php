@@ -48,7 +48,6 @@ class MoneyFlowRepository
             ->whereUserId($user->id)
             ->whereYear('created_at', $year)
             ->whereMonth('created_at', $month)
-            ->orderBy('created_at', 'desc')
             ->select([
                 'money_flows.id',
                 'money_flows.user_id',
@@ -60,6 +59,7 @@ class MoneyFlowRepository
                 'categories.name AS category_name'])
             ->join('sub_categories', 'sub_categories.id', '=', 'sub_category_id')
             ->join('categories', 'categories.id', '=', 'sub_categories.category_id')
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 }
