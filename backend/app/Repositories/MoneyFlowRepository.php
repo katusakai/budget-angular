@@ -44,7 +44,7 @@ class MoneyFlowRepository
         $year = $date->format('Y');
         $month = $date->format('m');
 
-        $money = MoneyFlow::query()
+        return MoneyFlow::query()
             ->whereUserId($user->id)
             ->whereYear('created_at', $year)
             ->whereMonth('created_at', $month)
@@ -61,16 +61,5 @@ class MoneyFlowRepository
             ->join('sub_categories', 'sub_categories.id', '=', 'sub_category_id')
             ->join('categories', 'categories.id', '=', 'sub_categories.category_id')
             ->get();
-        foreach ($money as $key => $spending) {
-            $this->aggregate($spending);
-            $money[$key] = $spending;
-        }
-
-        return $money;
-    }
-
-    private function aggregate($spending)
-    {
-        $spending->amount = floatval($spending->amount);
     }
 }
