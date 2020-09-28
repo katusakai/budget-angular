@@ -12,10 +12,12 @@ class CategoryTest extends TestCase
 
     public function testIndex(): void
     {
+        $category = Category::factory()->create();
         $response = $this->actingAs($this->adminUser, 'api')
                     ->withHeaders(['Accept' => 'application/json'])
                     ->json('GET', '/api/admin/category');
         $response->assertStatus(200);
+        $category->forceDelete();
     }
 
     public function testIndexLimit(): void
@@ -36,7 +38,7 @@ class CategoryTest extends TestCase
     public function testIndexSearch(): void
     {
         $name = 'TestCategoryName';
-        $category = Category::factory(['name' => $name])->create()->first();
+        $category = Category::factory(['name' => $name])->create();
         $response = $this->actingAs($this->adminUser, 'api')
             ->withHeaders(['Accept' => 'application/json'])
             ->json('GET', '/api/admin/category', ['search' => $name]);

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * App\Models\MoneyFlow
  *
@@ -25,8 +27,30 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MoneyFlow whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MoneyFlow whereUserId($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\SubCategory $subCategory
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|MoneyFlow whereDeletedAt($value)
  */
 class MoneyFlow extends AbstractModel
 {
-    //
+    /**
+     * Returns user of this transaction entry
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Returns subcategory of this transaction entry
+     *
+     * @return BelongsTo
+     */
+    public function subCategory(): BelongsTo
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
 }
