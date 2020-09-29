@@ -6,10 +6,13 @@ use App\Http\Validators\CategoryValidator;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class CategoryService
 {
@@ -63,10 +66,10 @@ class CategoryService
      * @return Category
      * @throws Exception
      */
-    public function specific(int $id): Category
+    public function getById(int $id): Category
     {
         try {
-            $category = $this->categoryRepository->getSpecific($id);
+            $category = $this->categoryRepository->getById($id);
         } catch (Exception $error) {
             throw new Exception();
         }
@@ -74,4 +77,64 @@ class CategoryService
         return $category;
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return Category
+     * @throws Throwable
+     */
+    public function updateData(Request $request, int $id): Category
+    {
+        $category = Category::find($id);
+        if (!$category) {
+            throw new Exception('Category not found',404);
+        }
+        if ($category->name === $request['name']) {
+            throw new Exception('Category name did not change',400);
+        }
+
+        $validator = CategoryValidator::validate($request->all());
+        if($validator->fails()){
+            throw new InvalidArgumentException($validator->errors());
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $category = $this->categoryRepository->update($request, $id);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+            throw new InvalidArgumentException('Unable to update post data');
+        }
+
+        DB::commit();;
+
+        return $category;
+    }
+
+    /**
+     * @param int $id
+     * @return Category
+     * @throws Exception|Throwable
+     */
+    public function deleteById(int $id): Category
+    {
+        $category = Category::find($id);
+        if (!$category) {
+            throw new Exception('Category not found',404);
+        }
+
+        DB::beginTransaction();
+        try {
+            $category = $this->categoryRepository->delete($id);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+            throw new InvalidArgumentException('Unable to delete post data');
+        }
+
+        DB::commit();
+        return $category;
+    }
 }

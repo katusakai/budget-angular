@@ -133,6 +133,54 @@ class CategoryTest extends TestCase
         } finally {
             $user->forceDelete();
         }
+    }
+
+    public function testUpdate()
+    {
+        $newName = 'TestCategoryName';
+        $category = Category::factory()->create();
+        $data = ['name' => $newName];
+        try {
+            $response = $this->actingAs($this->adminUser, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('PUT', "/api/admin/category/{$category['id']}", $data);
+
+            $responseData = $response->json('data');
+            $response->assertStatus(200);
+            $this->assertTrue($responseData['name'] === $newName);
+
+            // Test again with same values
+            $response = $this->actingAs($this->adminUser, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('PUT', "/api/admin/category/{$category['id']}", $data);
+            $response->assertStatus(400);
+        } finally {
+            $category->forceDelete();
+        }
+    }
+
+    public function testDestroy()
+    {
+        $category = Category::factory()->create();
+        $data = ['name' => $category['name']];
+        $this->assertDatabaseHas('categories', $data);
+
+        try {
+            $response = $this->actingAs($this->adminUser, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('DELETE', "/api/admin/category/{$category['id']}");
+            $responseData = $response->json('data');
+            $response->assertStatus(200);
+            $this->assertTrue($category['name'] === $responseData['name']);
+
+            // Call again
+            $response = $this->actingAs($this->adminUser, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('DELETE', "/api/admin/category/{$category['id']}");
+            $response->assertStatus(404);
+        } finally {
+            $category->forceDelete();
+        }
 
     }
 }

@@ -77,12 +77,38 @@ class CategoryRepository
      * @return Category
      * @throws Exception
      */
-    public function getSpecific(int $id): Category
+    public function getById(int $id): Category
     {
         $category = $this->category->find($id);
         if (!$category) {
             throw new Exception();
         }
+        return $category;
+    }
+
+    /**
+     * Updates category
+     * @param $data
+     * @param $id
+     * @return Category
+     */
+    public function update($data, $id): Category
+    {
+        $category = $this->category->find($id);
+        $category->name = $data['name'];
+        $category->update();
+        return $category;
+    }
+
+    /**
+     * @param int $id
+     * @return Category
+     * @throws Exception
+     */
+    public function delete(int $id): Category
+    {
+        $category = $this->category->find($id);
+        $category->delete();
         return $category;
     }
 }

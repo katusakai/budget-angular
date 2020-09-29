@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Http\Validators\CategoryValidator;
 use App\Services\CategoryService;
-use App\Models\SubCategory;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Throwable;
 
 class CategoryController extends BaseController
 {
@@ -50,7 +48,6 @@ class CategoryController extends BaseController
     public function get()
     {
         $categories = $this->categoryService->getForUser();
-
         return $this->sendResponse($categories, 'A list of categories have been shown');
     }
 
@@ -79,7 +76,7 @@ class CategoryController extends BaseController
     public function show(int $id): JsonResponse
     {
         try {
-            $category = $this->categoryService->specific($id);
+            $category = $this->categoryService->getById($id);
             return $this->sendResponse($category, 'Category was found');
         } catch (Exception $e) {
             return $this->sendError('Category was not found');
@@ -92,27 +89,19 @@ class CategoryController extends BaseController
      * @param Request $request
      * @param int $id
      * @return JsonResponse
+     * @throws Throwable
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        $category = Category::find($id);
-
-        if (!$category)
-            return $this->sendError('Category not found');
-
-        if ($category->name === $request->name)
-            return $this->sendResponse($category, 'Category name did not change');
-
-        $validator = CategoryValidator::validate($request->all());
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+        try {
+            $category = $this->categoryService->updateData($request, $id);
+            return $this->sendResponse($category, 'Category was updated');
+        } catch (Exception $e) {
+            if ($e->getCode() !== 0) {
+                return $this->sendError($e->getMessage(), [], $e->getCode());
+            }
+            return $this->sendError('Errors occurred.', json_decode($e->getMessage()));
         }
-
-        $category->name = $request->name;
-        $category->save();
-
-        return $this->sendResponse($category, 'Category was updated');
     }
 
     /**
@@ -120,20 +109,18 @@ class CategoryController extends BaseController
      *
      * @param int $id
      * @return JsonResponse
+     * @throws Throwable
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        $category = Category::find($id);
-
-        if ($category === null)
-            return $this->sendError('Category not found');
-
-        $subcategories = SubCategory::where('category_id', $category->id)->get();
-        if (count($subcategories))
-            return $this->sendError('Cannot delete category, because it has subcategories','',403);
-
-        $category->deleted = 1;
-        $category->save();
-        return $this->sendResponse($category, 'Category was deleted');
+        try {
+            $category = $this->categoryService->deleteById($id);
+            return $this->sendResponse($category, 'Category was deleted');
+        } catch (Exception $e) {
+            if ($e->getCode() !== 0) {
+                return $this->sendError($e->getMessage(), [], $e->getCode());
+            }
+            return $this->sendError('Errors occurred.', json_decode($e->getMessage()));
+        }
     }
 }
