@@ -2,8 +2,12 @@
 
 namespace App\Services;
 
+use App\Http\Validators\SubCategoryValidator;
+use App\Models\SubCategory;
 use App\Repositories\SubCategoryRepository;
 use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class SubCategoryService
 {
@@ -28,5 +32,19 @@ class SubCategoryService
     public function getAll(): Collection
     {
         return $this->subCategoryRepository->getAll();
+    }
+
+    /**
+     * @param Request $request
+     * @return SubCategory
+     */
+    public function saveData(Request $request): SubCategory
+    {
+        $validator = SubCategoryValidator::validate($request->all());
+        if($validator->fails()){
+            throw new InvalidArgumentException($validator->errors());
+        }
+
+        return $this->subCategoryRepository->save($request);
     }
 }

@@ -90,8 +90,8 @@ class CategoryTest extends TestCase
                 ->withHeaders(['Accept' => 'application/json'])
                 ->json('POST', '/api/category', $data);
             $response->assertStatus(404);
-            $responseData = $response->json('error');
-            $this->assertTrue($responseData['name'] ===  ['The name has already been taken.']);
+            $responseError = $response->json('error');
+            $this->assertArrayHasKey('name', $responseError);
 
         } finally {
             $user->forceDelete();

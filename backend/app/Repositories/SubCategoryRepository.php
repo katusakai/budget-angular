@@ -49,4 +49,18 @@ class SubCategoryRepository
             ->orderBy($this->queryParams->order,$this->queryParams->orderDirection)
             ->get();
     }
+
+    /**
+     * Save SubCategory
+     * @param $data
+     * @return SubCategory
+     */
+    public function save($data): SubCategory
+    {
+        $subCategory = new SubCategory();
+        $subCategory->name = $data['name'];
+        $subCategory->category_id = $data['category_id'];
+        $subCategory->save();
+        return $subCategory->fresh();
+    }
 }

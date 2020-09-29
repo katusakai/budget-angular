@@ -9,13 +9,19 @@ use Illuminate\Validation\Rule;
 class SubCategoryValidator
 {
     public static function validate($request) {
-        return Validator::make($request, [
-            'category_id' => 'required|numeric',
-            'name' => ['string','required',
+        if (array_key_exists ('category_id', $request)) {
+            $uniqueCategoryAndNameRule =
                 Rule::unique('sub_categories')->where(function ($query) use($request) {
                     return $query->where('name', $request['name'])
                         ->where('category_id', $request['category_id']);
-                }),
+                 });
+        } else {
+            $uniqueCategoryAndNameRule = null;
+        }
+
+        return Validator::make($request, [
+            'category_id' => 'required|numeric',
+            'name' => ['string','required', $uniqueCategoryAndNameRule,
             ]
         ],
         [

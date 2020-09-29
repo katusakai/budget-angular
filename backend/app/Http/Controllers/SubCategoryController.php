@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Validators\SubCategoryValidator;
-use App\Models\SubCategory;
 use App\Services\SubCategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Exception;
 
 class SubCategoryController extends BaseController
 {
@@ -45,16 +44,12 @@ class SubCategoryController extends BaseController
      */
     public function store(Request $request)
     {
-        $validator = SubCategoryValidator::validate($request->all());
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+        try {
+            $category = $this->subCategoryService->saveData($request);
+            return $this->sendResponse($category, 'SubCategory was created', 201);
+        } catch (Exception $e) {
+            return $this->sendError('Validation Error', json_decode($e->getMessage()));
         }
-        $subCategory = new SubCategory();
-        $subCategory->category_id = $request->category_id;
-        $subCategory->name = $request->name;
-        $subCategory->save();
-        return $this->sendResponse($subCategory, 'Subcategory was created');
     }
 
     /**

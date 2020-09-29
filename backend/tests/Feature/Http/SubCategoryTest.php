@@ -44,4 +44,39 @@ class SubCategoryTest extends TestCase
             $user->forceDelete();
         }
     }
+
+    public function testStore()
+    {
+        $user = User::factory()->create();
+        $category = Category::factory()->create();
+        $name = 'TestingCategoryName';
+        $data = [
+            'name' => $name,
+            'category_id' => $category['id']
+        ];
+
+        try {
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('POST', '/api/subcategory', $data);
+            $responseData = $response->json('data');
+            $response->assertStatus(201);
+            $this->assertTrue($responseData['name'] ===  $name);
+            $this->assertTrue($responseData['category_id'] ===  $category['id']);
+
+            // Test again with existing data
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('POST', '/api/subcategory', $data);
+            $response->assertStatus(404);
+            $responseError = $response->json('error');
+            $this->assertArrayHasKey('name', $responseError);
+
+        } finally {
+            $user->forceDelete();
+            $subCategory = SubCategory::whereName($name)->get()[0];
+            $subCategory->forceDelete();
+            $category->forceDelete();
+        }
+    }
 }
