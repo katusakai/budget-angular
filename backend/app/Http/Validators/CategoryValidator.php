@@ -10,12 +10,7 @@ class CategoryValidator
 {
     public static function validate($request) {
         return Validator::make($request, [
-            'name' => ['string','required',
-                Rule::unique('categories')->where(function ($query) use($request) {
-                    return $query->where('name', $request['name'])
-                        ->where('deleted', 0);
-                }),
-            ]
+            'name' => ['string','required', 'unique:categories']
         ]);
     }
 }

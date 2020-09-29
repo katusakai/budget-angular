@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Validators\CategoryValidator;
 use App\Services\CategoryService;
 use App\Models\SubCategory;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -59,28 +60,14 @@ class CategoryController extends BaseController
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $validator = CategoryValidator::validate($request->all());
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+        try {
+            $category = $this->categoryService->saveData($request);
+            return $this->sendResponse($category, 'Category was created', 201);
+        } catch (Exception $e) {
+            return $this->sendError('Validation Error.', json_decode($e->getMessage()));
         }
-
-        $oldCategory = Category::where('name', $request->name)->first();
-        if ($oldCategory)
-        {
-            $category = $oldCategory;
-            $category->deleted = 0;
-            $category->save();
-        } else
-        {
-            $category = new Category();
-            $category->name = $request->name;
-            $category->save();
-        }
-
-        return $this->sendResponse($category, 'Category was created');
     }
 
     /**
@@ -89,16 +76,15 @@ class CategoryController extends BaseController
      * @param int $id
      * @return JsonResponse
      */
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
-        $category = Category::find($id);
-
-        if (!$category)
-            return $this->sendError('Category not found');
-
-        return $this->sendResponse($category, 'Category was founded');
+        try {
+            $category = $this->categoryService->specific($id);
+            return $this->sendResponse($category, 'Category was found');
+        } catch (Exception $e) {
+            return $this->sendError('Category was not found');
+        }
     }
-
 
     /**
      * Update the specified resource in storage.

@@ -70,4 +70,69 @@ class CategoryTest extends TestCase
             $user->forceDelete();
         }
     }
+
+    public function testStore()
+    {
+        $user = User::factory()->create();
+        $name = 'TestingCategoryName';
+        $data = ['name' => $name];
+
+        try {
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('POST', '/api/category', $data);
+            $responseData = $response->json('data');
+            $response->assertStatus(201);
+            $this->assertTrue($responseData['name'] ===  $name);
+
+            // Test again with existing data
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('POST', '/api/category', $data);
+            $response->assertStatus(404);
+            $responseData = $response->json('error');
+            $this->assertTrue($responseData['name'] ===  ['The name has already been taken.']);
+
+        } finally {
+            $user->forceDelete();
+            $category = Category::whereName($name)->get()[0];
+            $category->forceDelete();
+        }
+    }
+
+    public function testShow()
+    {
+        $user = User::factory()->create();
+        $category = Category::factory()->create();
+
+        try {
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('GET', "/api/category/{$category['id']}");
+            $responseData = $response->json('data');
+            $response->assertStatus(200);
+            $this->assertTrue($responseData['id'] ===  $category['id']);
+            $this->assertTrue($responseData['name'] ===  $category['name']);
+
+        } finally {
+            $user->forceDelete();
+            $category->forceDelete();
+        }
+    }
+
+    public function testShowNonExisting()
+    {
+        $user = User::factory()->create();
+
+        try {
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('GET', '/api/category/999999999999999');
+            $response->assertStatus(404);
+            $this->assertTrue($response->json('success') === false);
+        } finally {
+            $user->forceDelete();
+        }
+
+    }
 }

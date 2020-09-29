@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Services\QueryParams;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Exception;
 
 class CategoryRepository
 {
@@ -55,5 +56,33 @@ class CategoryRepository
             ->where('name', 'like', "%{$this->queryParams->search}%")
             ->orderBy($this->queryParams->order,$this->queryParams->orderDirection)
             ->get();
+    }
+
+    /**
+     * Save Category
+     * @param $data
+     * @return Category
+     */
+    public function save($data): Category
+    {
+        $category = new Category;
+        $category->name = $data['name'];
+        $category->save();
+        return $category->fresh();
+    }
+
+    /**
+     * Returns specific category
+     * @param int $id
+     * @return Category
+     * @throws Exception
+     */
+    public function getSpecific(int $id): Category
+    {
+        $category = $this->category->find($id);
+        if (!$category) {
+            throw new Exception();
+        }
+        return $category;
     }
 }

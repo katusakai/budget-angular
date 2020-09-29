@@ -31,10 +31,10 @@ class SubCategoryController extends BaseController
         $subCategories = $this->subCategoryService->getAll();
         if (count($subCategories)) {
             $message ='A list of subcategories have been shown';
-            return $this->sendResponse($subCategories, $message);
         } else {
-            return $this->sendError('Data was not found', [], 404);
+            $message ='No subcategories were found';
         }
+        return $this->sendResponse($subCategories, $message);
     }
 
     /**
