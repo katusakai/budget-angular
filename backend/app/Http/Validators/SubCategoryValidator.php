@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Validators;
 
 use Illuminate\Support\Facades\Validator;

@@ -33,6 +33,7 @@ class MoneyFlowRepository
     }
 
     /**
+     * Gets data for specific user of specific month
      * @param User $user
      * @param string $date
      * @return Collection
@@ -62,4 +63,21 @@ class MoneyFlowRepository
             ->orderBy('created_at', 'desc')
             ->get();
     }
+
+    /**
+     * Save money transaction
+     * @param $data
+     * @return MoneyFlow
+     */
+    public function save($data): MoneyFlow
+    {
+        $money = new MoneyFlow();
+        $money->user_id = $data['user_id'];
+        $money->sub_category_id = $data['sub_category_id'];
+        $money->amount = $data['amount'];
+        $money->description = $data['description'];
+        $money->save();
+        return $money->fresh();
+    }
+
 }

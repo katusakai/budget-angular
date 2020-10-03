@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\MoneyFlowService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Exception;
 
 class MoneyFlowController extends BaseController
 {
@@ -48,19 +49,12 @@ class MoneyFlowController extends BaseController
      */
     public function store(Request $request)
     {
-        $validator = MoneyValidator::validate($request->all());
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+        try {
+            $moneyFlow = $this->moneyFlowService->saveData($request);
+            return $this->sendResponse($moneyFlow, 'Transaction entry was created', 201);
+        } catch (Exception $e) {
+            return $this->sendError('Validation Error', json_decode($e->getMessage()), 400);
         }
-        $moneyFlow = new MoneyFlow();
-        $moneyFlow->user_id = auth()->id();
-        $moneyFlow->sub_category_id = $request->sub_category_id;
-        $moneyFlow->amount = round($request->amount,2);
-        $moneyFlow->description = $request->description;
-        $moneyFlow->save();
-
-        return $this->sendResponse($moneyFlow, 'Entry was created');
     }
 
     /**

@@ -3,11 +3,8 @@
 namespace Database\Seeders\Fake;
 
 use App\Models\User;
-use DateTime;
 use Illuminate\Database\Seeder;
 use App\Models\MoneyFlow;
-use App\Services\RandomDate;
-use Illuminate\Support\Facades\DB;
 
 class FakeMoneyFlowsTableSeeder extends Seeder
 {

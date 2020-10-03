@@ -54,7 +54,7 @@ class CategoryService
     public function saveData(Request $request): Category
     {
         $validator = CategoryValidator::validate($request->all());
-        if($validator->fails()){
+        if($validator->fails()) {
             throw new InvalidArgumentException($validator->errors());
         }
 
