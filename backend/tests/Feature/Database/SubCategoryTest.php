@@ -3,7 +3,7 @@
 namespace Tests\Feature\Database;
 
 use App\Models\Category;
-use App\Models\MoneyFlow;
+use App\Models\MoneyTransaction;
 use App\Models\SubCategory;
 use App\Models\User;
 use Tests\TestCase;
@@ -68,7 +68,7 @@ class SubCategoryTest extends TestCase implements TableTestInterface
             'user_id' => $user['id'],
             'sub_category_id' => $subCategory['id']
         ];
-        MoneyFlow::factory($data)->create();
+        MoneyTransaction::factory($data)->create();
         $this->assertDatabaseHas('money_transaction', $data);
 
         $subCategory->delete();

@@ -51,12 +51,13 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $facebook_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFacebookId($value)
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MoneyFlow[] $moneyFlows
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MoneyTransaction[] $moneyTransactions
  * @property-read int|null $money_flows_count
  * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @property-read int|null $money_transactions_count
  */
 class User extends Authenticatable implements  MustVerifyEmail
 {
@@ -94,10 +95,10 @@ class User extends Authenticatable implements  MustVerifyEmail
     {
         parent::boot();
         self::deleted(function ($user) {
-            $user->moneyFlows()->delete();
+            $user->moneyTransactions()->delete();
         });
         self::forceDeleted(function ($user) {
-            $user->moneyFlows()->forceDelete();
+            $user->moneyTransactions()->forceDelete();
         });
     }
 
@@ -106,8 +107,8 @@ class User extends Authenticatable implements  MustVerifyEmail
      *
      * @return HasMany
      */
-    public function moneyFlows(): HasMany
+    public function moneyTransactions(): HasMany
     {
-        return $this->hasMany(MoneyFlow::class);
+        return $this->hasMany(MoneyTransaction::class);
     }
 }

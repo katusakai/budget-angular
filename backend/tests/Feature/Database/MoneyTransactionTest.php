@@ -3,12 +3,12 @@
 namespace Tests\Feature\Database;
 
 use App\Models\Category;
-use App\Models\MoneyFlow;
+use App\Models\MoneyTransaction;
 use App\Models\SubCategory;
 use App\Models\User;
 use Tests\TestCase;
 
-class MoneyFlowTest extends TestCase implements TableTestInterface
+class MoneyTransactionTest extends TestCase implements TableTestInterface
 {
     /**
      * Name of database table of tested model
@@ -34,7 +34,7 @@ class MoneyFlowTest extends TestCase implements TableTestInterface
             'sub_category_id' => $subCategory['id']
         ];
 
-        MoneyFlow::factory()->create($data);
+        MoneyTransaction::factory()->create($data);
         $this->assertDatabaseHas($this->table, $data);
         $user->forceDelete();
         $category->forceDelete();
@@ -57,7 +57,7 @@ class MoneyFlowTest extends TestCase implements TableTestInterface
             'user_id' => $user['id'],
             'sub_category_id' => $subCategory['id']
         ];
-        $money = MoneyFlow::factory()->create($data);
+        $money = MoneyTransaction::factory()->create($data);
         $this->assertDatabaseHas($this->table, $data);
         $money->delete();
         $this->assertSoftDeleted($this->table, $data);

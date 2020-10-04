@@ -3,20 +3,20 @@
 namespace Database\Factories;
 
 use App\Models\Category;
-use App\Models\MoneyFlow;
+use App\Models\MoneyTransaction;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Services\RandomDate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class MoneyFlowFactory extends Factory
+class MoneyTransactionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = MoneyFlow::class;
+    protected $model = MoneyTransaction::class;
 
     /**
      * Define the model's default state.

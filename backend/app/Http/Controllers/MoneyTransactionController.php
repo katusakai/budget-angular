@@ -2,29 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MoneyFlow;
 use App\Models\User;
-use App\Services\MoneyFlowService;
+use App\Services\MoneyTransactionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Exception;
 use Throwable;
 
-class MoneyFlowController extends BaseController
+class MoneyTransactionController extends BaseController
 {
     /**
      * Service for controller
-     * @var MoneyFlowService
+     * @var MoneyTransactionService
      */
-    protected MoneyFlowService $moneyFlowService;
+    protected MoneyTransactionService $moneyTransactionService;
 
     /**
-     * MoneyFlowController constructor.
-     * @param MoneyFlowService $moneyFlowService
+     * MoneyTransactionController constructor.
+     * @param MoneyTransactionService $moneyTransactionService
      */
-    public function __construct(MoneyFlowService $moneyFlowService)
+    public function __construct(MoneyTransactionService $moneyTransactionService)
     {
-        $this->moneyFlowService = $moneyFlowService;
+        $this->moneyTransactionService = $moneyTransactionService;
     }
 
     /**
@@ -37,7 +36,7 @@ class MoneyFlowController extends BaseController
      */
     public function index(User $user, string $date): JsonResponse
     {
-        $money = $this->moneyFlowService->getMonthly($user, $date);
+        $money = $this->moneyTransactionService->getMonthly($user, $date);
         return $this->sendResponse($money, 'A list of transactions have been shown');
     }
 
@@ -50,8 +49,8 @@ class MoneyFlowController extends BaseController
     public function store(Request $request)
     {
         try {
-            $moneyFlow = $this->moneyFlowService->saveData($request);
-            return $this->sendResponse($moneyFlow, 'Transaction entry was created', 201);
+            $moneyTransaction = $this->moneyTransactionService->saveData($request);
+            return $this->sendResponse($moneyTransaction, 'Transaction entry was created', 201);
         } catch (Exception $e) {
             return $this->sendError('Validation Error', json_decode($e->getMessage()), 400);
         }
@@ -79,8 +78,8 @@ class MoneyFlowController extends BaseController
     public function update(int $id, Request $request)
     {
         try {
-            $moneyFlow = $this->moneyFlowService->updateData($request, $id);
-            return $this->sendResponse($moneyFlow, 'Transaction entry was updated');
+            $moneyTransaction = $this->moneyTransactionService->updateData($request, $id);
+            return $this->sendResponse($moneyTransaction, 'Transaction entry was updated');
         } catch (Exception $e) {
             if ($e->getCode() !== 0) {
                 return $this->sendError($e->getMessage(), [], $e->getCode());
@@ -99,7 +98,7 @@ class MoneyFlowController extends BaseController
     public function destroy(int $id)
     {
         try {
-            $money = $this->moneyFlowService->deleteById($id);
+            $money = $this->moneyTransactionService->deleteById($id);
             return $this->sendResponse($money, 'Entry was deleted');
         } catch (Exception $e) {
             if ($e->getCode() !== 0) {

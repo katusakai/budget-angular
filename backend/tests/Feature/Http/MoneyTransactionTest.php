@@ -3,12 +3,12 @@
 namespace Tests\Feature\Http;
 
 use App\Models\Category;
-use App\Models\MoneyFlow;
+use App\Models\MoneyTransaction;
 use App\Models\SubCategory;
 use App\Models\User;
 use Tests\TestCase;
 
-class MoneyFlowTest extends TestCase
+class MoneyTransactionTest extends TestCase
 {
     public function testIndex(): void
     {
@@ -21,7 +21,7 @@ class MoneyFlowTest extends TestCase
             'sub_category_id' => $subCategory['id'],
             'created_at' => $date
         ];
-        $moneyFlow = MoneyFlow::factory($data)->create();
+        $moneyTransaction = MoneyTransaction::factory($data)->create();
 
         $response = $this->actingAs($user, 'api')
             ->withHeaders(['Accept' => 'application/json'])
@@ -32,15 +32,15 @@ class MoneyFlowTest extends TestCase
             $responseDate = new \DateTime($responseData['created_at']);
 
             $response->assertStatus(200);
-            $this->assertTrue($responseData['id'] === $moneyFlow['id']);
-            $this->assertTrue($responseData['user_id'] === $moneyFlow['user_id']);
-            $this->assertTrue($responseData['amount'] === $moneyFlow['amount']);
-            $this->assertTrue($responseDate->format('Y-m') === $moneyFlow['created_at']->format('Y-m'));
-            $this->assertTrue($responseData['description'] === $moneyFlow['description']);
+            $this->assertTrue($responseData['id'] === $moneyTransaction['id']);
+            $this->assertTrue($responseData['user_id'] === $moneyTransaction['user_id']);
+            $this->assertTrue($responseData['amount'] === $moneyTransaction['amount']);
+            $this->assertTrue($responseDate->format('Y-m') === $moneyTransaction['created_at']->format('Y-m'));
+            $this->assertTrue($responseData['description'] === $moneyTransaction['description']);
             $this->assertTrue($responseData['sub_category_name'] === $subCategory['name']);
             $this->assertTrue($responseData['category_name'] === $category['name']);
         } finally {
-            $moneyFlow->forceDelete();
+            $moneyTransaction->forceDelete();
             $subCategory->forceDelete();
             $category->forceDelete();
             $user->forceDelete();
@@ -71,7 +71,7 @@ class MoneyFlowTest extends TestCase
             $this->assertTrue($responseData['description'] === $data['description']);
 
         } finally {
-            $money = MoneyFlow::whereSubCategoryId($subCategory['id'])->first();
+            $money = MoneyTransaction::whereSubCategoryId($subCategory['id'])->first();
             $money->forceDelete();
             $subCategory->forceDelete();
             $category->forceDelete();
@@ -101,7 +101,7 @@ class MoneyFlowTest extends TestCase
         $category = Category::factory()->create();
         $user = User::factory()->create();
         $subCategory = SubCategory::factory(['category_id' => $category['id']])->create();
-        $money = MoneyFlow::factory([
+        $money = MoneyTransaction::factory([
             'user_id' => $user['id'],
             'sub_category_id' => $subCategory['id']
         ])->create();
@@ -133,7 +133,7 @@ class MoneyFlowTest extends TestCase
     public function testUpdateFail()
     {
         $user = User::factory()->create();
-        $money = MoneyFlow::factory()->create();
+        $money = MoneyTransaction::factory()->create();
         try {
             $response = $this->actingAs($user, 'api')
                 ->withHeaders(['Accept' => 'application/json'])
@@ -154,7 +154,7 @@ class MoneyFlowTest extends TestCase
         $user = User::factory()->create();
         $category = Category::factory()->create();
         $subCategory = SubCategory::factory(['category_id' => $category['id']])->create();
-        $money = MoneyFlow::factory([
+        $money = MoneyTransaction::factory([
             'user_id' => $user['id'],
             'sub_category_id' => $subCategory['id']
         ])->create();

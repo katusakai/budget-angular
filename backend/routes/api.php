@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\Social\FacebookController;
 use App\Http\Controllers\Auth\Social\GoogleController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MoneyFlowController;
+use App\Http\Controllers\MoneyTransactionController;
 use App\Http\Controllers\SubCategoryController;
 
 /*
@@ -74,9 +74,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/subcategory', [SubCategoryController::class, 'index'])->name('subcategory.index');
     Route::post('/subcategory', [SubCategoryController::class, 'store'])->name('subcategory.store');
 
-    Route::get('/money/{user}/{date}', [MoneyFlowController::class, 'index'])->name('money.index');
-    Route::post('/money', [MoneyFlowController::class, 'store'])->name('money.store');
-    Route::put('/money/{id}', [MoneyFlowController::class, 'update'])->name('money.update');
-    Route::delete('/money/{id}', [MoneyFlowController::class, 'destroy'])->name('money.destroy');
+    Route::get('/money/{user}/{date}', [MoneyTransactionController::class, 'index'])->name('money.index');
+    Route::post('/money', [MoneyTransactionController::class, 'store'])->name('money.store');
+    Route::put('/money/{id}', [MoneyTransactionController::class, 'update'])->name('money.update');
+    Route::delete('/money/{id}', [MoneyTransactionController::class, 'destroy'])->name('money.destroy');
 
 });

@@ -2,20 +2,20 @@
 
 namespace App\Repositories;
 
-use App\Models\MoneyFlow;
+use App\Models\MoneyTransaction;
 use App\Models\User;
 use App\Services\QueryParams;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Exception;
 
-class MoneyFlowRepository
+class MoneyTransactionRepository
 {
     /**
      * Model of repository
-     * @var MoneyFlow
+     * @var MoneyTransaction
      */
-    protected MoneyFlow $moneyFlow;
+    protected MoneyTransaction $moneyTransaction;
 
     /**
      * Request query parameters list
@@ -25,12 +25,12 @@ class MoneyFlowRepository
 
     /**
      * CategoryRepository constructor.
-     * @param MoneyFlow $moneyFlow
+     * @param MoneyTransaction $moneyTransaction
      * @param QueryParams $queryParams
      */
-    public function __construct(MoneyFlow $moneyFlow, QueryParams $queryParams)
+    public function __construct(MoneyTransaction $moneyTransaction, QueryParams $queryParams)
     {
-        $this->moneyFlow = $moneyFlow;
+        $this->moneyTransaction = $moneyTransaction;
         $this->queryParams = $queryParams;
     }
 
@@ -47,7 +47,7 @@ class MoneyFlowRepository
         $year = $date->format('Y');
         $month = $date->format('m');
 
-        return MoneyFlow::query()
+        return MoneyTransaction::query()
             ->whereUserId($user->id)
             ->whereYear('created_at', $year)
             ->whereMonth('created_at', $month)
@@ -69,11 +69,11 @@ class MoneyFlowRepository
     /**
      * Save money transaction
      * @param $data
-     * @return MoneyFlow
+     * @return MoneyTransaction
      */
-    public function save($data): MoneyFlow
+    public function save($data): MoneyTransaction
     {
-        $money = new MoneyFlow();
+        $money = new MoneyTransaction();
         $money->user_id = $data['user_id'];
         $money->sub_category_id = $data['sub_category_id'];
         $money->amount = $data['amount'];
@@ -85,11 +85,11 @@ class MoneyFlowRepository
     /** Updates money transaction
      * @param Request $data
      * @param int $id
-     * @return MoneyFlow
+     * @return MoneyTransaction
      */
-    public function update(Request $data, int $id): MoneyFlow
+    public function update(Request $data, int $id): MoneyTransaction
     {
-        $money = $this->moneyFlow->find($id);
+        $money = $this->moneyTransaction->find($id);
         $money->sub_category_id = $data['sub_category_id'];
         $money->amount = $data['amount'];
         $money->description = $data['description'];
@@ -100,12 +100,12 @@ class MoneyFlowRepository
     /**
      * Soft delete money transaction
      * @param int $id
-     * @return MoneyFlow
+     * @return MoneyTransaction
      * @throws Exception
      */
-    public function delete(int $id): MoneyFlow
+    public function delete(int $id): MoneyTransaction
     {
-        $money = $this->moneyFlow->find($id);
+        $money = $this->moneyTransaction->find($id);
         $money->delete();
         return $money;
     }

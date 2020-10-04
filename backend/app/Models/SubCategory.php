@@ -22,9 +22,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin \Eloquent
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Category $category
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MoneyFlow[] $moneyFlows
- * @property-read int|null $money_flows_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MoneyTransaction[] $moneyTransactions
  * @method static \Illuminate\Database\Eloquent\Builder|SubCategory whereDeletedAt($value)
+ * @property-read int|null $money_transactions_count
  */
 class SubCategory extends AbstractModel
 {
@@ -36,10 +36,10 @@ class SubCategory extends AbstractModel
     {
         parent::boot();
         self::deleted(function ($subCategory) {
-            $subCategory->moneyFlows()->delete();
+            $subCategory->moneyTransactions()->delete();
         });
         self::forceDeleted(function ($subCategory) {
-            $subCategory->moneyFlows()->forceDelete();
+            $subCategory->moneyTransactions()->forceDelete();
         });
     }
 
@@ -48,9 +48,9 @@ class SubCategory extends AbstractModel
      *
      * @return HasMany
      */
-    public function moneyFlows(): HasMany
+    public function moneyTransactions(): HasMany
     {
-        return $this->hasMany(MoneyFlow::class);
+        return $this->hasMany(MoneyTransaction::class);
     }
 
     /**

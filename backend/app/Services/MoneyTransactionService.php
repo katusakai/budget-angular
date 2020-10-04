@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Http\Validators\MoneyValidator;
-use App\Models\MoneyFlow;
+use App\Models\MoneyTransaction;
 use App\Models\User;
-use App\Repositories\MoneyFlowRepository;
+use App\Repositories\MoneyTransactionRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -14,13 +14,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Throwable;
 
-class MoneyFlowService
+class MoneyTransactionService
 {
     /**
      * Repository of this service
-     * @var MoneyFlowRepository
+     * @var MoneyTransactionRepository
      */
-    protected MoneyFlowRepository $moneyFlowRepository;
+    protected MoneyTransactionRepository $moneyTransactionRepository;
 
     /**
      * Model validator
@@ -29,13 +29,13 @@ class MoneyFlowService
     protected MoneyValidator $moneyValidator;
 
     /**
-     * MoneyFlowService constructor.
-     * @param MoneyFlowRepository $moneyFlowRepository
+     * MoneyTransactionService constructor.
+     * @param MoneyTransactionRepository $moneyTransactionRepository
      * @param MoneyValidator $moneyValidator
      */
-    public function __construct(MoneyFlowRepository $moneyFlowRepository, MoneyValidator $moneyValidator)
+    public function __construct(MoneyTransactionRepository $moneyTransactionRepository, MoneyValidator $moneyValidator)
     {
-        $this->moneyFlowRepository = $moneyFlowRepository;
+        $this->moneyTransactionRepository = $moneyTransactionRepository;
         $this->moneyValidator = $moneyValidator;
     }
 
@@ -47,14 +47,14 @@ class MoneyFlowService
      */
     public function getMonthly(User $user, string $date): Collection
     {
-        return$this->moneyFlowRepository->getMonthly($user, $date);
+        return$this->moneyTransactionRepository->getMonthly($user, $date);
     }
 
     /**
      * @param Request $request
-     * @return MoneyFlow
+     * @return MoneyTransaction
      */
-    public function saveData(Request $request): MoneyFlow
+    public function saveData(Request $request): MoneyTransaction
     {
         if (!$request['user_id']) {
             $request['user_id'] = auth()->id();
@@ -65,18 +65,18 @@ class MoneyFlowService
             throw new InvalidArgumentException($validator->errors());
         }
 
-        return $this->moneyFlowRepository->save($request);
+        return $this->moneyTransactionRepository->save($request);
     }
 
     /**
      * @param Request $request
      * @param int $id
-     * @return MoneyFlow
+     * @return MoneyTransaction
      * @throws Throwable
      */
-    public function updateData(Request $request, int $id): MoneyFlow
+    public function updateData(Request $request, int $id): MoneyTransaction
     {
-        $money = MoneyFlow::find($id);
+        $money = MoneyTransaction::find($id);
         if (!$money) {
             throw new Exception('Money transaction was not found',404);
         }
@@ -89,7 +89,7 @@ class MoneyFlowService
         DB::beginTransaction();
 
         try {
-            $money = $this->moneyFlowRepository->update($request, $id);
+            $money = $this->moneyTransactionRepository->update($request, $id);
         } catch (Exception $e) {
             DB::rollBack();
             Log::info($e->getMessage());
@@ -103,19 +103,19 @@ class MoneyFlowService
 
     /**
      * @param int $id
-     * @return MoneyFlow
+     * @return MoneyTransaction
      * @throws Throwable
      */
-    public function deleteById(int $id): MoneyFlow
+    public function deleteById(int $id): MoneyTransaction
     {
-        $money = MoneyFlow::find($id);
+        $money = MoneyTransaction::find($id);
         if (!$money) {
             throw new Exception('Money transaction was not found', 404);
         }
 
         DB::beginTransaction();
         try {
-            $money = $this->moneyFlowRepository->delete($id);
+            $money = $this->moneyTransactionRepository->delete($id);
         } catch (Exception $e) {
             DB::rollBack();
             Log::info($e->getMessage());
