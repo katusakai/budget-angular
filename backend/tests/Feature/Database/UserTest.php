@@ -77,11 +77,11 @@ class UserTest extends TestCase implements TableTestInterface
             ];
             MoneyFlow::factory()->create($data);
 
-            $this->assertDatabaseHas('money_flows', $data);
+            $this->assertDatabaseHas('money_transaction', $data);
             $user->delete();
-            $this->assertSoftDeleted('money_flows', $data);
+            $this->assertSoftDeleted('money_transaction', $data);
             $user->forceDelete();
-            $this->assertDeleted('money_flows', $data);
+            $this->assertDeleted('money_transaction', $data);
 
             $category->forceDelete();
             $subCategory->forceDelete();

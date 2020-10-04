@@ -14,7 +14,7 @@ class MoneyFlowTest extends TestCase implements TableTestInterface
      * Name of database table of tested model
      * @var string
      */
-    protected string $table = 'money_flows';
+    protected string $table = 'money_transaction';
 
     /**
      * Table fields existence test.
@@ -35,7 +35,7 @@ class MoneyFlowTest extends TestCase implements TableTestInterface
         ];
 
         MoneyFlow::factory()->create($data);
-        $this->assertDatabaseHas('money_flows', $data);
+        $this->assertDatabaseHas($this->table, $data);
         $user->forceDelete();
         $category->forceDelete();
     }
@@ -58,11 +58,11 @@ class MoneyFlowTest extends TestCase implements TableTestInterface
             'sub_category_id' => $subCategory['id']
         ];
         $money = MoneyFlow::factory()->create($data);
-        $this->assertDatabaseHas('money_flows', $data);
+        $this->assertDatabaseHas($this->table, $data);
         $money->delete();
-        $this->assertSoftDeleted('money_flows', $data);
+        $this->assertSoftDeleted($this->table, $data);
         $money->forceDelete();
-        $this->assertDeleted('money_flows', $data);
+        $this->assertDeleted($this->table, $data);
 
         $user->forceDelete();
         $category->forceDelete();

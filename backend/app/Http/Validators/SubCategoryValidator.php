@@ -12,7 +12,7 @@ class SubCategoryValidator extends AbstractValidator
     {
 
         $this->rules = [
-            'category_id' => 'required|numeric|exists:categories,id',
+            'category_id' => 'required|numeric|exists:category,id',
             'name' => ['string','required', $this->getUniqueCategoryAndNameRule()]
         ];
 
@@ -30,7 +30,7 @@ class SubCategoryValidator extends AbstractValidator
     {
         if (isset(request()['category_id'])) {
             $uniqueCategoryAndNameRule =
-                Rule::unique('sub_categories')->where(function ($query) {
+                Rule::unique('sub_category')->where(function ($query) {
                     return $query->where('name', request()['name'])
                         ->where('category_id', request()['category_id']);
                 });

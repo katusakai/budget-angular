@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Category extends AbstractModel
 {
+    protected $table = 'category';
+
     public $timestamps = false;
 
     protected static function boot()

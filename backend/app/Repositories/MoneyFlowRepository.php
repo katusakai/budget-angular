@@ -52,16 +52,16 @@ class MoneyFlowRepository
             ->whereYear('created_at', $year)
             ->whereMonth('created_at', $month)
             ->select([
-                'money_flows.id',
-                'money_flows.user_id',
-                'money_flows.amount',
-                'money_flows.created_at',
-                'money_flows.description',
-                'money_flows.sub_category_id',
-                'sub_categories.name AS sub_category_name',
-                'categories.name AS category_name'])
-            ->join('sub_categories', 'sub_categories.id', '=', 'sub_category_id')
-            ->join('categories', 'categories.id', '=', 'sub_categories.category_id')
+                'money_transaction.id',
+                'money_transaction.user_id',
+                'money_transaction.amount',
+                'money_transaction.created_at',
+                'money_transaction.description',
+                'money_transaction.sub_category_id',
+                'sub_category.name AS sub_category_name',
+                'category.name AS category_name'])
+            ->join('sub_category', 'sub_category.id', '=', 'sub_category_id')
+            ->join('category', 'category.id', '=', 'sub_category.category_id')
             ->orderBy('created_at', 'desc')
             ->get();
     }

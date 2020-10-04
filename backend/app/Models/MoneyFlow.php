@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class MoneyFlow extends AbstractModel
 {
+    protected $table = 'money_transaction';
 
     protected $casts = [
         'amount' => 'double'

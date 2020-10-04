@@ -12,7 +12,7 @@ class CategoryTest extends TestCase implements TableTestInterface
      * Name of database table of tested model
      * @var string
      */
-    protected string $table = 'categories';
+    protected string $table = 'category';
 
     /**
      * Table fields existence test.
@@ -62,11 +62,11 @@ class CategoryTest extends TestCase implements TableTestInterface
             'category_id' => $category['id']
         ];
         SubCategory::factory($data)->create();
-        $this->assertDatabaseHas('sub_categories', $data);
+        $this->assertDatabaseHas('sub_category', $data);
 
         $category->delete();
-        $this->assertSoftDeleted('sub_categories', $data);
+        $this->assertSoftDeleted('sub_category', $data);
         $category->forceDelete();
-        $this->assertDeleted('sub_categories', $data);
+        $this->assertDeleted('sub_category', $data);
     }
 }

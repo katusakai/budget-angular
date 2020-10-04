@@ -7,7 +7,7 @@ class CategoryValidator extends AbstractValidator
     protected function initializeRules(): void
     {
         $this->rules = [
-            'name' => ['string','required', 'unique:categories']
+            'name' => ['string','required', 'unique:category']
         ];
     }
 }

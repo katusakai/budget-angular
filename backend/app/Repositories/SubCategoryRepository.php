@@ -38,14 +38,14 @@ class SubCategoryRepository
     public function getAll(): Collection
     {
         return $this->subCategory
-            ->where('sub_categories.name', 'like', "%{$this->queryParams->search}%")
-            ->orWhere('categories.name', 'like', "%{$this->queryParams->search}%")
+            ->where('sub_category.name', 'like', "%{$this->queryParams->search}%")
+            ->orWhere('category.name', 'like', "%{$this->queryParams->search}%")
             ->select([
-                'sub_categories.id',
-                'sub_categories.name',
-                'categories.name AS category_name'
+                'sub_category.id',
+                'sub_category.name',
+                'category.name AS category_name'
             ])
-            ->join('categories', 'categories.id', '=', 'sub_categories.category_id')
+            ->join('category', 'category.id', '=', 'sub_category.category_id')
             ->orderBy($this->queryParams->order,$this->queryParams->orderDirection)
             ->get();
     }

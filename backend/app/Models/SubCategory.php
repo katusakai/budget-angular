@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class SubCategory extends AbstractModel
 {
+    protected $table = 'sub_category';
+
     public $timestamps = false;
 
     protected static function boot()

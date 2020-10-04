@@ -163,7 +163,7 @@ class CategoryTest extends TestCase
     {
         $category = Category::factory()->create();
         $data = ['name' => $category['name']];
-        $this->assertDatabaseHas('categories', $data);
+        $this->assertDatabaseHas('category', $data);
 
         try {
             $response = $this->actingAs($this->adminUser, 'api')

@@ -8,7 +8,7 @@ class MoneyValidator extends AbstractValidator
 {
     protected function initializeRules(): void {
         $this->rules = [
-            'sub_category_id' => 'required|numeric|exists:sub_categories,id',
+            'sub_category_id' => 'required|numeric|exists:sub_category,id',
             'amount' => 'required|numeric',
             'description' => 'string|nullable',
             'user_id' => 'required|numeric|exists:users,id'

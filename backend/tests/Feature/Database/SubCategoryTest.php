@@ -15,7 +15,7 @@ class SubCategoryTest extends TestCase implements TableTestInterface
      * Name of database table of tested model
      * @var string
      */
-    protected string $table = 'sub_categories';
+    protected string $table = 'sub_category';
 
     /**
      * Table fields existence test.
@@ -69,12 +69,12 @@ class SubCategoryTest extends TestCase implements TableTestInterface
             'sub_category_id' => $subCategory['id']
         ];
         MoneyFlow::factory($data)->create();
-        $this->assertDatabaseHas('money_flows', $data);
+        $this->assertDatabaseHas('money_transaction', $data);
 
         $subCategory->delete();
-        $this->assertSoftDeleted('money_flows', $data);
+        $this->assertSoftDeleted('money_transaction', $data);
         $subCategory->forceDelete();
-        $this->assertDeleted('money_flows', $data);
+        $this->assertDeleted('money_transaction', $data);
 
         $user->forceDelete();
         $category->forceDelete();
