@@ -1,16 +1,13 @@
 <?php
 
-
 namespace App\Http\Validators;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-
-class CategoryValidator
+class CategoryValidator extends AbstractValidator
 {
-    public static function validate($request) {
-        return Validator::make($request, [
+    protected function initializeRules(): void
+    {
+        $this->rules = [
             'name' => ['string','required', 'unique:categories']
-        ]);
+        ];
     }
 }

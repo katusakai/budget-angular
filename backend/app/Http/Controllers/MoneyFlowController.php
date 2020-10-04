@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Validators\MoneyValidator;
 use App\Models\MoneyFlow;
 use App\Models\User;
 use App\Services\MoneyFlowService;

@@ -21,16 +21,6 @@ class MoneyValidator extends AbstractValidator
     }
 
     /**
-     * Rules for creating new entry
-     * @param $request
-     * @return \Illuminate\Validation\Validator
-     */
-    public function store($request): \Illuminate\Validation\Validator
-    {
-        return Validator::make($request, $this->rules,$this->messages);
-    }
-
-    /**
      * Rules for updating entry, where user id unnecessary
      * @param $request
      * @return \Illuminate\Validation\Validator

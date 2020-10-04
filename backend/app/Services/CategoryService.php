@@ -23,12 +23,20 @@ class CategoryService
     protected CategoryRepository $categoryRepository;
 
     /**
+     * Model validator
+     * @var CategoryValidator
+     */
+    protected CategoryValidator $categoryValidator;
+
+    /**
      * CategoryService constructor.
      * @param CategoryRepository $categoryRepository
+     * @param CategoryValidator $categoryValidator
      */
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepository $categoryRepository, CategoryValidator $categoryValidator)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->categoryValidator = $categoryValidator;
     }
 
     /**
@@ -53,7 +61,7 @@ class CategoryService
      */
     public function saveData(Request $request): Category
     {
-        $validator = CategoryValidator::validate($request->all());
+        $validator = $this->categoryValidator->store($request->all());
         if($validator->fails()) {
             throw new InvalidArgumentException($validator->errors());
         }
@@ -93,7 +101,7 @@ class CategoryService
             throw new Exception('Category name did not change',400);
         }
 
-        $validator = CategoryValidator::validate($request->all());
+        $validator = $this->categoryValidator->update($request->all());
         if($validator->fails()){
             throw new InvalidArgumentException($validator->errors());
         }

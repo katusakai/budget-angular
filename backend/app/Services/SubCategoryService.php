@@ -18,12 +18,20 @@ class SubCategoryService
     protected SubCategoryRepository $subCategoryRepository;
 
     /**
+     * Model validator
+     * @var SubCategoryValidator
+     */
+    protected SubCategoryValidator $subCategoryValidator;
+
+    /**
      * SubCategoryService constructor.
      * @param SubCategoryRepository $subCategoryRepository
+     * @param SubCategoryValidator $subCategoryValidator
      */
-    public function __construct(SubCategoryRepository $subCategoryRepository)
+    public function __construct(SubCategoryRepository $subCategoryRepository, SubCategoryValidator $subCategoryValidator)
     {
         $this->subCategoryRepository = $subCategoryRepository;
+        $this->subCategoryValidator = $subCategoryValidator;
     }
 
     /**
@@ -40,7 +48,7 @@ class SubCategoryService
      */
     public function saveData(Request $request): SubCategory
     {
-        $validator = SubCategoryValidator::validate($request->all());
+        $validator = $this->subCategoryValidator->store($request->all());
         if($validator->fails()){
             throw new InvalidArgumentException($validator->errors());
         }
