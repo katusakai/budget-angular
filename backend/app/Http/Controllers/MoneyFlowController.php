@@ -92,18 +92,20 @@ class MoneyFlowController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
+     * @throws Throwable
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        $moneyFlow = MoneyFlow::find($id);
-
-        if ($moneyFlow === null)
-            return $this->sendError('Entry not found');
-
-        $moneyFlow->deleted = 1;
-        $moneyFlow->save();
-        return $this->sendResponse($moneyFlow, 'Entry was deleted');
+        try {
+            $money = $this->moneyFlowService->deleteById($id);
+            return $this->sendResponse($money, 'Entry was deleted');
+        } catch (Exception $e) {
+            if ($e->getCode() !== 0) {
+                return $this->sendError($e->getMessage(), [], $e->getCode());
+            }
+            return $this->sendError('Errors occurred.', json_decode($e->getMessage()));
+        }
     }
 }

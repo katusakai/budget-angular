@@ -148,4 +148,34 @@ class MoneyFlowTest extends TestCase
             $money->forceDelete();
         }
     }
+
+    public function testDestroy()
+    {
+        $user = User::factory()->create();
+        $category = Category::factory()->create();
+        $subCategory = SubCategory::factory(['category_id' => $category['id']])->create();
+        $money = MoneyFlow::factory([
+            'user_id' => $user['id'],
+            'sub_category_id' => $subCategory['id']
+        ])->create();
+        try {
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('DELETE', "/api/money/{$money['id']}");
+
+            $responseData = $response->json('data');
+            $response->assertStatus(200);
+            $this->assertTrue($responseData['user_id'] === $user['id']);
+            $this->assertTrue($responseData['sub_category_id'] === $subCategory['id']);
+            $this->assertTrue($responseData['amount'] === $money['amount']);
+            $this->assertTrue($responseData['description'] === $money['description']);
+            $this->assertTrue($response->json('success'));
+
+        } finally {
+            $money->forceDelete();
+            $subCategory->forceDelete();
+            $category->forceDelete();
+            $user->forceDelete();
+        }
+    }
 }

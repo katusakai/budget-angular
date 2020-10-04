@@ -101,4 +101,28 @@ class MoneyFlowService
         return $money;
     }
 
+    /**
+     * @param int $id
+     * @return MoneyFlow
+     * @throws Throwable
+     */
+    public function deleteById(int $id): MoneyFlow
+    {
+        $money = MoneyFlow::find($id);
+        if (!$money) {
+            throw new Exception('Money transaction was not found', 404);
+        }
+
+        DB::beginTransaction();
+        try {
+            $money = $this->moneyFlowRepository->delete($id);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+            throw new InvalidArgumentException('Unable to delete money transaction data');
+        }
+
+        DB::commit();
+        return $money;
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\QueryParams;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Exception;
 
 class MoneyFlowRepository
 {
@@ -93,6 +94,19 @@ class MoneyFlowRepository
         $money->amount = $data['amount'];
         $money->description = $data['description'];
         $money->update();
+        return $money;
+    }
+
+    /**
+     * Soft delete money transaction
+     * @param int $id
+     * @return MoneyFlow
+     * @throws Exception
+     */
+    public function delete(int $id): MoneyFlow
+    {
+        $money = $this->moneyFlow->find($id);
+        $money->delete();
         return $money;
     }
 

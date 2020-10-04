@@ -130,7 +130,7 @@ class CategoryService
     {
         $category = Category::find($id);
         if (!$category) {
-            throw new Exception('Category not found',404);
+            throw new Exception('Category was not found',404);
         }
 
         DB::beginTransaction();
@@ -139,7 +139,7 @@ class CategoryService
         } catch (Exception $e) {
             DB::rollBack();
             Log::info($e->getMessage());
-            throw new InvalidArgumentException('Unable to delete post data');
+            throw new InvalidArgumentException('Unable to delete category data');
         }
 
         DB::commit();
