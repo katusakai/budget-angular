@@ -11,6 +11,9 @@ class RandomDate
         $rand = rand(0, 3600 * 24 * $daysBefore);
         $time = time() - $rand;
         $date = date( 'Y-m-d H:i', $time);
-        return(new \DateTime($date));
+        try {
+            return (new \DateTime($date));
+        } catch (\Exception $e) {
+        }
     }
 }

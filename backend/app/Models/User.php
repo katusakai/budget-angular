@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -47,10 +50,18 @@ use Spatie\Permission\Traits\HasRoles;
  * @mixin \Eloquent
  * @property string|null $facebook_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFacebookId($value)
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MoneyTransaction[] $moneyTransactions
+ * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @property-read int|null $money_transactions_count
  */
 class User extends Authenticatable implements  MustVerifyEmail
 {
-    use Notifiable, HasApiTokens, HasRoles;
+    use Notifiable, HasApiTokens, HasRoles, HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -78,4 +89,25 @@ class User extends Authenticatable implements  MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        self::deleted(function ($user) {
+            $user->moneyTransactions()->delete();
+        });
+        self::forceDeleted(function ($user) {
+            $user->moneyTransactions()->forceDelete();
+        });
+    }
+
+    /**
+     * Get money transactions for user
+     *
+     * @return HasMany
+     */
+    public function moneyTransactions(): HasMany
+    {
+        return $this->hasMany(MoneyTransaction::class);
+    }
 }

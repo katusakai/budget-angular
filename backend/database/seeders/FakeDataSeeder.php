@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Fake\FakeCategoriesSeeder;
-use Database\Seeders\Fake\FakeMoneyFlowsTableSeeder;
+use Database\Seeders\Fake\FakeMoneyTransactionTableSeeder;
 use Database\Seeders\Fake\FakeUsersSeeder;
 use Illuminate\Database\Seeder;
 
@@ -18,6 +18,6 @@ class FakeDataSeeder extends Seeder
     {
         $this->call(FakeUsersSeeder::class);
         $this->call(FakeCategoriesSeeder::class);
-        $this->call(FakeMoneyFlowsTableSeeder::class);
+        $this->call(FakeMoneyTransactionTableSeeder::class);
     }
 }

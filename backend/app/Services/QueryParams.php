@@ -6,11 +6,35 @@ namespace App\Services;
 
 class QueryParams
 {
-    public $limit;
-    public $search;
-    public $order;
-    public $orderDirection;
-    public $deleted;
+    /**
+     * Limit of data entries for one page
+     * @var int
+     */
+    public int $limit;
+
+    /**
+     * Value typed in search
+     * @var mixed|string
+     */
+    public string $search;
+
+    /**
+     * Column name to order by
+     * @var mixed|string
+     */
+    public string $order;
+
+    /**
+     * Order direction
+     * @var mixed|string
+     */
+    public string $orderDirection;
+
+    /**
+     * Param to define if requested for deleted data
+     * @var int
+     */
+    public int $deleted;
 
     /**
      * QueryParams constructor.

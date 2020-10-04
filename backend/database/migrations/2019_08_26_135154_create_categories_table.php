@@ -17,7 +17,6 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->tinyInteger('deleted')->default(0);
-            $table->index(['name', 'deleted']);
         });
     }
 

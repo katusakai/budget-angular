@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Validators\SubCategoryValidator;
-use App\Models\SubCategory;
+use App\Services\SubCategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Exception;
 
 class SubCategoryController extends BaseController
 {
+    protected SubCategoryService $subCategoryService;
+
+    /**
+     * SubCategoryController constructor.
+     * @param SubCategoryService $subCategoryService
+     */
+    public function __construct(SubCategoryService $subCategoryService)
+    {
+        $this->subCategoryService = $subCategoryService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,17 +27,13 @@ class SubCategoryController extends BaseController
      */
     public function index()
     {
-        $search = request()['search'] && request()['search'] !== '' ? request()['search'] : '%';
-
-        $subCategories = DB::table('sub_categories')
-            ->join('categories', 'categories.id', '=', 'sub_categories.category_id')
-            ->select('sub_categories.id', 'sub_categories.name', 'categories.name AS category_name')
-            ->where('sub_categories.name', 'like', "%{$search}%")
-            ->orWhere('categories.name', 'like', "%{$search}%")
-            ->where('sub_categories.deleted', 0)
-            ->orderBy('sub_categories.name')
-            ->get();
-        return $this->sendResponse($subCategories, '');
+        $subCategories = $this->subCategoryService->getAll();
+        if (count($subCategories)) {
+            $message ='A list of subcategories have been shown';
+        } else {
+            $message ='No subcategories were found';
+        }
+        return $this->sendResponse($subCategories, $message);
     }
 
     /**
@@ -38,16 +44,12 @@ class SubCategoryController extends BaseController
      */
     public function store(Request $request)
     {
-        $validator = SubCategoryValidator::validate($request->all());
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+        try {
+            $category = $this->subCategoryService->saveData($request);
+            return $this->sendResponse($category, 'SubCategory was created', 201);
+        } catch (Exception $e) {
+            return $this->sendError('Validation Error', json_decode($e->getMessage()));
         }
-        $subCategory = new SubCategory();
-        $subCategory->category_id = $request->category_id;
-        $subCategory->name = $request->name;
-        $subCategory->save();
-        return $this->sendResponse($subCategory, 'Subcategory was created');
     }
 
     /**
