@@ -7,9 +7,12 @@ use App\Models\MoneyFlow;
 use App\Models\User;
 use App\Repositories\MoneyFlowRepository;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class MoneyFlowService
 {
@@ -20,12 +23,20 @@ class MoneyFlowService
     protected MoneyFlowRepository $moneyFlowRepository;
 
     /**
+     * Model validator
+     * @var MoneyValidator
+     */
+    protected MoneyValidator $moneyValidator;
+
+    /**
      * MoneyFlowService constructor.
      * @param MoneyFlowRepository $moneyFlowRepository
+     * @param MoneyValidator $moneyValidator
      */
-    public function __construct(MoneyFlowRepository $moneyFlowRepository)
+    public function __construct(MoneyFlowRepository $moneyFlowRepository, MoneyValidator $moneyValidator)
     {
         $this->moneyFlowRepository = $moneyFlowRepository;
+        $this->moneyValidator = $moneyValidator;
     }
 
     /**
@@ -49,12 +60,45 @@ class MoneyFlowService
             $request['user_id'] = auth()->id();
         }
 
-        $validator = MoneyValidator::validate($request->all());
+        $validator = $this->moneyValidator->store($request->all());
         if ($validator->fails()) {
             throw new InvalidArgumentException($validator->errors());
         }
 
         return $this->moneyFlowRepository->save($request);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return MoneyFlow
+     * @throws Throwable
+     */
+    public function updateData(Request $request, int $id): MoneyFlow
+    {
+        $money = MoneyFlow::find($id);
+        if (!$money) {
+            throw new Exception('Money transaction was not found',404);
+        }
+
+        $validator = $this->moneyValidator->update($request->all());
+        if ($validator->fails()) {
+            throw new InvalidArgumentException($validator->errors());
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $money = $this->moneyFlowRepository->update($request, $id);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::info($e->getMessage());
+            throw new InvalidArgumentException('Unable to update money data');
+        }
+
+        DB::commit();
+
+        return $money;
     }
 
 }

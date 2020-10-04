@@ -181,6 +181,5 @@ class CategoryTest extends TestCase
         } finally {
             $category->forceDelete();
         }
-
     }
 }

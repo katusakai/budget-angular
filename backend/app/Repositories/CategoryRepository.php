@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Category;
 use App\Services\QueryParams;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Exception;
 
@@ -60,10 +61,10 @@ class CategoryRepository
 
     /**
      * Save Category
-     * @param $data
+     * @param Request $data
      * @return Category
      */
-    public function save($data): Category
+    public function save(Request $data): Category
     {
         $category = new Category;
         $category->name = $data['name'];
@@ -88,11 +89,11 @@ class CategoryRepository
 
     /**
      * Updates category
-     * @param $data
+     * @param Request $data
      * @param $id
      * @return Category
      */
-    public function update($data, $id): Category
+    public function update(Request $data, $id): Category
     {
         $category = $this->category->find($id);
         $category->name = $data['name'];
@@ -101,6 +102,7 @@ class CategoryRepository
     }
 
     /**
+     * Soft deletes category
      * @param int $id
      * @return Category
      * @throws Exception

@@ -9,6 +9,7 @@ use App\Services\MoneyFlowService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Exception;
+use Throwable;
 
 class MoneyFlowController extends BaseController
 {
@@ -72,28 +73,21 @@ class MoneyFlowController extends BaseController
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
+     * @throws Throwable
      */
-    public function update($id, Request $request)
+    public function update(int $id, Request $request)
     {
-        $validator = MoneyValidator::validate($request->all());
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+        try {
+            $moneyFlow = $this->moneyFlowService->updateData($request, $id);
+            return $this->sendResponse($moneyFlow, 'Transaction entry was updated');
+        } catch (Exception $e) {
+            if ($e->getCode() !== 0) {
+                return $this->sendError($e->getMessage(), [], $e->getCode());
+            }
+            return $this->sendError('Errors occurred', json_decode($e->getMessage()), 400);
         }
-
-        $moneyFlow = MoneyFlow::find($id);
-
-        if ($moneyFlow === null)
-            return $this->sendError('Entry not found');
-
-        $moneyFlow->sub_category_id = $request->sub_category_id;
-        $moneyFlow->amount = round($request->amount,2);
-        $moneyFlow->description = $request->description;
-        $moneyFlow->save();
-
-        return $this->sendResponse($moneyFlow, 'Entry was updated');
     }
 
     /**

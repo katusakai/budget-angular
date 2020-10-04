@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\MoneyFlow;
 use App\Models\User;
 use App\Services\QueryParams;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class MoneyFlowRepository
@@ -78,6 +79,21 @@ class MoneyFlowRepository
         $money->description = $data['description'];
         $money->save();
         return $money->fresh();
+    }
+
+    /** Updates money transaction
+     * @param Request $data
+     * @param int $id
+     * @return MoneyFlow
+     */
+    public function update(Request $data, int $id): MoneyFlow
+    {
+        $money = $this->moneyFlow->find($id);
+        $money->sub_category_id = $data['sub_category_id'];
+        $money->amount = $data['amount'];
+        $money->description = $data['description'];
+        $money->update();
+        return $money;
     }
 
 }

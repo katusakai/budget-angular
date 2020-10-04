@@ -95,4 +95,57 @@ class MoneyFlowTest extends TestCase
             $user->forceDelete();
         }
     }
+
+    public function testUpdate()
+    {
+        $category = Category::factory()->create();
+        $user = User::factory()->create();
+        $subCategory = SubCategory::factory(['category_id' => $category['id']])->create();
+        $money = MoneyFlow::factory([
+            'user_id' => $user['id'],
+            'sub_category_id' => $subCategory['id']
+        ])->create();
+        $data = [
+            'sub_category_id' => $subCategory['id'],
+            'amount' => rand(-100, 100),
+            'description' => 'test description'
+        ];
+
+        try {
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('PUT', "/api/money/{$money['id']}", $data);
+            $responseData = $response->json('data');
+            $this->assertTrue($responseData['user_id'] === $user['id']);
+            $this->assertTrue($responseData['sub_category_id'] === $data['sub_category_id']);
+            $this->assertTrue($responseData['amount'] === $data['amount']);
+            $this->assertTrue($responseData['description'] === $data['description']);
+            $response->assertStatus(200);
+
+        } finally {
+            $money->forceDelete();
+            $subCategory->forceDelete();
+            $category->forceDelete();
+            $user->forceDelete();
+        }
+    }
+
+    public function testUpdateFail()
+    {
+        $user = User::factory()->create();
+        $money = MoneyFlow::factory()->create();
+        try {
+            $response = $this->actingAs($user, 'api')
+                ->withHeaders(['Accept' => 'application/json'])
+                ->json('PUT', "/api/money/{$money['id']}", []);
+
+            $responseError = $response->json('error');
+            $response->assertStatus(400);
+            $this->assertArrayHasKey('sub_category_id', $responseError);
+            $this->assertArrayHasKey('amount', $responseError);
+        } finally {
+            $user->forceDelete();
+            $money->forceDelete();
+        }
+    }
 }
