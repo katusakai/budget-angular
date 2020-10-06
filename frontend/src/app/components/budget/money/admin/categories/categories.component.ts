@@ -5,6 +5,8 @@ import { Response } from '../../../../../models/response';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../../../services/budget/category.service';
 import { AbstractQueryComponent, IQueryParams } from '../../../../../helpers/query-params';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../../../generic/modal/modal.component';
 
 @Component({
   selector: 'app-categories',
@@ -30,6 +32,7 @@ export class CategoriesComponent extends AbstractQueryComponent implements OnIni
     private _Categories: CategoryService,
     @Inject(ActivatedRoute) _ActivatedRoute,
     @Inject(Router) _Router,
+    private _modalService: NgbModal,
   ) {
     super(_ActivatedRoute,_Router);
   }
@@ -50,6 +53,20 @@ export class CategoriesComponent extends AbstractQueryComponent implements OnIni
   searchData() {
     this.queryParams.page = 1;
     this.updateList();
+  }
+
+  categoryCreateForm():void {
+    if(this._modalService.hasOpenModals())
+      this._modalService.dismissAll();
+
+    const modalRef = this._modalService.open(ModalComponent);
+    modalRef.componentInstance.properties = {
+      title: 'Create category',
+      form: {
+        name: 'category',
+        callType: 'create'
+      }
+    };
   }
 
 }

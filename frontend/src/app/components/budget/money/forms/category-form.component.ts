@@ -1,41 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CategoryService } from '../../../../services/budget/category.service';
 import { Response } from '../../../../models/response';
 import { CategoryErrors } from '../../../../models/errors/CategoryErrors';
+import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.scss']
 })
-export class CategoryFormComponent implements OnInit {
+export class CategoryFormComponent extends AbstractFormComponent implements OnInit {
 
-  @Input() category_name: string;
+  @Input() initialCategoryName: string;
 
-  public form: any;
+  @ViewChild('name') name: ElementRef;
+
   public errors: CategoryErrors
-  public message: string;
 
   constructor(
     private _categoryService: CategoryService,
     private _formBuilder: FormBuilder,
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
+    this.initialize()
+  }
+
+  get f() { return this.form.controls; }
+
+  protected initialize() {
     this.form = this._formBuilder.group({
       name: ['']
     });
 
-    this.form.setValue({
-      name: this.category_name
-    });
-
     this.errors = new CategoryErrors();
-
   }
-
-  get f() { return this.form.controls; }
 
   formSubmit() {
     this.create();
@@ -43,7 +45,7 @@ export class CategoryFormComponent implements OnInit {
 
   create() {
     this._categoryService.store({
-      name: this.f.name.value
+      name: this.initialCategoryName ? this.initialCategoryName : this.name.nativeElement.value
     }).subscribe(
       (response: Response) => {
         this.message = response.message;
@@ -52,5 +54,4 @@ export class CategoryFormComponent implements OnInit {
       error => this.errors.handleBackend(error.error.error)
     )
   }
-
 }

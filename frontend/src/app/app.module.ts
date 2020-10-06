@@ -23,6 +23,7 @@ import { ConfigurationComponent } from './components/admin/configuration/configu
 import { TrueFalseConfigurationComponent } from './components/admin/configuration/true-false-configuration/true-false-configuration.component';
 import { FacebookComponent } from './components/auth/social/facebook/facebook.component';
 import { AppFormModule } from './modules/app-form.module';
+import { ModalComponent } from './components/generic/modal/modal.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AppFormModule } from './modules/app-form.module';
     ConfigurationComponent,
     TrueFalseConfigurationComponent,
     FacebookComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

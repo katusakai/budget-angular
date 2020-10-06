@@ -4,11 +4,12 @@ import { SubcategoryService } from '../../../../services/budget/subcategory.serv
 import { Response } from '../../../../models/response';
 import { Subcategory } from '../../../../models/money/subcategory';
 import { MoneyService } from '../../../../services/budget/money.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MoneyErrors } from '../../../../models/errors/MoneyErrors';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { Money } from '../../../../models/money/money';
 import { MoneyEventService } from '../../../../events/money-event.service';
+import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
 
 
 @Component({
@@ -16,15 +17,12 @@ import { MoneyEventService } from '../../../../events/money-event.service';
   templateUrl: './money-form.component.html',
   styleUrls: ['./money-form.component.scss']
 })
-export class MoneyFormComponent implements OnInit {
+export class MoneyFormComponent extends AbstractFormComponent implements OnInit {
 
-  @Input() callType: string;
   @Input() spending: Money;
 
   public subCategories: [Subcategory];
-  public form: FormGroup;
   public errors: MoneyErrors;
-  public message: string;
   public search: string;
   public visualData: {title: string, button: string};
 
@@ -34,7 +32,8 @@ export class MoneyFormComponent implements OnInit {
     private _money: MoneyService,
     private _formBuilder: FormBuilder,
     private _moneyEvent: MoneyEventService
-  ) {}
+  ) {
+    super();}
 
   ngOnInit(): void {
     this.search= '';

@@ -4,29 +4,30 @@ import { CategoryService } from '../../../../services/budget/category.service';
 import { Category } from '../../../../models/money/category';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { SubcategoryService } from '../../../../services/budget/subcategory.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { SubCategoryErrors } from '../../../../models/errors/SubCategoryErrors';
+import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
 
 @Component({
   selector: 'app-subcategory-form',
   templateUrl: './subcategory-form.component.html',
   styleUrls: ['./subcategory-form.component.scss']
 })
-export class SubcategoryFormComponent implements OnInit {
+export class SubcategoryFormComponent extends AbstractFormComponent implements OnInit {
 
-  @Input() sub_category_name: string;
+  @Input() subCategoryName: string;
 
   public categories: [Category];
   public search: string;
-  public form: FormGroup;
   public errors: SubCategoryErrors
-  public message: string;
 
   constructor(
     private _categoryService: CategoryService,
     private _subcategoryService: SubcategoryService,
     private _formBuilder: FormBuilder,
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.search= '';
@@ -38,7 +39,7 @@ export class SubcategoryFormComponent implements OnInit {
     });
     this.form.setValue({
       category_id: null,
-      name: this.sub_category_name
+      name: this.subCategoryName
     });
     this.errors = new SubCategoryErrors();
   }

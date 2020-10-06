@@ -52,7 +52,6 @@ export class MoneyComponent implements OnInit {
 
     const modalRef = this._modalService.open(MoneyFormComponent);
     modalRef.componentInstance.callType = 'create';
-
   }
 
   getTotalMoney() {

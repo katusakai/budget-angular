@@ -24,7 +24,7 @@
                     [errors]="errors.sub_category_id">
             </app-form-errors>
         </div>
-        <app-subcategory-form *ngIf="subCategories && !subCategories.length" [sub_category_name]="search"></app-subcategory-form>
+        <app-subcategory-form *ngIf="subCategories && !subCategories.length" [subCategoryName]="search"></app-subcategory-form>
         <div class="form-group row">
             <label for="form-amount" class="col-sm-3 col-form-label text-nowrap">Money spend:</label>
             <div class="col-sm-9">

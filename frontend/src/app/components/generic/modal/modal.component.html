@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{properties.title}}</h5>
+    <button type="button" class="close" aria-label="Close" (click)="dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <ng-container [ngSwitch]="properties.form?.name">
+        <ng-container *ngSwitchCase="'category'">
+            <ng-component *ngTemplateOutlet="categoryForm"></ng-component>
+        </ng-container>
+        <ng-container *ngSwitchDefault></ng-container>
+    </ng-container>
+</div>
+
+<ng-template #categoryForm>
+    <app-category-form
+            [callType]="properties.form.callType"
+    ></app-category-form>
+</ng-template>

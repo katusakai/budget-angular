@@ -38,5 +38,8 @@ const  RouteList: Routes = [
     AppChartModule,
     NgbPaginationModule
   ],
+  exports: [
+    CategoryFormComponent
+  ]
 })
 export class AppMoneyModule { }
