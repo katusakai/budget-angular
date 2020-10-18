@@ -1,12 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegisterComponent } from './register.component';
-import { ReactiveFormsModule} from "@angular/forms";
-import { AuthService } from "../../../services/auth/auth.service";
-import { RegisterService } from "../../../services/auth/register.service";
-import { ValidatorService } from "../../../services/auth/validator.service";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { RouterTestingModule } from "@angular/router/testing";
+import {RegisterComponent} from './register.component';
+import { ReactiveFormsModule} from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
+import { RegisterService } from '../../../services/auth/register.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -18,7 +17,6 @@ describe('RegisterComponent', () => {
       providers: [
         AuthService,
         RegisterService,
-        ValidatorService,
       ],
       imports: [
         HttpClientTestingModule,

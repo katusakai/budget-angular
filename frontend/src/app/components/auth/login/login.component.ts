@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { LoginService } from '../../../services/auth/login.service';
-import { ValidatorService } from '../../../services/auth/validator.service';
-import { AuthErrors } from '../../../models/errors/AuthErrors';
 import { GoogleLoginConfigurationService } from '../../../services/global/google-login-configuration.service';
 import { CanRegisterConfigurationService } from '../../../services/global/can-register-configuration.service';
 import { FacebookLoginConfigurationService } from '../../../services/global/facebook-login-configuration.service';
+import { AuthValidator } from '../../../validators/auth-validator';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +15,12 @@ import { FacebookLoginConfigurationService } from '../../../services/global/face
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
-  public errors: AuthErrors;
+  public validator: AuthValidator = new AuthValidator();
 
   constructor(
       private formBuilder: FormBuilder,
       private Auth: AuthService,
       private Login: LoginService,
-      private Validator: ValidatorService,
       public GoogleLoginConfig: GoogleLoginConfigurationService,
       public CanRegisterConfig: CanRegisterConfigurationService,
       public FacebookLoginConfig: FacebookLoginConfigurationService
@@ -30,16 +28,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      email: this.Validator.email,
-      password: this.Validator.password
+      email: this.validator.rules.email,
+      password: this.validator.rules.password
     });
-    this.errors = new AuthErrors();
   }
 
   get f() { return this.form.controls; }
 
   onLogin() {
-    if (this.errors.handleFrontend(this.f)) {
+    if (this.validator.handleFrontend(this.f)) {
       this.Auth.login({
         email: this.f.email.value,
         password: this.f.password.value
@@ -47,7 +44,7 @@ export class LoginComponent implements OnInit {
           data => {
             this.Login.handleResponse(data, '/');
           },
-          error => this.errors.handleBackend(error.error.error),
+          error => this.validator.handleBackend(error.error.error),
       );
     }
   }

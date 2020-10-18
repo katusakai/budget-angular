@@ -24,6 +24,7 @@ import { TrueFalseConfigurationComponent } from './components/admin/configuratio
 import { FacebookComponent } from './components/auth/social/facebook/facebook.component';
 import { AppFormModule } from './modules/app-form.module';
 import { ModalComponent } from './components/generic/modal/modal.component';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { ModalComponent } from './components/generic/modal/modal.component';
     Title,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: 'API_URL', useValue: environment.backendUri}
   ],
   bootstrap: [AppComponent]
 })
