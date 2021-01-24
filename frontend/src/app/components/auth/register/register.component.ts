@@ -3,22 +3,24 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { RegisterService } from '../../../services/auth/register.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthValidator } from '../../../validators/auth-validator';
+import { AbstractFormComponent } from 'src/app/abstract/abstract-form.component';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends AbstractFormComponent implements OnInit {
 
-  public form: FormGroup;
   public validator: AuthValidator = new AuthValidator();
 
   constructor(
       private formBuilder: FormBuilder,
       private Auth: AuthService,
       private Register: RegisterService,
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -28,8 +30,6 @@ export class RegisterComponent implements OnInit {
       password_confirmation: this.validator.rules.passwordConfirmation,
     }, );
   }
-
-  get f() { return this.form.controls; }
 
   onRegister() {
     if (this.validator.handleFrontend(this.f)) {

@@ -3,25 +3,25 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { AuthValidator } from '../../../validators/auth-validator';
+import { AbstractFormComponent } from 'src/app/abstract/abstract-form.component';
 
 @Component({
   selector: 'app-response-password-reset',
   templateUrl: './response-password-reset.component.html',
   styleUrls: ['./response-password-reset.component.scss']
 })
-export class ResponsePasswordResetComponent implements OnInit {
+export class ResponsePasswordResetComponent extends AbstractFormComponent implements OnInit {
 
   private token: string;
-  public form: FormGroup;
-  public message: string;
   public validator: AuthValidator = new AuthValidator();
 
   constructor(
       private _FormBuilder: FormBuilder,
       private _Auth: AuthService,
-      private _Router: Router,
       private _Route: ActivatedRoute,
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this._Route.queryParams.subscribe(params => {
@@ -34,8 +34,6 @@ export class ResponsePasswordResetComponent implements OnInit {
       password_confirmation: this.validator.rules.passwordConfirmation,
     });
   }
-
-  get f() { return this.form.controls; }
 
   onSubmit() {
     this.message = '';

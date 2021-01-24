@@ -15,15 +15,17 @@
 </ng-template>
 
 <ng-template #categoryInput>
+    <form [formGroup]="form">
     <div class="form-group row mb-0">
         <label for="form-name" class="col-sm-3 col-form-label text-md-right text-nowrap">
             Category
         </label>
         <div class="col-sm-9">
-            <input #name type="text" id="form-name" placeholder="category" class="form-control">
+            <input #name type="text" id="form-name" placeholder="category" class="form-control" formControlName="name">
         </div>
         <app-form-errors class="col-sm-9 offset-sm-3"
-                         [errors]="errors.name">
+                         [errors]="validator.codes.name">
         </app-form-errors>
     </div>
+    </form>
 </ng-template>

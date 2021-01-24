@@ -2,9 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CategoryService } from '../../../../services/budget/category.service';
 import { Response } from '../../../../models/response';
-import { CategoryErrors } from '../../../../models/errors/CategoryErrors';
 import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
-
+import { CategoryValidator } from '../../../../validators/category-validator';
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
@@ -16,7 +15,7 @@ export class CategoryFormComponent extends AbstractFormComponent implements OnIn
 
   @ViewChild('name') name: ElementRef;
 
-  public errors: CategoryErrors
+  public validator: CategoryValidator = new CategoryValidator;
 
   constructor(
     private _categoryService: CategoryService,
@@ -29,14 +28,10 @@ export class CategoryFormComponent extends AbstractFormComponent implements OnIn
     this.initialize()
   }
 
-  get f() { return this.form.controls; }
-
   protected initialize() {
     this.form = this._formBuilder.group({
-      name: ['']
+      name: this.validator.rules.name
     });
-
-    this.errors = new CategoryErrors();
   }
 
   formSubmit() {
@@ -44,14 +39,15 @@ export class CategoryFormComponent extends AbstractFormComponent implements OnIn
   }
 
   create() {
-    this._categoryService.store({
-      name: this.initialCategoryName ? this.initialCategoryName : this.name.nativeElement.value
-    }).subscribe(
-      (response: Response) => {
-        this.message = response.message;
-        this.errors.clearErrors();
-      },
-      error => this.errors.handleBackend(error.error.error)
-    )
+    if(this.validator.handleFrontend(this.f)) {
+      this._categoryService.store({
+        name: this.initialCategoryName ? this.initialCategoryName : this.name.nativeElement.value
+      }).subscribe(
+        (response: Response) => {
+          this.message = response.message;
+        },
+        error => this.validator.handleBackend(error.error.error)
+      )
+    }
   }
 }

@@ -2,30 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthValidator } from '../../../validators/auth-validator';
+import { AbstractFormComponent } from 'src/app/abstract/abstract-form.component';
 
 @Component({
   selector: 'app-request-password-reset',
   templateUrl: './request-password-reset.component.html',
   styleUrls: ['./request-password-reset.component.scss']
 })
-export class RequestPasswordResetComponent implements OnInit {
-
-  public form: FormGroup;
-  public message: string;
+export class RequestPasswordResetComponent extends AbstractFormComponent implements OnInit {
   public validator: AuthValidator = new AuthValidator();
 
   constructor(
       private formBuilder: FormBuilder,
       private Auth: AuthService,
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
       email: this.validator.rules.email,
     });
   }
-
-  get f() { return this.form.controls; }
 
   onSubmit() {
     this.message = '';

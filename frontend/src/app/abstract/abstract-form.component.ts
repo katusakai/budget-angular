@@ -9,5 +9,7 @@ export abstract class AbstractFormComponent<T = any> {
 
   public message: string;
 
-  public abstract errors: any;
+  public abstract validator: any;
+
+  get f() { return this.form.controls; }
 }

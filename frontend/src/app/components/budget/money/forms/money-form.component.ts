@@ -5,7 +5,6 @@ import { Response } from '../../../../models/response';
 import { Subcategory } from '../../../../models/money/subcategory';
 import { MoneyService } from '../../../../services/budget/money.service';
 import { FormBuilder } from '@angular/forms';
-import { MoneyErrors } from '../../../../models/errors/MoneyErrors';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { Money } from '../../../../models/money/money';
 import { MoneyEventService } from '../../../../events/money-event.service';
@@ -23,7 +22,6 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
   @Input() spending: Money;
 
   public subCategories: [Subcategory];
-  public errors: MoneyErrors;
   public validator: MoneyValidator = new MoneyValidator();
   public search: string;
   public visualData: {title: string, button: string};
@@ -46,10 +44,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
       description: ['']
     });
     this.loadForm();
-    this.errors = new MoneyErrors();
   }
-
-  get f() { return this.form.controls; }
 
   getSubCategories() {
     this._subcategoryService.get(this.search).subscribe((response: Response) => {
@@ -78,16 +73,16 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
       }).subscribe(
         (response: Response) => {
           this.message = response.message;
-          this.errors.clearErrors();
           this.form.reset();
           dispatchEvent(this._moneyEvent.moneyUpdater);
         },
-        error => this.errors.handleBackend(error.error.error)
+        error => this.validator.handleBackend(error.error.error)
       );
     }
   }
 
   update() {
+    if(this.validator.handleFrontend(this.f)) {
       this._money.update(this.spending.id, {
         sub_category_id: this.f.sub_category_id.value,
         amount: this.f.amount.value,
@@ -95,11 +90,11 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
       }).subscribe(
         (response: Response) => {
           this.message = response.message;
-          this.errors.clearErrors();
           dispatchEvent(this._moneyEvent.moneyUpdater);
         },
-      error => this.errors.handleBackend(error.error.error)
+      error => this.validator.handleBackend(error.error.error)
       );
+    }
   }
 
   deleteMoney() {

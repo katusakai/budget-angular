@@ -6,15 +6,15 @@ import { GoogleLoginConfigurationService } from '../../../services/global/google
 import { CanRegisterConfigurationService } from '../../../services/global/can-register-configuration.service';
 import { FacebookLoginConfigurationService } from '../../../services/global/facebook-login-configuration.service';
 import { AuthValidator } from '../../../validators/auth-validator';
+import { AbstractFormComponent } from 'src/app/abstract/abstract-form.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends AbstractFormComponent implements OnInit {
 
-  public form: FormGroup;
   public validator: AuthValidator = new AuthValidator();
 
   constructor(
@@ -24,7 +24,9 @@ export class LoginComponent implements OnInit {
       public GoogleLoginConfig: GoogleLoginConfigurationService,
       public CanRegisterConfig: CanRegisterConfigurationService,
       public FacebookLoginConfig: FacebookLoginConfigurationService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -32,8 +34,6 @@ export class LoginComponent implements OnInit {
       password: this.validator.rules.password
     });
   }
-
-  get f() { return this.form.controls; }
 
   onLogin() {
     if (this.validator.handleFrontend(this.f)) {
