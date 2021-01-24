@@ -4,7 +4,6 @@ import { CategoryService } from '../../../../services/budget/category.service';
 import { Category } from '../../../../models/money/category';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { SubcategoryService } from '../../../../services/budget/subcategory.service';
-import { FormBuilder } from '@angular/forms';
 import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
 import { SubcategoryValidator } from '../../../../validators/subcategory-validator';
 
@@ -24,7 +23,6 @@ export class SubcategoryFormComponent extends AbstractFormComponent implements O
   constructor(
     private _categoryService: CategoryService,
     private _subcategoryService: SubcategoryService,
-    private _formBuilder: FormBuilder,
   ) {
     super();
   }

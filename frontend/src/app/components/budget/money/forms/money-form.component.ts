@@ -4,7 +4,6 @@ import { SubcategoryService } from '../../../../services/budget/subcategory.serv
 import { Response } from '../../../../models/response';
 import { Subcategory } from '../../../../models/money/subcategory';
 import { MoneyService } from '../../../../services/budget/money.service';
-import { FormBuilder } from '@angular/forms';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { Money } from '../../../../models/money/money';
 import { MoneyEventService } from '../../../../events/money-event.service';
@@ -30,10 +29,10 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
     private _modalService: NgbModal,
     private _subcategoryService: SubcategoryService,
     private _money: MoneyService,
-    private _formBuilder: FormBuilder,
     private _moneyEvent: MoneyEventService
   ) {
-    super();}
+    super()
+  }
 
   ngOnInit(): void {
     this.search= '';

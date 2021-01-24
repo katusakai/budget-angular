@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
 import { AuthValidator } from '../../../validators/auth-validator';
 import { AbstractFormComponent } from 'src/app/abstract/abstract-form.component';
@@ -16,7 +15,6 @@ export class ResponsePasswordResetComponent extends AbstractFormComponent implem
   public validator: AuthValidator = new AuthValidator();
 
   constructor(
-      private _FormBuilder: FormBuilder,
       private _Auth: AuthService,
       private _Route: ActivatedRoute,
   ) {
@@ -28,7 +26,7 @@ export class ResponsePasswordResetComponent extends AbstractFormComponent implem
       this.token= params.token;
     });
 
-    this.form = this._FormBuilder.group({
+    this.form = this._formBuilder.group({
       email: this.validator.rules.email,
       password: this.validator.rules.password,
       password_confirmation: this.validator.rules.passwordConfirmation,

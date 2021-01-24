@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
 import { LoginService } from '../../../services/auth/login.service';
 import { GoogleLoginConfigurationService } from '../../../services/global/google-login-configuration.service';
@@ -18,7 +17,6 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
   public validator: AuthValidator = new AuthValidator();
 
   constructor(
-      private formBuilder: FormBuilder,
       private Auth: AuthService,
       private Login: LoginService,
       public GoogleLoginConfig: GoogleLoginConfigurationService,
@@ -29,7 +27,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.form = this._formBuilder.group({
       email: this.validator.rules.email,
       password: this.validator.rules.password
     });

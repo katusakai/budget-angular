@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { RegisterService } from '../../../services/auth/register.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthValidator } from '../../../validators/auth-validator';
 import { AbstractFormComponent } from 'src/app/abstract/abstract-form.component';
 
@@ -15,7 +14,6 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
   public validator: AuthValidator = new AuthValidator();
 
   constructor(
-      private formBuilder: FormBuilder,
       private Auth: AuthService,
       private Register: RegisterService,
   ) {
@@ -23,7 +21,7 @@ export class RegisterComponent extends AbstractFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
+    this.form = this._formBuilder.group({
       email: this.validator.rules.email,
       name: this.validator.rules.name,
       password: this.validator.rules.password,

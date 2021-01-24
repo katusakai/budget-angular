@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { CategoryService } from '../../../../services/budget/category.service';
 import { Response } from '../../../../models/response';
 import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
@@ -19,7 +18,6 @@ export class CategoryFormComponent extends AbstractFormComponent implements OnIn
 
   constructor(
     private _categoryService: CategoryService,
-    private _formBuilder: FormBuilder,
   ) {
     super();
   }

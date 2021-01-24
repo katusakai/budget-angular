@@ -1,5 +1,6 @@
 import { Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { SingletonClass } from '../helpers/singleton.class';
 
 export abstract class AbstractFormComponent<T = any> {
 
@@ -12,4 +13,11 @@ export abstract class AbstractFormComponent<T = any> {
   public abstract validator: any;
 
   get f() { return this.form.controls; }
+
+  protected _formBuilder: FormBuilder;
+
+  constructor() {
+    this._formBuilder = SingletonClass.getFormBuilder();
+  }
+
 }
