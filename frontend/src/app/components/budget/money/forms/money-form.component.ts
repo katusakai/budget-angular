@@ -10,6 +10,7 @@ import { Debounce } from '../../../../helpers/debounce.decorator';
 import { Money } from '../../../../models/money/money';
 import { MoneyEventService } from '../../../../events/money-event.service';
 import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
+import { MoneyValidator } from '../../../../validators/money-validator';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
 
   public subCategories: [Subcategory];
   public errors: MoneyErrors;
+  public validator: MoneyValidator = new MoneyValidator();
   public search: string;
   public visualData: {title: string, button: string};
 
