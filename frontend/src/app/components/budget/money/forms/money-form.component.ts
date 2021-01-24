@@ -70,19 +70,21 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
   }
 
   create() {
-    this._money.store({
-      sub_category_id: this.f.sub_category_id.value,
-      amount: this.f.amount.value,
-      description: this.f.description.value
-    }).subscribe(
-      (response: Response) => {
-        this.message = response.message;
-        this.errors.clearErrors();
-        this.form.reset();
-        dispatchEvent(this._moneyEvent.moneyUpdater);
-      },
-      error => this.errors.handleBackend(error.error.error)
-    );
+    if(this.validator.handleFrontend(this.f)) {
+      this._money.store({
+        sub_category_id: this.f.sub_category_id.value,
+        amount: this.f.amount.value,
+        description: this.f.description.value
+      }).subscribe(
+        (response: Response) => {
+          this.message = response.message;
+          this.errors.clearErrors();
+          this.form.reset();
+          dispatchEvent(this._moneyEvent.moneyUpdater);
+        },
+        error => this.errors.handleBackend(error.error.error)
+      );
+    }
   }
 
   update() {

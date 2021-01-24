@@ -21,7 +21,7 @@
                 >
             </div>
             <app-form-errors class="col-sm-9 offset-sm-3"
-                    [errors]="errors.sub_category_id">
+                    [errors]="validator.codes.subCategoryId">
             </app-form-errors>
         </div>
         <app-subcategory-form *ngIf="subCategories && !subCategories.length" [subCategoryName]="search"></app-subcategory-form>
@@ -33,7 +33,7 @@
                        (change)="setTwoNumberDecimal()"
                 >
                 <app-form-errors
-                        [errors]="errors.amount">
+                        [errors]="validator.codes.amount">
                 </app-form-errors>
             </div>
         </div>
@@ -44,7 +44,7 @@
                        formControlName="description"
                 >
                 <app-form-errors
-                        [errors]="errors.description">
+                        [errors]="validator.codes.description">
                 </app-form-errors>
             </div>
         </div>

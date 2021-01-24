@@ -15,7 +15,6 @@ export class MoneyService {
   }
 
   getMonthly(date: string) {
-    console.log(this);
     return this.http.get(`${this.apiUrl}/money/${this._userId.get()}/${date}`);
   }
 
