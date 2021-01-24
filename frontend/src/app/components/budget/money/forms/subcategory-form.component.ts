@@ -5,8 +5,8 @@ import { Category } from '../../../../models/money/category';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { SubcategoryService } from '../../../../services/budget/subcategory.service';
 import { FormBuilder } from '@angular/forms';
-import { SubCategoryErrors } from '../../../../models/errors/SubCategoryErrors';
 import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
+import { SubcategoryValidator } from '../../../../validators/subcategory-validator';
 
 @Component({
   selector: 'app-subcategory-form',
@@ -19,7 +19,7 @@ export class SubcategoryFormComponent extends AbstractFormComponent implements O
 
   public categories: [Category];
   public search: string;
-  public errors: SubCategoryErrors
+  public validator: SubcategoryValidator = new SubcategoryValidator();
 
   constructor(
     private _categoryService: CategoryService,
@@ -34,17 +34,14 @@ export class SubcategoryFormComponent extends AbstractFormComponent implements O
     this.getCategories();
 
     this.form = this._formBuilder.group({
-      category_id: [''],
-      name: ['']
+      category_id: this.validator.rules.categoryId,
+      name: this.validator.rules.name
     });
     this.form.setValue({
       category_id: null,
       name: this.subCategoryName
     });
-    this.errors = new SubCategoryErrors();
   }
-
-  get f() { return this.form.controls; }
 
   getCategories() {
     this._categoryService.get(this.search).subscribe((response: Response) => {
@@ -57,16 +54,17 @@ export class SubcategoryFormComponent extends AbstractFormComponent implements O
   }
 
   create() {
-    this._subcategoryService.store({
-      category_id: this.f.category_id.value,
-      name: this.f.name.value
-    }).subscribe(
-      (response: Response) => {
-        this.message = response.message;
-        this.errors.clearErrors();
-      },
-      error => this.errors.handleBackend(error.error.error)
+    if(this.validator.handleFrontend(this.f)) {
+      this._subcategoryService.store({
+        category_id: this.f.category_id.value,
+        name: this.f.name.value
+      }).subscribe(
+        (response: Response) => {
+          this.message = response.message;
+        },
+        error => this.validator.handleBackend(error.error.error)
     );
+    }
   }
 
   @Debounce(1000)
