@@ -55,7 +55,7 @@ export class CategoriesComponent extends AbstractQueryComponent implements OnIni
     this.updateList();
   }
 
-  categoryCreateForm():void {
+  public categoryCreateForm(): void {
     if(this._modalService.hasOpenModals())
       this._modalService.dismissAll();
 
@@ -67,6 +67,21 @@ export class CategoriesComponent extends AbstractQueryComponent implements OnIni
         callType: 'create'
       }
     };
+  }
+
+  public categoryEditForm(category: Category): void {
+    if(this._modalService.hasOpenModals())
+      this._modalService.dismissAll();
+
+      const modalRef = this._modalService.open(ModalComponent);
+      modalRef.componentInstance.properties = {
+        title: 'Update category',
+        form: {
+          name: 'category',
+          callType: 'update'
+        }
+      };
+      modalRef.componentInstance.model = category;
   }
 
 }

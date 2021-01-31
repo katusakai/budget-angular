@@ -18,6 +18,8 @@ export class ModalComponent implements OnInit {
 
   properties: ModalProperties = new ModalProperties();
 
+  model: any;
+
   constructor(
     private _modalService: NgbModal,
   ) { }

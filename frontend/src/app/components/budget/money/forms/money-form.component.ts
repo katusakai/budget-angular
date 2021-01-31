@@ -37,22 +37,17 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
   ngOnInit(): void {
     this.search= '';
     this.getSubCategories();
-    this.form = this._formBuilder.group({
-      sub_category_id: [''],
-      amount: [''],
-      description: ['']
-    });
-    this.loadForm();
+    this.initialize();
   }
 
-  getSubCategories() {
+  protected getSubCategories() {
     this._subcategoryService.get(this.search).subscribe((response: Response) => {
       this.subCategories = response.data;
       this.setSubCategoryOption();
     })
   }
 
-  formSubmit() {
+  public formSubmit() {
     switch (this.callType.toLowerCase()) {
       case 'create':
         this.create();
@@ -63,7 +58,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
     }
   }
 
-  create() {
+  protected create() {
     if(this.validator.handleFrontend(this.f)) {
       this._money.store({
         sub_category_id: this.f.sub_category_id.value,
@@ -80,7 +75,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
     }
   }
 
-  update() {
+  protected update() {
     if(this.validator.handleFrontend(this.f)) {
       this._money.update(this.spending.id, {
         sub_category_id: this.f.sub_category_id.value,
@@ -96,7 +91,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
     }
   }
 
-  deleteMoney() {
+  public deleteMoney() {
     if (confirm('Do you really want to delete this entry?')) {
       this._money.destroy(this.spending.id)
         .subscribe(
@@ -119,7 +114,13 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
     this._modalService.dismissAll(reason);
   }
 
-  loadForm() {
+  private initialize() {
+    this.form = this._formBuilder.group({
+      sub_category_id: [''],
+      amount: [''],
+      description: ['']
+    });
+
     switch (this.callType.toLowerCase()) {
 
       case 'create':

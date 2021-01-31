@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { QueryParams, queryString } from '../../helpers/query-params';
@@ -9,18 +9,23 @@ import { QueryParams, queryString } from '../../helpers/query-params';
 export class CategoryService {
 
   constructor(
-    private http: HttpClient,
+    @Inject('API_URL') private apiUrl: string,
+    private _http: HttpClient,
   ) { }
 
-  index(queryParams: QueryParams) {
-    return this.http.get(`${environment.backendUri}/admin/category${queryString(queryParams)}`);
+  public index(queryParams: QueryParams) {
+    return this._http.get(`${this.apiUrl}/admin/category${queryString(queryParams)}`);
   }
 
-  get(search: string) {
-    return this.http.get(`${environment.backendUri}/category?search=${search}`);
+  public get(search: string) {
+    return this._http.get(`${this.apiUrl}/category?search=${search}`);
   }
 
-  store(data) {
-    return this.http.post(`${environment.backendUri}/category`, data);
+  public store(data) {
+    return this._http.post(`${this.apiUrl}/category`, data);
+  }
+
+  public update(id, data) {
+    return this._http.put(`${this.apiUrl}/admin/category/${id}`, data);
   }
 }
