@@ -89,7 +89,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
     }
   }
 
-  public deleteMoney() {
+  public delete() {
     if (confirm('Do you really want to delete this entry?')) {
       this._money.destroy(this.spending.id)
         .subscribe(

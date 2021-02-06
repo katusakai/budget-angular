@@ -40,7 +40,8 @@
                 <td class="actions">
                     <span class="text-success"
                     (click)="categoryEditForm(category)">Update </span>
-                    <span class="text-danger strikethrough">Delete</span>
+                    <span class="text-danger"
+                    (click)="delete(category.id)">Delete</span>
                 </td>
                 <td></td>
             </tr>

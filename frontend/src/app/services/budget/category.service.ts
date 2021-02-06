@@ -30,4 +30,8 @@ export class CategoryService extends AbstractModelService {
   public update(id, data) {
     return this._http.put(`${this.apiUrl}/admin/category/${id}`, data);
   }
+  
+  destroy(id: number) {
+    return this._http.delete(`${this.apiUrl}/admin/category/${id}`);
+  }
 }

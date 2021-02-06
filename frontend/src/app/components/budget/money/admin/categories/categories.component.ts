@@ -87,4 +87,15 @@ export class CategoriesComponent extends AbstractQueryComponent implements OnIni
       modalRef.componentInstance.model = category;
   }
 
+  public delete(id: number) {
+    if (confirm('Do you really want to delete this entry?')) {
+      this._categoryService.destroy(id)
+        .subscribe(
+          (response: Response) => {
+            this._categoryService.$reload.next();
+          }
+        );
+    }
+  }
+
 }
