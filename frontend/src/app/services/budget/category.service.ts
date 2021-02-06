@@ -1,17 +1,19 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { QueryParams, queryString } from '../../helpers/query-params';
+import { AbstractModelService } from '../abstract-model.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class CategoryService extends AbstractModelService {
 
   constructor(
     @Inject('API_URL') private apiUrl: string,
     private _http: HttpClient,
-  ) { }
+  ) {
+    super();
+  }
 
   public index(queryParams: QueryParams) {
     return this._http.get(`${this.apiUrl}/admin/category${queryString(queryParams)}`);

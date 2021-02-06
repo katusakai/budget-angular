@@ -6,7 +6,6 @@ import { Subcategory } from '../../../../models/money/subcategory';
 import { MoneyService } from '../../../../services/budget/money.service';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { Money } from '../../../../models/money/money';
-import { MoneyEventService } from '../../../../events/money-event.service';
 import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
 import { MoneyValidator } from '../../../../validators/money-validator';
 
@@ -29,7 +28,6 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
     private _modalService: NgbModal,
     private _subcategoryService: SubcategoryService,
     private _money: MoneyService,
-    private _moneyEvent: MoneyEventService
   ) {
     super()
   }
@@ -68,7 +66,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
         (response: Response) => {
           this.message = response.message;
           this.form.reset();
-          dispatchEvent(this._moneyEvent.moneyUpdater);
+          this._money.$reload.next();
         },
         error => this.validator.handleBackend(error.error.error)
       );
@@ -84,7 +82,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
       }).subscribe(
         (response: Response) => {
           this.message = response.message;
-          dispatchEvent(this._moneyEvent.moneyUpdater);
+          this._money.$reload.next();
         },
       error => this.validator.handleBackend(error.error.error)
       );
@@ -99,7 +97,7 @@ export class MoneyFormComponent extends AbstractFormComponent implements OnInit 
             this.message = response.message;
             this.form.reset();
             this.dismiss('Deleted entry');
-            dispatchEvent(this._moneyEvent.moneyUpdater);
+            this._money.$reload.next();
           }
         )
     }

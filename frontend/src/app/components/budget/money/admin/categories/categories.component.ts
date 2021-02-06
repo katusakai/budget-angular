@@ -29,7 +29,7 @@ export class CategoriesComponent extends AbstractQueryComponent implements OnIni
   }
 
   constructor(
-    private _Categories: CategoryService,
+    private _categoryService: CategoryService,
     @Inject(ActivatedRoute) _ActivatedRoute,
     @Inject(Router) _Router,
     private _modalService: NgbModal,
@@ -38,11 +38,14 @@ export class CategoriesComponent extends AbstractQueryComponent implements OnIni
   }
 
   ngOnInit(): void {
-    this.updateList();
+    this._categoryService.$reload.subscribe(() => {
+      this.updateList();
+    });
+    this._categoryService.$reload.next();
   }
 
   updateList() {
-    this._Categories.index(this.queryParams).subscribe((response: Response) => {
+    this._categoryService.index(this.queryParams).subscribe((response: Response) => {
       this.categories = response.data.data;
       this.collectionSize = response.data.total;
     });

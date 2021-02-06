@@ -68,6 +68,8 @@ export class CategoryFormComponent extends AbstractFormComponent implements OnIn
       }).subscribe(
         (response: Response) => {
           this.message = response.message;
+          this.form.reset();
+          this._categoryService.$reload.next();
         },
         error => this.validator.handleBackend(error.error.error)
       )
@@ -81,6 +83,7 @@ export class CategoryFormComponent extends AbstractFormComponent implements OnIn
       }).subscribe(
         (response: Response) => {
           this.message = response.message;
+          this._categoryService.$reload.next();
         },
         error => {
           this.validator.handleBackend(error.error.error)

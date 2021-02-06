@@ -1,17 +1,19 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserIdService } from '../auth/user-id.service';
+import { AbstractModelService } from '../abstract-model.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MoneyService {
+export class MoneyService extends AbstractModelService {
 
   constructor(
     @Inject('API_URL') private apiUrl: string,
     private http: HttpClient,
     private _userId: UserIdService
   ) {
+    super();
   }
 
   getMonthly(date: string) {
