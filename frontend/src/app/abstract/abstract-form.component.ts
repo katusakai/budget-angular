@@ -1,7 +1,10 @@
-import { Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SingletonClass } from '../helpers/singleton.class';
 
+@Component({
+  template: ''
+})
 export abstract class AbstractFormComponent<T = any> {
 
   @Input() callType: string | 'Create' | 'Update';
