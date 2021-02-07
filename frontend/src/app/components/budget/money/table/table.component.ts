@@ -23,7 +23,7 @@ export class TableComponent implements OnInit {
     return value > 0 ? 'income-color' : 'expanses-color'
   }
 
-  moneyEditForm(spending){
+  moneyEditForm(spending): void {
     if(this._modalService.hasOpenModals())
       this._modalService.dismissAll();
 

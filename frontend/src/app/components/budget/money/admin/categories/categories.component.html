@@ -2,7 +2,9 @@
     <div class="menu-display-type">
         <div class="menu-mb">
             <div class="d-flex justify-content-between">
-                <button class="btn btn-warning mr-sm-1" data-toggle="modal" data-target="#userFormModal" disabled>Create</button>
+                <button class="btn btn-warning mr-sm-1"
+                (click)="categoryCreateForm()"
+                >Create</button>
             </div>
         </div>
         <div class="menu-display-type">
@@ -25,19 +27,21 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th class="number" scope="col">#</th>
-                <th class="name" scope="col">Name</th>
-                <th class="actions" scope="col">Actions</th>
+                <th class="number">#</th>
+                <th class="name">Name</th>
+                <th class="actions">Actions</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let category of categories">
-                <td class="number" scope="row">{{category.id}}</td>
+                <td class="number">{{category.id}}</td>
                 <td class="name">{{category.name}}</td>
                 <td class="actions">
-                    <span class="text-success strikethrough">Update </span>
-                    <span class="text-danger strikethrough">Delete</span>
+                    <span class="text-success"
+                    (click)="categoryEditForm(category)">Update </span>
+                    <span class="text-danger"
+                    (click)="delete(category.id)">Delete</span>
                 </td>
                 <td></td>
             </tr>

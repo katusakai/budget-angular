@@ -15,21 +15,22 @@ export class MoneyComponent implements OnInit {
 
   public date: string;
   public money: [Money];
-  public totalMoney: TotalMoney;
+  public totalMoney: TotalMoney= new TotalMoney();
   public loading: boolean;
 
   constructor(
     private _money: MoneyService,
     private _modalService: NgbModal,
   ) {
-    this.setEvents();
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.totalMoney = new TotalMoney();
     this.getThisMonth();
-    this.getMonthStatistics();
+    this._money.$reload.subscribe(() => {
+      this.getMonthStatistics();
+    });
+    this._money.$reload.next();
   }
 
   getMonthStatistics() {
@@ -52,7 +53,6 @@ export class MoneyComponent implements OnInit {
 
     const modalRef = this._modalService.open(MoneyFormComponent);
     modalRef.componentInstance.callType = 'create';
-
   }
 
   getTotalMoney() {
@@ -65,11 +65,5 @@ export class MoneyComponent implements OnInit {
         this.totalMoney.Expenses += spending.amount;
       }
     }
-  }
-
-  private setEvents() {
-    addEventListener('money-update', () => {
-      this.getMonthStatistics();
-    });
   }
 }

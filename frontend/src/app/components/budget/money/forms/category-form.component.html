@@ -1,14 +1,31 @@
 <div class="d-block border form-category">
-    <div>
-        There is no such category <b>{{f.name.value}}</b>. Create new?
-    </div>
-    <app-form-errors class="col-sm-9 offset-sm-3"
-                     [errors]="errors.name">
-    </app-form-errors>
+    <ng-container
+        *ngIf="initialCategoryName; then noCategoryMessage else categoryInput">
+    </ng-container>
     <div>
         <button class="btn btn-success"
                 (click)="formSubmit()"
-        >Create Category</button>
+        >{{visualData.button}}</button>
     </div>
-    <div class="pt-2" v-if="message">{{message}}</div>
+    <div class="pt-2" *ngIf="message">{{message}}</div>
 </div>
+
+<ng-template #noCategoryMessage>
+    There is no such category <b>{{f.name.value}}</b>. Create new?
+</ng-template>
+
+<ng-template #categoryInput>
+    <form [formGroup]="form">
+    <div class="form-group row mb-0">
+        <label for="form-name" class="col-sm-3 col-form-label text-md-right text-nowrap">
+            Category
+        </label>
+        <div class="col-sm-9">
+            <input #name type="text" id="form-name" placeholder="category" class="form-control" formControlName="name">
+        </div>
+        <app-form-errors class="col-sm-9 offset-sm-3"
+                         [errors]="validator.codes.name">
+        </app-form-errors>
+    </div>
+    </form>
+</ng-template>

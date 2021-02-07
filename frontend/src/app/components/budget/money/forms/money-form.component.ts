@@ -4,11 +4,10 @@ import { SubcategoryService } from '../../../../services/budget/subcategory.serv
 import { Response } from '../../../../models/response';
 import { Subcategory } from '../../../../models/money/subcategory';
 import { MoneyService } from '../../../../services/budget/money.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MoneyErrors } from '../../../../models/errors/MoneyErrors';
 import { Debounce } from '../../../../helpers/debounce.decorator';
 import { Money } from '../../../../models/money/money';
-import { MoneyEventService } from '../../../../events/money-event.service';
+import { AbstractFormComponent } from '../../../../abstract/abstract-form.component';
+import { MoneyValidator } from '../../../../validators/money-validator';
 
 
 @Component({
@@ -16,15 +15,12 @@ import { MoneyEventService } from '../../../../events/money-event.service';
   templateUrl: './money-form.component.html',
   styleUrls: ['./money-form.component.scss']
 })
-export class MoneyFormComponent implements OnInit {
+export class MoneyFormComponent extends AbstractFormComponent implements OnInit {
 
-  @Input() callType: string;
   @Input() spending: Money;
 
   public subCategories: [Subcategory];
-  public form: FormGroup;
-  public errors: MoneyErrors;
-  public message: string;
+  public validator: MoneyValidator = new MoneyValidator();
   public search: string;
   public visualData: {title: string, button: string};
 
@@ -32,32 +28,24 @@ export class MoneyFormComponent implements OnInit {
     private _modalService: NgbModal,
     private _subcategoryService: SubcategoryService,
     private _money: MoneyService,
-    private _formBuilder: FormBuilder,
-    private _moneyEvent: MoneyEventService
-  ) {}
+  ) {
+    super()
+  }
 
   ngOnInit(): void {
     this.search= '';
     this.getSubCategories();
-    this.form = this._formBuilder.group({
-      sub_category_id: [''],
-      amount: [''],
-      description: ['']
-    });
-    this.loadForm();
-    this.errors = new MoneyErrors();
+    this.initialize();
   }
 
-  get f() { return this.form.controls; }
-
-  getSubCategories() {
+  protected getSubCategories() {
     this._subcategoryService.get(this.search).subscribe((response: Response) => {
       this.subCategories = response.data;
       this.setSubCategoryOption();
     })
   }
 
-  formSubmit() {
+  public formSubmit() {
     switch (this.callType.toLowerCase()) {
       case 'create':
         this.create();
@@ -68,23 +56,25 @@ export class MoneyFormComponent implements OnInit {
     }
   }
 
-  create() {
-    this._money.store({
-      sub_category_id: this.f.sub_category_id.value,
-      amount: this.f.amount.value,
-      description: this.f.description.value
-    }).subscribe(
-      (response: Response) => {
-        this.message = response.message;
-        this.errors.clearErrors();
-        this.form.reset();
-        dispatchEvent(this._moneyEvent.moneyUpdater);
-      },
-      error => this.errors.handleBackend(error.error.error)
-    );
+  protected create() {
+    if(this.validator.handleFrontend(this.f)) {
+      this._money.store({
+        sub_category_id: this.f.sub_category_id.value,
+        amount: this.f.amount.value,
+        description: this.f.description.value
+      }).subscribe(
+        (response: Response) => {
+          this.message = response.message;
+          this.form.reset();
+          this._money.$reload.next();
+        },
+        error => this.validator.handleBackend(error.error.error)
+      );
+    }
   }
 
-  update() {
+  protected update() {
+    if(this.validator.handleFrontend(this.f)) {
       this._money.update(this.spending.id, {
         sub_category_id: this.f.sub_category_id.value,
         amount: this.f.amount.value,
@@ -92,14 +82,14 @@ export class MoneyFormComponent implements OnInit {
       }).subscribe(
         (response: Response) => {
           this.message = response.message;
-          this.errors.clearErrors();
-          dispatchEvent(this._moneyEvent.moneyUpdater);
+          this._money.$reload.next();
         },
-      error => this.errors.handleBackend(error.error.error)
+      error => this.validator.handleBackend(error.error.error)
       );
+    }
   }
 
-  deleteMoney() {
+  public delete() {
     if (confirm('Do you really want to delete this entry?')) {
       this._money.destroy(this.spending.id)
         .subscribe(
@@ -107,7 +97,7 @@ export class MoneyFormComponent implements OnInit {
             this.message = response.message;
             this.form.reset();
             this.dismiss('Deleted entry');
-            dispatchEvent(this._moneyEvent.moneyUpdater);
+            this._money.$reload.next();
           }
         )
     }
@@ -122,7 +112,13 @@ export class MoneyFormComponent implements OnInit {
     this._modalService.dismissAll(reason);
   }
 
-  loadForm() {
+  private initialize() {
+    this.form = this._formBuilder.group({
+      sub_category_id: [''],
+      amount: [''],
+      description: ['']
+    });
+
     switch (this.callType.toLowerCase()) {
 
       case 'create':

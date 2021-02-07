@@ -19,14 +19,14 @@
                 >
             </div>
             <app-form-errors class="col-sm-9 offset-sm-3"
-                             [errors]="errors.category_id">
+                             [errors]="validator.codes.categoryId">
             </app-form-errors>
             <app-form-errors class="col-sm-9 offset-sm-3"
-                             [errors]="errors.name">
+                             [errors]="validator.codes.name">
             </app-form-errors>
         </div>
     </form>
-    <app-category-form *ngIf="categories && !categories.length" [category_name]="search"></app-category-form>
+    <app-category-form *ngIf="categories && !categories.length" [initialCategoryName]="search"></app-category-form>
     <div>
         <button class="btn btn-success"
                 (click)="formSubmit()"
