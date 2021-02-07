@@ -1,4 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+// Bootstrap
 @import "~bootstrap/dist/css/bootstrap.css";
-@import "src/assets/css/forms";
-@import "src/assets/css/social-buttons";
+
+// Variables
+@import 'src/assets/css/variables';
+
+// Global styles
+@import "src/assets/css/globals";
+
+//Various
+@import "assets/css/forms";
+@import "assets/css/menu";
+@import "assets/css/table";
+
+// Money
+@import "src/assets/css/money/forms";
+
+@import "src/assets/css/charts/charts";
+

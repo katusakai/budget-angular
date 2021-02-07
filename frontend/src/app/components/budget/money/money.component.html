@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-md-12 p-0">
+        <div class="card">
+            <div class="card-header d-flex">
+                <div>
+                    <input class="form-control" type="month"
+                           [(ngModel)]="date"
+                           (change)="getMonthStatistics()"
+                    >
+                </div>
+                <div>
+                    <button class="btn btn-primary" (click)="moneyCreateForm()">Create</button>
+                </div>
+            </div>
+
+            <div *ngIf="money" class="row card-body m-0 p-0">
+                <div class="col-md-5 p-0">
+                    <app-money-table
+                        [money]="money"
+                    ></app-money-table>
+                </div>
+                <div class="col-md-7">
+                    <div>
+                        <div class="chart-name">Expenses this month: {{totalMoney.Expenses| number:'1.2-5'}} €</div>
+                        <app-expanses-income
+                            [money]="money"
+                            [dataType]="'expenses'"
+                        ></app-expanses-income>
+                    </div>
+                    <div>
+                        <div class="chart-name">Income this month: {{totalMoney.Income| number:'1.2-5'}} €</div>
+                        <app-expanses-income
+                                [money]="money"
+                                [dataType]="'income'"
+                        ></app-expanses-income>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!money && !loading">
+                There are now records this month
+            </div>
+        </div>
+    </div>
+</div>

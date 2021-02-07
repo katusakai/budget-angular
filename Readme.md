@@ -21,5 +21,5 @@ For linux users only: for each script use `sudo bash ./script/scriptname.sh`
 5. To reach database terminal Run `docker-compose exec db mysql -u root -p` and enter `MYSQL_ROOT_PASSWORD`
 
 # Tips for usage
-1. If you add new model, run `docker-compose exec backend php artisan idea-helper:models` to update it with Eloquent properties and methods
+1. If you add new model, run `docker-compose exec backend php artisan ide-helper:models` to update it with Eloquent properties and methods
 2. After every update in production, stop frontend_prod container and run `docker-compose build --no-cache frontend_prod`

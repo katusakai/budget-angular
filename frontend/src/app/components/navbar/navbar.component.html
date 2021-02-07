@@ -17,6 +17,15 @@
                        routerLink="/admin/configurations">
                         Globals</a>
                     <a ngbDropdownItem routerLink="/admin/users">Users</a>
+                    <a ngbDropdownItem routerLink="/admin/categories">Categories</a>
+                </div>
+            </div>
+
+            <div ngbDropdown class="d-inline-block"
+                 *ngIf="UserData.loggedIn">
+                <a class="navbar-brand text-info" id="dropdown-money" ngbDropdownToggle >Budget</a>
+                <div ngbDropdownMenu class="dropdown-menu-right" aria-labelledby="dropdown-auth">
+                    <a ngbDropdownItem routerLink="/monthly">Money</a>
                 </div>
             </div>
 

@@ -1,24 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider} from 'angularx-social-login';
 import { environment } from '../../environments/environment';
-
-
-const config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider(environment.GoogleOAuthClientId)
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider(environment.FacebookAppId)
-  },
-]);
-
-export function provideConfig() {
-  return config;
-}
 
 @NgModule({
   declarations: [],
@@ -28,9 +12,22 @@ export function provideConfig() {
   ],
   providers: [
     {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(environment.GoogleOAuthClientId),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider(environment.FacebookAppId),
+          },
+        ],
+      } as SocialAuthServiceConfig,
     }
   ],
 })
+
 export class AppSocialLoginModule { }

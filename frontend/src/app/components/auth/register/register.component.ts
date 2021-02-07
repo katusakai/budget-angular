@@ -1,42 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { RegisterService } from '../../../services/auth/register.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthErrors } from '../../../models/errors/AuthErrors';
-import { ValidatorService } from '../../../services/auth/validator.service';
+import { AuthValidator } from '../../../validators/auth-validator';
+import { AbstractFormComponent } from 'src/app/abstract/abstract-form.component';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends AbstractFormComponent implements OnInit {
 
-  public form: FormGroup;
-
-  public errors: AuthErrors;
+  public validator: AuthValidator = new AuthValidator();
 
   constructor(
-      private formBuilder: FormBuilder,
       private Auth: AuthService,
       private Register: RegisterService,
-      private Validator: ValidatorService,
-  ) { }
-
-  ngOnInit() {
-    this.form = this.formBuilder.group({
-      email: this.Validator.email,
-      name: this.Validator.name,
-      password: this.Validator.password,
-      password_confirmation: this.Validator.password,
-    }, );
-    this.errors = new AuthErrors();
+  ) {
+    super();
   }
 
-  get f() { return this.form.controls; }
+  ngOnInit() {
+    this.form = this._formBuilder.group({
+      email: this.validator.rules.email,
+      name: this.validator.rules.name,
+      password: this.validator.rules.password,
+      password_confirmation: this.validator.rules.passwordConfirmation,
+    }, );
+  }
 
   onRegister() {
-    if (this.errors.handleFrontend(this.f)) {
+    if (this.validator.handleFrontend(this.f)) {
       this.Auth.register({
         email: this.f.email.value,
         name: this.f.name.value,
@@ -47,7 +41,7 @@ export class RegisterComponent implements OnInit {
           this.Register.handleResponse(data)
         },
         error => {
-          this.errors.handleBackend(error.error.error);
+          this.validator.handleBackend(error.error.error);
         }
       );
     }

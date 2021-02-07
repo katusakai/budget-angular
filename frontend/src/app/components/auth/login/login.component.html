@@ -14,7 +14,7 @@
                             [ngClass]="{'is-invalid': f.email.errors}"
                             >
                             <app-form-errors
-                              [errors]="errors.email">
+                              [errors]="validator.codes.email">
                             </app-form-errors>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                             [ngClass]="{'is-invalid': f.password.errors}"
                             >
                             <app-form-errors
-                              [errors]="errors.password">
+                              [errors]="validator.codes.password">
                             </app-form-errors>
                         </div>
                     </div>

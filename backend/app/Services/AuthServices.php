@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class AuthServices
@@ -43,6 +43,7 @@ class AuthServices
     public static function loginData($user) {
         $data['token'] = $user->createToken('MyApp')-> accessToken;
         $data['name']  = $user->name;
+        $data['id'] =  $user->id;
         return $data;
     }
 }

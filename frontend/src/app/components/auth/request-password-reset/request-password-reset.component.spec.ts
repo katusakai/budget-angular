@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RequestPasswordResetComponent } from './request-password-reset.component';
-import { ReactiveFormsModule } from "@angular/forms";
-import { AuthService } from "../../../services/auth/auth.service";
-import { ValidatorService } from "../../../services/auth/validator.service";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('RequestPasswordResetComponent', () => {
   let component: RequestPasswordResetComponent;
@@ -15,7 +14,6 @@ describe('RequestPasswordResetComponent', () => {
       declarations: [ RequestPasswordResetComponent ],
       providers: [
         AuthService,
-        ValidatorService
       ],
       imports: [
         ReactiveFormsModule,

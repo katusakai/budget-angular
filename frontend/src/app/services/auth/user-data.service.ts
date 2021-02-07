@@ -15,31 +15,39 @@ export class UserDataService {
       private Auth: AuthService,
       private Roles: RolesService,
   ) {
-      addEventListener('role-update', () => {
-          this.getRoles();
-      });
+    this.setEvents();
     this.set();
   }
 
   private set() {
-      this.Auth.status.subscribe(
-          value => {
-              this.loggedIn = value;
-              if (this.loggedIn) {
-                  this.Auth.getCurrentUser().subscribe(data  => this.user  = data);
-                this.getRoles();
-              } else {
-                  delete this.user;
-                  delete this.roles;
-                  this.Roles.remove();
-              }
-          }
-      );
+    this.Auth.status.subscribe(
+        value => {
+            this.loggedIn = value;
+            if (this.loggedIn) {
+
+              this.Auth.getCurrentUser().subscribe((data: IUser)  => {
+                this.user  = data
+              });
+              this.getRoles();
+
+            } else {
+                delete this.user;
+                delete this.roles;
+                this.Roles.remove();
+            }
+        }
+    );
   }
 
   private getRoles(){
       this.Roles.get().subscribe(data => {
           this.roles = data;
       });
+  }
+
+  private setEvents() {
+    addEventListener('role-update', () => {
+      this.getRoles();
+    });
   }
 }
