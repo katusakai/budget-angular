@@ -40,7 +40,8 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     command: >
-      bash -c "ng serve --host 0.0.0.0 --disable-host-check --ssl"
+      bash -c "ng serve --host 0.0.0.0 --disable-host-check --ssl --live-reload false"
+      
   #Web karma test service
   frontend_karma:
     image: trion/ng-cli-karma:latest
