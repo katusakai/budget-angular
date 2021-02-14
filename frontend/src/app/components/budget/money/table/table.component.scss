@@ -1,8 +1,18 @@
 :host {
     table.table {
 
+      td, th {
+        padding: 0.5rem;
+      }
+
         td.name {
             white-space: normal;
+        }
+
+        th, td {
+          &.name {
+            width: 100%;
+          }
         }
 
         .income-color {
