@@ -17,4 +17,8 @@ table.table {
 			padding: 2px;
 			font-size: 12px;
 		}
+
+	thead th {
+		border-bottom-width: 0;
+	}
 }
