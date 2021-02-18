@@ -19,7 +19,7 @@ export class ExpansesIncomeComponent implements OnChanges  {
   constructor() { }
 
   ngOnChanges(): void {
-
+    
     this.type = ChartType.BarChart;
     this.data = [];
     this.options = {
@@ -30,11 +30,11 @@ export class ExpansesIncomeComponent implements OnChanges  {
       chartArea: {top: 0}
     };
     this.columnNames = ['Category', 'Amount', {role: 'style'}];
-
+    
     this.setChartData();
   }
 
-  setChartData() {
+  private setChartData(): void {
     switch (this.dataType) {
       case 'expenses':
         this.setDataForExpenses();
@@ -45,7 +45,7 @@ export class ExpansesIncomeComponent implements OnChanges  {
     }
   };
 
-  setDataForExpenses () {
+  private setDataForExpenses(): void {
     for(const spending of this.money) {
       if (spending.amount >= 0) {
         continue;
@@ -66,7 +66,7 @@ export class ExpansesIncomeComponent implements OnChanges  {
     }
   };
 
-  setDataForIncome() {
+  private setDataForIncome(): void {
     for(const spending of this.money) {
       if (spending.amount < 0) {
         continue;
