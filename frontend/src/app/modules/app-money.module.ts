@@ -17,6 +17,7 @@ import { AdminGuard } from '../guards/admin.guard';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 const  RouteList: Routes = [
+  { path: '', redirectTo: 'monthly', pathMatch: 'full'},
   { path: 'monthly', component: MoneyComponent, canActivate: [AfterloginGuard] },
   { path: 'admin/categories', component: CategoriesComponent, canActivate: [AfterloginGuard, AdminGuard], data: {roles: ['super-admin', 'admin']}}
 ];
